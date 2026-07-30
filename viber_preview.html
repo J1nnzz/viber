@@ -1,0 +1,968 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Viber — Preview Rediseño</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Righteous&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════════════
+   TOKENS — base siempre neutral, accent solo donde importa
+   ═══════════════════════════════════════════════════ */
+:root {
+  /* Base completamente neutral — ningún tinte de color */
+  --bg:        #050506;
+  --surface:   #0A0A0C;
+  --card:      #111114;
+  --card2:     #16161A;
+  --border:    rgba(255,255,255,0.07);
+  --border-hi: rgba(255,255,255,0.12);
+
+  /* Texto */
+  --txt-pri:   #EDEDEF;
+  --txt-sec:   #8A8F98;
+  --txt-dim:   #4A4F5A;
+
+  /* Accent primario — solo en CTAs, nav activo, unread dot */
+  --ac:        #5E6AD2;
+  --ac-glow:   rgba(94,106,210,0.20);
+  --ac-dim:    rgba(94,106,210,0.08);
+
+  /* Accent energía — solo en LIVE, waveform — por defecto: Rose */
+  --en:        #F472B6;
+  --en-glow:   rgba(244,114,182,0.20);
+  --en-dim:    rgba(244,114,182,0.08);
+
+  --danger:    #E55353;
+  --r-sm:      8px;
+  --r-md:      14px;
+  --r-lg:      20px;
+  --nav-h:     72px;
+}
+
+/* ── Variantes de accent primario ── */
+:root[data-theme="blue"],
+:root[data-theme="blue-teal"],
+:root[data-theme="blue-mono"] {
+  --ac:      #4F8EF7;
+  --ac-glow: rgba(79,142,247,0.20);
+  --ac-dim:  rgba(79,142,247,0.08);
+}
+:root[data-theme="violet"],
+:root[data-theme="violet-teal"],
+:root[data-theme="violet-mono"] {
+  --ac:      #8B7CF8;
+  --ac-glow: rgba(139,124,248,0.20);
+  --ac-dim:  rgba(139,124,248,0.08);
+}
+
+/* ── Variantes de energía ── */
+/* Teal */
+:root[data-theme="blue-teal"],
+:root[data-theme="violet-teal"] {
+  --en:      #2DD4BF;
+  --en-glow: rgba(45,212,191,0.20);
+  --en-dim:  rgba(45,212,191,0.08);
+}
+/* Monocromático — misma familia que el accent pero más brillante */
+:root[data-theme="blue-mono"] {
+  --en:      #93C5FD;
+  --en-glow: rgba(147,197,253,0.20);
+  --en-dim:  rgba(147,197,253,0.08);
+}
+:root[data-theme="violet-mono"] {
+  --en:      #C4B5FD;
+  --en-glow: rgba(196,181,253,0.20);
+  --en-dim:  rgba(196,181,253,0.08);
+}
+/* Indigo + variantes */
+:root[data-theme="indigo-teal"] {
+  --en:      #2DD4BF;
+  --en-glow: rgba(45,212,191,0.20);
+  --en-dim:  rgba(45,212,191,0.08);
+}
+:root[data-theme="indigo-mono"] {
+  --en:      #A5B4FC;
+  --en-glow: rgba(165,180,252,0.20);
+  --en-dim:  rgba(165,180,252,0.08);
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+  background: #020203;
+  font-family: 'Poppins', sans-serif;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 32px 16px 56px;
+  color: var(--txt-pri);
+}
+
+/* ── Page header ─────────────────────────────────── */
+.page-title {
+  font-family: 'Righteous', sans-serif;
+  font-size: 26px;
+  color: var(--txt-pri);
+  letter-spacing: 0.5px;
+  margin-bottom: 4px;
+}
+.page-title span { color: var(--ac); transition: color .3s; }
+.page-sub { color: var(--txt-sec); font-size: 12px; margin-bottom: 24px; transition: all .3s; }
+
+/* ── Selectors ───────────────────────────────────── */
+.row { display:flex; gap:8px; margin-bottom:10px; flex-wrap:wrap; justify-content:center; }
+.chip {
+  background: var(--card);
+  border: 1px solid var(--border);
+  color: var(--txt-sec);
+  padding: 7px 16px;
+  border-radius: 999px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 12px; font-weight: 500;
+  cursor: pointer; transition: all .2s;
+  display: flex; align-items: center; gap: 6px;
+}
+.chip:hover { border-color: var(--border-hi); color: var(--txt-pri); }
+.chip.active { background: var(--ac-dim); border-color: var(--ac); color: var(--ac); }
+.dot { width:9px; height:9px; border-radius:50%; flex-shrink:0; }
+
+/* ── Phone ───────────────────────────────────────── */
+.phone {
+  width: 375px; height: 790px;
+  background: var(--bg);
+  border-radius: 46px;
+  overflow: hidden;
+  position: relative;
+  display: flex; flex-direction: column;
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,0.06),
+    0 0 80px rgba(94,106,210,0.08),
+    0 40px 100px rgba(0,0,0,0.8);
+  transition: box-shadow .4s;
+}
+
+/* Status */
+.status {
+  height: 44px; padding: 14px 24px 0;
+  display: flex; justify-content: space-between; align-items: center;
+  flex-shrink: 0;
+}
+.s-time { font-size: 15px; font-weight: 600; color: var(--txt-pri); }
+.s-icons { display:flex; gap:5px; align-items:center; }
+.s-icons svg { width:15px; height:15px; fill:var(--txt-pri); }
+
+/* App bar */
+.appbar {
+  height: 54px; padding: 0 14px;
+  display: flex; align-items: center; justify-content: space-between;
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+.logo { display:flex; align-items:center; gap:9px; }
+.logo-icon {
+  width:30px; height:30px;
+  background: var(--ac-dim);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 9px;
+  display:flex; align-items:center; justify-content:center;
+}
+.logo-icon svg { width:15px; height:15px; fill:var(--ac); transition:fill .3s; }
+.logo-name {
+  font-family: 'Righteous', sans-serif;
+  font-size: 19px; color: var(--txt-pri); letter-spacing: 0.3px;
+}
+.bar-actions { display:flex; gap:2px; }
+.icon-btn {
+  width:34px; height:34px;
+  border:none; background:transparent; cursor:pointer;
+  border-radius: 8px;
+  display:flex; align-items:center; justify-content:center;
+  transition: background .15s;
+}
+.icon-btn:hover { background: var(--card); }
+.icon-btn svg { width:19px; height:19px; fill:var(--txt-sec); }
+
+/* Chat app bar */
+.chat-bar {
+  height: 58px; padding: 0 10px;
+  display:flex; align-items:center; gap:10px;
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+.back { width:32px; height:32px; display:flex; align-items:center; justify-content:center; cursor:pointer; }
+.back svg { width:20px; height:20px; fill:var(--txt-sec); }
+
+/* Screen */
+.screen { flex:1; overflow-y:auto; overflow-x:hidden; scrollbar-width:none; }
+.screen::-webkit-scrollbar { display:none; }
+.screen.off { display:none !important; }
+
+/* Bottom nav */
+.bottomnav {
+  height: var(--nav-h);
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  display:flex; align-items:center;
+  padding: 0 8px;
+  flex-shrink: 0;
+}
+.navitem {
+  flex:1; display:flex; flex-direction:column;
+  align-items:center; gap:4px; padding: 8px 0;
+  cursor:pointer; border-radius:10px; position:relative;
+}
+.navitem svg { width:22px; height:22px; fill:var(--txt-dim); transition:fill .2s; }
+.navitem span { font-size:10px; font-weight:500; color:var(--txt-dim); transition:color .2s; }
+.navitem.on svg { fill:var(--ac); }
+.navitem.on span { color:var(--ac); }
+.nav-line {
+  position:absolute; top:0; width:28px; height:2px;
+  background:var(--ac); border-radius:0 0 2px 2px;
+  opacity:0; transition:opacity .2s;
+}
+.navitem.on .nav-line { opacity:1; }
+.badge {
+  position:absolute; top:3px; right:calc(50% - 20px);
+  background:var(--danger); color:#fff;
+  font-size:9px; font-weight:700;
+  min-width:16px; height:16px; border-radius:8px;
+  display:flex; align-items:center; justify-content:center;
+  padding:0 3px; border:2px solid var(--bg);
+}
+
+/* ── Section label ───────────────────────────────── */
+.sec { padding:14px 14px 6px; font-size:10px; font-weight:600;
+  color:var(--txt-dim); letter-spacing:1.3px; }
+
+/* ══════════════════════════════════════
+   SALAS
+   ══════════════════════════════════════ */
+.rooms { padding: 6px 10px 20px; display:flex; flex-direction:column; gap:8px; }
+
+.room-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  padding: 14px 15px;
+  cursor:pointer; position:relative; overflow:hidden;
+  transition: border-color .2s;
+}
+.room-card:hover { border-color: var(--border-hi); }
+
+/* Solo la card activa recibe un toque sutil de accent */
+.room-card.live {
+  border-color: rgba(230,180,80,0.25); /* energía, no indigo */
+}
+.room-card.live::after {
+  content:''; position:absolute; top:0; left:0; right:0; height:1px;
+  background: linear-gradient(90deg, transparent, var(--en), transparent);
+}
+
+.room-head { display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:10px; }
+.room-name { font-size:14px; font-weight:600; color:var(--txt-pri); }
+.room-host { font-size:11px; color:var(--txt-sec); margin-top:1px; }
+
+/* LIVE badge — energía, usa --en */
+.live-badge {
+  background: var(--en-dim);
+  border: 1px solid var(--en);
+  color: var(--en);
+  font-size:9px; font-weight:700;
+  padding: 3px 9px; border-radius:999px;
+  letter-spacing:.5px;
+  display:flex; align-items:center; gap:4px;
+  flex-shrink:0;
+}
+.live-dot {
+  width:5px; height:5px; border-radius:50%;
+  background: var(--en);
+  animation: pulse 1.2s infinite;
+}
+
+/* Waveform — energía también */
+.wave { display:flex; align-items:center; gap:2.5px; height:26px; margin:8px 0; }
+.wbar {
+  width:2.5px; background:var(--en); border-radius:2px; opacity:0.6;
+  animation: wv var(--d,1s) ease-in-out infinite alternate;
+  animation-delay: var(--dl,0s);
+}
+@keyframes wv { from{height:3px;opacity:.3} to{height:var(--h,18px);opacity:.9} }
+
+.room-foot { display:flex; justify-content:space-between; align-items:center; margin-top:8px; }
+.avatars { display:flex; }
+.av {
+  width:22px; height:22px; border-radius:50%; border:2px solid var(--bg);
+  display:flex; align-items:center; justify-content:center;
+  font-size:9px; font-weight:700; color:#fff; margin-left:-5px;
+}
+.av:first-child { margin-left:0; }
+.av-count { background:var(--card2); border:2px solid var(--border); color:var(--txt-sec); font-size:8px; }
+
+/* Join button — accent primario */
+.btn-join {
+  background: var(--ac);
+  color: #fff;
+  font-family:'Poppins',sans-serif; font-size:12px; font-weight:600;
+  padding:7px 16px; border-radius:999px; border:none; cursor:pointer;
+  display:flex; align-items:center; gap:5px;
+  transition: opacity .15s, box-shadow .15s;
+  box-shadow: 0 0 18px var(--ac-glow);
+}
+.btn-join:hover { opacity:.9; }
+.btn-join svg { width:12px; height:12px; fill:#fff; }
+
+.btn-private {
+  background: transparent;
+  color: var(--txt-sec); border:1px solid var(--border);
+  font-family:'Poppins',sans-serif; font-size:12px; font-weight:500;
+  padding:6px 14px; border-radius:999px; cursor:pointer;
+}
+.private-badge {
+  background:var(--card2); border:1px solid var(--border);
+  color:var(--txt-sec); font-size:10px; padding:3px 10px; border-radius:999px;
+}
+
+.btn-create {
+  margin:4px 10px 12px;
+  width:calc(100% - 20px);
+  background:transparent; color:var(--txt-sec);
+  border:1px dashed var(--border-hi);
+  font-family:'Poppins',sans-serif; font-size:13px; font-weight:500;
+  padding:11px; border-radius:var(--r-md); cursor:pointer;
+  display:flex; align-items:center; justify-content:center; gap:7px;
+  transition:all .2s;
+}
+.btn-create:hover { color:var(--txt-pri); border-color:rgba(255,255,255,0.2); }
+.btn-create svg { width:16px; height:16px; fill:currentColor; }
+
+/* ══════════════════════════════════════
+   MINI PLAYER
+   ══════════════════════════════════════ */
+.miniplayer {
+  position:absolute;
+  bottom:calc(var(--nav-h) + 8px); left:10px; right:10px;
+  background: var(--card2);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: var(--r-lg);
+  padding:10px 14px;
+  display:flex; align-items:center; gap:10px;
+  z-index:10;
+  box-shadow: 0 -2px 20px rgba(0,0,0,0.5), 0 8px 30px rgba(0,0,0,0.4);
+}
+/* Indicador sutil de energía — solo una línea top */
+.miniplayer::before {
+  content:''; position:absolute; top:0; left:20px; right:20px; height:1px;
+  background: linear-gradient(90deg, transparent, var(--en), transparent);
+}
+.mp-icon {
+  width:34px; height:34px; background:var(--en-dim);
+  border:1px solid rgba(230,180,80,0.2); border-radius:8px;
+  display:flex; align-items:center; justify-content:center; flex-shrink:0;
+}
+.mp-icon svg { width:16px; height:16px; fill:var(--en); }
+.mp-info { flex:1; min-width:0; }
+.mp-room { font-size:12px; font-weight:600; color:var(--txt-pri); overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.mp-meta { font-size:10px; color:var(--txt-sec); margin-top:1px; }
+.mp-wave { display:flex; align-items:center; gap:2px; height:18px; }
+.mp-wave span {
+  width:2px; background:var(--en); border-radius:2px;
+  animation: wv var(--d,.8s) ease-in-out infinite alternate;
+  animation-delay: var(--dl,0s);
+}
+
+/* ══════════════════════════════════════
+   MENSAJES
+   ══════════════════════════════════════ */
+.global-tile {
+  margin:10px 10px 4px;
+  background:var(--card); border:1px solid var(--border);
+  border-radius:var(--r-lg); padding:13px 14px;
+  display:flex; align-items:center; gap:12px;
+  cursor:pointer; transition:border-color .2s;
+}
+.global-tile:hover { border-color:var(--border-hi); }
+.global-icon {
+  width:44px; height:44px;
+  background:var(--card2); border:1px solid var(--border);
+  border-radius:var(--r-md);
+  display:flex; align-items:center; justify-content:center; flex-shrink:0;
+}
+.global-icon svg { width:20px; height:20px; fill:var(--txt-sec); }
+.g-title { font-size:14px; font-weight:600; color:var(--txt-pri); }
+.g-sub   { font-size:11px; color:var(--txt-sec); margin-top:1px; }
+.chev svg { width:16px; height:16px; fill:var(--txt-dim); }
+
+/* Conversation tile */
+.ctile {
+  display:flex; align-items:center; padding:10px 12px;
+  gap:11px; cursor:pointer; transition:background .15s; position:relative;
+}
+.ctile:hover { background:rgba(255,255,255,0.02); }
+/* Unread: solo una barra lateral fina y background muy sutil */
+.ctile.unread { background:var(--ac-dim); }
+.ctile.unread::before {
+  content:''; position:absolute; left:0; top:0; bottom:0;
+  width:2px; background:var(--ac); border-radius:0 2px 2px 0;
+}
+.cav {
+  width:44px; height:44px; border-radius:50%; flex-shrink:0;
+  display:flex; align-items:center; justify-content:center;
+  font-size:16px; font-weight:700; color:#fff; position:relative;
+}
+/* Unread dot en avatar — accent primario */
+.udot {
+  position:absolute; top:-1px; right:-1px;
+  width:12px; height:12px;
+  background:var(--ac); border-radius:50%;
+  border:2px solid var(--bg);
+  transition:background .3s;
+}
+.cbody { flex:1; min-width:0; }
+.cname {
+  font-size:13px; font-weight:600; color:var(--txt-pri);
+  overflow:hidden; text-overflow:ellipsis; white-space:nowrap;
+}
+.ctile.unread .cname { font-weight:700; }
+.cmsg {
+  font-size:11px; color:var(--txt-sec); margin-top:2px;
+  overflow:hidden; text-overflow:ellipsis; white-space:nowrap;
+}
+.ctile.unread .cmsg { color:var(--txt-pri); }
+.cmeta { display:flex; flex-direction:column; align-items:flex-end; gap:5px; }
+.ctime { font-size:10px; color:var(--txt-dim); }
+/* Unread indicator — pequeño punto accent */
+.ubullet { width:8px; height:8px; background:var(--ac); border-radius:50%; transition:background .3s; }
+
+.ftile {
+  display:flex; align-items:center; padding:10px 12px;
+  gap:11px; cursor:pointer; transition:background .15s;
+}
+.ftile:hover { background:rgba(255,255,255,0.02); }
+.fname { font-size:13px; font-weight:500; color:var(--txt-pri); }
+.fuser { font-size:11px; color:var(--txt-sec); margin-top:1px; }
+
+/* ══════════════════════════════════════
+   CHAT DM
+   ══════════════════════════════════════ */
+.msgs { padding:12px; display:flex; flex-direction:column; gap:7px; }
+
+.sep {
+  display:flex; align-items:center; gap:8px; padding:2px 0 6px;
+}
+.sep-line { flex:1; height:1px; background:rgba(255,255,255,0.06); }
+.sep-txt { font-size:10px; font-weight:600; color:var(--ac); white-space:nowrap; transition:color .3s; }
+
+.brow { display:flex; align-items:flex-end; gap:7px; }
+.brow.me { justify-content:flex-end; }
+.bav {
+  width:24px; height:24px; border-radius:50%; flex-shrink:0;
+  display:flex; align-items:center; justify-content:center;
+  font-size:10px; font-weight:700; color:#fff;
+}
+.bubble {
+  max-width:70%; padding:9px 13px; border-radius:var(--r-lg);
+}
+.brow:not(.me) .bubble {
+  background:var(--card); border:1px solid var(--border);
+  border-bottom-left-radius:4px;
+}
+.brow.me .bubble {
+  /* Accent primario — solo aquí está justificado usarlo como bg */
+  background:var(--ac);
+  border-bottom-right-radius:4px;
+  box-shadow: 0 4px 20px var(--ac-glow);
+  transition:background .3s, box-shadow .3s;
+}
+.bsender { font-size:10px; font-weight:600; color:var(--ac); margin-bottom:2px; transition:color .3s; }
+.btext { font-size:13px; line-height:1.5; }
+.brow:not(.me) .btext { color:var(--txt-pri); }
+.brow.me .btext { color:#fff; font-weight:500; }
+.btime { font-size:10px; margin-top:3px; text-align:right; }
+.brow:not(.me) .btime { color:var(--txt-dim); }
+.brow.me .btime { color:rgba(255,255,255,0.55); }
+.mention { background:rgba(255,255,255,0.12); color:var(--txt-pri); border-radius:4px; padding:1px 5px; font-weight:600; font-size:12px; }
+.mention.me { background:rgba(0,0,0,0.18); color:rgba(255,255,255,0.9); }
+
+/* Chat input */
+.input-bar {
+  padding:10px; background:var(--surface);
+  border-top:1px solid var(--border);
+  display:flex; align-items:center; gap:8px; flex-shrink:0;
+}
+.input-field {
+  flex:1; background:var(--card); border:1px solid var(--border);
+  border-radius:22px; padding:10px 15px;
+  font-size:13px; color:var(--txt-sec);
+  font-family:'Poppins',sans-serif; outline:none;
+}
+.send-btn {
+  width:38px; height:38px; background:var(--ac); border:none;
+  border-radius:50%; display:flex; align-items:center; justify-content:center;
+  cursor:pointer; flex-shrink:0;
+  box-shadow:0 0 16px var(--ac-glow);
+  transition:background .3s, box-shadow .3s;
+}
+.send-btn svg { width:17px; height:17px; fill:#fff; }
+
+/* Global chat bars */
+.gc-bar {
+  height:58px; padding:0 10px;
+  display:flex; align-items:center; gap:10px;
+  border-bottom:1px solid var(--border); flex-shrink:0;
+}
+.gc-icon {
+  width:34px; height:34px; background:var(--card2);
+  border:1px solid var(--border); border-radius:9px;
+  display:flex; align-items:center; justify-content:center;
+}
+.gc-icon svg { width:17px; height:17px; fill:var(--txt-sec); }
+.gc-title { font-size:14px; font-weight:600; color:var(--txt-pri); }
+.gc-sub   { font-size:10px; color:var(--txt-sec); }
+
+/* ── Animations ──────────────────────────────────── */
+@keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.4;transform:scale(1.4)} }
+@keyframes fadein { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
+.screen > * { animation: fadein .2s ease both; }
+
+/* ══════════════════════════════════════
+   TOKENS PANEL
+   ══════════════════════════════════════ */
+.tokens-panel {
+  width:375px; margin-top:20px;
+  background:var(--surface); border:1px solid var(--border);
+  border-radius:20px; padding:18px;
+}
+.tp-title {
+  font-size:10px; font-weight:600; color:var(--txt-dim);
+  letter-spacing:1.2px; text-transform:uppercase; margin-bottom:12px;
+}
+.swatches { display:flex; gap:8px; margin-bottom:14px; flex-wrap:wrap; }
+.sw { display:flex; flex-direction:column; align-items:center; gap:4px; }
+.sw-dot { width:36px; height:36px; border-radius:10px; border:1px solid rgba(255,255,255,0.06); }
+.sw-lbl { font-size:9px; color:var(--txt-dim); text-align:center; }
+.rule {
+  font-size:11px; color:var(--txt-sec); line-height:1.7;
+  border-top:1px solid var(--border); padding-top:12px; margin-top:2px;
+}
+.rule strong { color:var(--ac); transition:color .3s; }
+</style>
+</head>
+<body>
+
+<h1 class="page-title">✦ Vi<span>b</span>er — Preview Rediseño</h1>
+<p class="page-sub" id="psub">Indigo · base neutral · accent restringido</p>
+
+<!-- ── Selector combinaciones ──────────────────── -->
+<div style="text-align:center;font-size:10px;font-weight:600;color:var(--txt-dim);letter-spacing:1px;margin-bottom:8px">ELIGE COMBINACIÓN</div>
+
+<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px;width:375px;margin-bottom:6px">
+
+  <div style="text-align:center;font-size:9px;color:var(--txt-dim);padding:4px 0;letter-spacing:.8px">+ ROSE</div>
+  <div style="text-align:center;font-size:9px;color:var(--txt-dim);padding:4px 0;letter-spacing:.8px">+ TEAL</div>
+  <div style="text-align:center;font-size:9px;color:var(--txt-dim);padding:4px 0;letter-spacing:.8px">+ MONO</div>
+
+  <button class="chip active" onclick="setTheme('default',this)" data-ac="#5E6AD2" data-en="#F472B6">
+    <span class="dot" style="background:#5E6AD2"></span><span class="dot" style="background:#F472B6"></span>Indigo
+  </button>
+  <button class="chip" onclick="setTheme('indigo-teal',this)" data-ac="#5E6AD2" data-en="#2DD4BF">
+    <span class="dot" style="background:#5E6AD2"></span><span class="dot" style="background:#2DD4BF"></span>Indigo
+  </button>
+  <button class="chip" onclick="setTheme('indigo-mono',this)" data-ac="#5E6AD2" data-en="#A5B4FC">
+    <span class="dot" style="background:#5E6AD2"></span><span class="dot" style="background:#A5B4FC"></span>Indigo
+  </button>
+
+  <button class="chip" onclick="setTheme('blue',this)" data-ac="#4F8EF7" data-en="#F472B6">
+    <span class="dot" style="background:#4F8EF7"></span><span class="dot" style="background:#F472B6"></span>Azul
+  </button>
+  <button class="chip" onclick="setTheme('blue-teal',this)" data-ac="#4F8EF7" data-en="#2DD4BF">
+    <span class="dot" style="background:#4F8EF7"></span><span class="dot" style="background:#2DD4BF"></span>Azul
+  </button>
+  <button class="chip" onclick="setTheme('blue-mono',this)" data-ac="#4F8EF7" data-en="#93C5FD">
+    <span class="dot" style="background:#4F8EF7"></span><span class="dot" style="background:#93C5FD"></span>Azul
+  </button>
+
+</div>
+<p style="font-size:10px;color:var(--txt-dim);margin-bottom:18px;text-align:center">
+  Primer punto = accent interacción &nbsp;·&nbsp; Segundo punto = energía LIVE/waveform
+</p>
+
+<!-- ── Selector pantalla ───────────────────────── -->
+<div class="row">
+  <button class="chip active" onclick="show('salas',this)">🎧 Salas</button>
+  <button class="chip" onclick="show('mensajes',this)">💬 Mensajes</button>
+  <button class="chip" onclick="show('chat',this)">📩 Chat DM</button>
+  <button class="chip" onclick="show('global',this)">🌐 Global</button>
+</div>
+
+<!-- ═══════════════ PHONE ═══════════════ -->
+<div class="phone">
+
+  <!-- Status -->
+  <div class="status">
+    <span class="s-time">21:34</span>
+    <div class="s-icons">
+      <svg viewBox="0 0 24 24"><path d="M1 9l2 2c4.97-4.97 13.03-4.97 18 0l2-2C16.93 2.93 7.08 2.93 1 9zm8 8l3 3 3-3c-1.65-1.66-4.34-1.66-6 0zm-4-4l2 2c2.76-2.76 7.24-2.76 10 0l2-2C15.14 9.14 8.87 9.14 5 13z"/></svg>
+      <svg viewBox="0 0 24 24"><path d="M15.67 4H14V2h-4v2H8.33C7.6 4 7 4.6 7 5.33v15.33C7 21.4 7.6 22 8.33 22h7.33c.74 0 1.34-.6 1.34-1.33V5.33C17 4.6 16.4 4 15.67 4z"/></svg>
+    </div>
+  </div>
+
+  <!-- Main app bar -->
+  <div class="appbar" id="main-bar">
+    <div class="logo">
+      <div class="logo-icon">
+        <svg viewBox="0 0 24 24"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
+      </div>
+      <span class="logo-name">Viber</span>
+    </div>
+    <div class="bar-actions">
+      <button class="icon-btn"><svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg></button>
+      <button class="icon-btn"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/></svg></button>
+    </div>
+  </div>
+
+  <!-- ─── SALAS ─── -->
+  <div class="screen" id="s-salas">
+    <div class="sec">EN VIVO</div>
+    <div class="rooms">
+
+      <div class="room-card live">
+        <div class="room-head">
+          <div>
+            <div class="room-name">Lo-fi Study Session</div>
+            <div class="room-host">jazz_lover · 12 oyentes</div>
+          </div>
+          <div class="live-badge"><div class="live-dot"></div>LIVE</div>
+        </div>
+        <div class="wave">
+          <div class="wbar" style="--h:18px;--d:.5s;--dl:0s"></div>
+          <div class="wbar" style="--h:12px;--d:.7s;--dl:.1s"></div>
+          <div class="wbar" style="--h:22px;--d:.4s;--dl:.2s"></div>
+          <div class="wbar" style="--h:8px; --d:.6s;--dl:.05s"></div>
+          <div class="wbar" style="--h:18px;--d:.8s;--dl:.15s"></div>
+          <div class="wbar" style="--h:14px;--d:.5s;--dl:.25s"></div>
+          <div class="wbar" style="--h:20px;--d:.7s;--dl:.1s"></div>
+          <div class="wbar" style="--h:10px;--d:.6s;--dl:.3s"></div>
+          <div class="wbar" style="--h:16px;--d:.4s;--dl:.2s"></div>
+          <div class="wbar" style="--h:24px;--d:.9s;--dl:0s"></div>
+          <div class="wbar" style="--h:12px;--d:.5s;--dl:.15s"></div>
+          <div class="wbar" style="--h:18px;--d:.7s;--dl:.05s"></div>
+          <div class="wbar" style="--h:8px; --d:.6s;--dl:.3s"></div>
+          <div class="wbar" style="--h:20px;--d:.5s;--dl:.1s"></div>
+        </div>
+        <div class="room-foot">
+          <div class="avatars">
+            <div class="av" style="background:#6D28D9">A</div>
+            <div class="av" style="background:#B45309">M</div>
+            <div class="av" style="background:#0369A1">S</div>
+            <div class="av av-count">+9</div>
+          </div>
+          <button class="btn-join">
+            <svg viewBox="0 0 24 24"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
+            Unirse
+          </button>
+        </div>
+      </div>
+
+      <div class="room-card live">
+        <div class="room-head">
+          <div>
+            <div class="room-name">Tech Talk Podcast</div>
+            <div class="room-host">dev_girl · 5 oyentes</div>
+          </div>
+          <div class="live-badge"><div class="live-dot"></div>LIVE</div>
+        </div>
+        <div class="room-foot" style="margin-top:4px">
+          <div class="avatars">
+            <div class="av" style="background:#15803D">J</div>
+            <div class="av" style="background:#9D174D">P</div>
+            <div class="av av-count">+3</div>
+          </div>
+          <button class="btn-join">
+            <svg viewBox="0 0 24 24"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
+            Unirse
+          </button>
+        </div>
+      </div>
+
+      <div class="room-card">
+        <div class="room-head">
+          <div>
+            <div class="room-name">Sala Privada · room-123</div>
+            <div class="room-host">user42 · 2 oyentes</div>
+          </div>
+          <span class="private-badge">🔒 Privada</span>
+        </div>
+        <div class="room-foot" style="margin-top:4px">
+          <div class="avatars">
+            <div class="av" style="background:#1D4ED8">K</div>
+            <div class="av" style="background:#92400E">R</div>
+          </div>
+          <button class="btn-private">Código</button>
+        </div>
+      </div>
+    </div>
+
+    <button class="btn-create">
+      <svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+      Crear nueva sala
+    </button>
+  </div>
+
+  <!-- ─── MENSAJES ─── -->
+  <div class="screen off" id="s-mensajes">
+    <div class="global-tile">
+      <div class="global-icon">
+        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+      </div>
+      <div style="flex:1">
+        <div class="g-title">Chat Global</div>
+        <div class="g-sub">Toda la comunidad Viber</div>
+      </div>
+      <div class="chev"><svg viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg></div>
+    </div>
+
+    <div class="sec">CONVERSACIONES</div>
+
+    <div class="ctile unread">
+      <div class="cav" style="background:#5C3978">A<div class="udot"></div></div>
+      <div class="cbody">
+        <div class="cname">alex_music</div>
+        <div class="cmsg">oye escucha esta nueva canción...</div>
+      </div>
+      <div class="cmeta">
+        <div class="ctime">12:41</div>
+        <div class="ubullet"></div>
+      </div>
+    </div>
+
+    <div class="ctile unread">
+      <div class="cav" style="background:#7C2D12">M<div class="udot"></div></div>
+      <div class="cbody">
+        <div class="cname">maria_dev</div>
+        <div class="cmsg">cuándo quedamos para el proyecto?</div>
+      </div>
+      <div class="cmeta">
+        <div class="ctime">11:20</div>
+        <div class="ubullet"></div>
+      </div>
+    </div>
+
+    <div class="ctile">
+      <div class="cav" style="background:#14532D">S</div>
+      <div class="cbody">
+        <div class="cname">sam_beats</div>
+        <div class="cmsg">Tú: el set estuvo genial</div>
+      </div>
+      <div class="cmeta">
+        <div class="ctime">Ayer</div>
+        <svg style="width:15px;height:15px;fill:var(--txt-dim)" viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
+      </div>
+    </div>
+
+    <div class="sec">AMIGOS</div>
+
+    <div class="ftile">
+      <div class="cav" style="background:#164E63">K</div>
+      <div class="cbody">
+        <div class="fname">kai_sounds</div>
+        <div class="fuser">@kai_sounds</div>
+      </div>
+      <svg style="width:15px;height:15px;fill:var(--txt-dim)" viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
+    </div>
+  </div>
+
+  <!-- ─── CHAT DM ─── -->
+  <div class="screen off" id="s-chat" style="display:none;flex-direction:column">
+    <div class="chat-bar">
+      <div class="back"><svg viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg></div>
+      <div class="cav" style="width:36px;height:36px;font-size:14px;background:#5C3978">A</div>
+      <div style="flex:1">
+        <div style="font-size:14px;font-weight:600;color:var(--txt-pri)">alex_music</div>
+        <div style="font-size:10px;color:var(--ac);transition:color .3s">● En línea</div>
+      </div>
+      <button class="icon-btn"><svg viewBox="0 0 24 24"><path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg></button>
+    </div>
+    <div class="screen" style="flex:1">
+      <div class="msgs">
+        <div class="brow">
+          <div class="bav" style="background:#5C3978">A</div>
+          <div class="bubble">
+            <div class="bsender">alex_music</div>
+            <div class="btext">hey! estás en la sala de lo-fi ahora?</div>
+            <div class="btime">12:30</div>
+          </div>
+        </div>
+        <div class="brow me">
+          <div class="bubble">
+            <div class="btext">sí! está genial la sesión de hoy</div>
+            <div class="btime">12:31</div>
+          </div>
+        </div>
+        <div class="brow">
+          <div class="bav" style="background:#5C3978">A</div>
+          <div class="bubble">
+            <div class="btext">oye escucha esta nueva canción, creo que te va a encantar</div>
+            <div class="btime">12:41</div>
+          </div>
+        </div>
+        <div class="sep">
+          <div class="sep-line"></div>
+          <div class="sep-txt">↓ 2 mensajes nuevos</div>
+          <div class="sep-line"></div>
+        </div>
+        <div class="brow">
+          <div class="bav" style="background:#5C3978">A</div>
+          <div class="bubble">
+            <div class="btext">oye <span class="mention">@tú</span> qué opinas del nuevo tema?</div>
+            <div class="btime">12:42</div>
+          </div>
+        </div>
+        <div class="brow">
+          <div class="bav" style="background:#5C3978">A</div>
+          <div class="bubble">
+            <div class="btext">avísame cuando puedas!</div>
+            <div class="btime">12:42</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="input-bar">
+      <div class="input-field">Escribe un mensaje...</div>
+      <button class="send-btn"><svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg></button>
+    </div>
+  </div>
+
+  <!-- ─── GLOBAL ─── -->
+  <div class="screen off" id="s-global" style="display:none;flex-direction:column">
+    <div class="gc-bar">
+      <div class="back"><svg viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg></div>
+      <div class="gc-icon"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg></div>
+      <div><div class="gc-title">Chat Global</div><div class="gc-sub">Toda la comunidad Viber</div></div>
+    </div>
+    <div class="screen" style="flex:1">
+      <div class="msgs">
+        <div class="brow">
+          <div class="bav" style="background:#7C2D12">M</div>
+          <div style="display:flex;flex-direction:column;gap:2px;max-width:70%">
+            <div class="bsender" style="padding-left:4px">maria_dev</div>
+            <div class="bubble"><div class="btext">alguien más escuchando lo-fi? está increíble</div><div class="btime">21:10</div></div>
+          </div>
+        </div>
+        <div class="brow me">
+          <div class="bubble"><div class="btext">sí! llevo 2 horas conectado 😄</div><div class="btime">21:11</div></div>
+        </div>
+        <div class="brow">
+          <div class="bav" style="background:#164E63">K</div>
+          <div style="display:flex;flex-direction:column;gap:2px;max-width:70%">
+            <div class="bsender" style="padding-left:4px">kai_sounds</div>
+            <div class="bubble"><div class="btext">acabo de crear sala de jazz <span class="mention">@todos</span></div><div class="btime">21:12</div></div>
+          </div>
+        </div>
+        <div class="brow me">
+          <div class="bubble"><div class="btext">me apunto en 5 min!</div><div class="btime">21:13</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="input-bar">
+      <div class="input-field">Escribe en el chat global...</div>
+      <button class="send-btn"><svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg></button>
+    </div>
+  </div>
+
+  <!-- Mini player -->
+  <div class="miniplayer" id="mp">
+    <div class="mp-icon"><svg viewBox="0 0 24 24"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg></div>
+    <div class="mp-info">
+      <div class="mp-room">Lo-fi Study Session</div>
+      <div class="mp-meta">12 oyentes · En vivo</div>
+    </div>
+    <div class="mp-wave">
+      <span style="--d:.6s;--dl:0s;--h:8px"></span>
+      <span style="--d:.8s;--dl:.1s;--h:16px"></span>
+      <span style="--d:.7s;--dl:.2s;--h:12px"></span>
+      <span style="--d:.9s;--dl:.05s;--h:18px"></span>
+      <span style="--d:.65s;--dl:.15s;--h:10px"></span>
+    </div>
+  </div>
+
+  <!-- Bottom nav -->
+  <div class="bottomnav">
+    <div class="navitem on" id="n-salas" onclick="show('salas',null,this)">
+      <div class="nav-line"></div>
+      <svg viewBox="0 0 24 24"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
+      <span>Salas</span>
+    </div>
+    <div class="navitem" id="n-mensajes" onclick="show('mensajes',null,this)">
+      <div class="nav-line"></div>
+      <div class="badge">2</div>
+      <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>
+      <span>Mensajes</span>
+    </div>
+  </div>
+</div>
+
+<!-- Tokens panel -->
+<div class="tokens-panel">
+  <div class="tp-title">Design Tokens — regla de uso del color</div>
+  <div class="swatches">
+    <div class="sw"><div class="sw-dot" style="background:#050506"></div><div class="sw-lbl">BG<br>neutral</div></div>
+    <div class="sw"><div class="sw-dot" style="background:#111114"></div><div class="sw-lbl">Card<br>neutral</div></div>
+    <div class="sw"><div class="sw-dot" id="sw-ac" style="background:#5E6AD2"></div><div class="sw-lbl">Accent<br>interacción</div></div>
+    <div class="sw"><div class="sw-dot" id="sw-en" style="background:#F472B6"></div><div class="sw-lbl">Energía<br>LIVE</div></div>
+    <div class="sw"><div class="sw-dot" style="background:#EDEDEF"></div><div class="sw-lbl">Texto<br>primario</div></div>
+  </div>
+  <div class="rule">
+    <strong>Accent primario</strong> → botón Unirse, nav activo, dot no leído, burbuja enviada, separador "nuevos", estado online<br>
+    <strong style="color:var(--en)">Energía ámbar</strong> → badge LIVE, waveform, línea top del miniplayer<br>
+    <strong style="color:var(--txt-sec)">Resto de la UI</strong> → grises neutros, sin color
+  </div>
+</div>
+
+<script>
+  function setTheme(t, btn) {
+    document.documentElement.setAttribute('data-theme', t === 'default' ? '' : t);
+    // update swatch colors from data attributes
+    if (btn) {
+      document.getElementById('sw-ac').style.background = btn.dataset.ac || '#5E6AD2';
+      document.getElementById('sw-en').style.background = btn.dataset.en || '#F472B6';
+      document.getElementById('psub').textContent =
+        (btn.dataset.ac || '#5E6AD2') + '  +  ' + (btn.dataset.en || '#F472B6') + ' · base neutral';
+    }
+    document.querySelectorAll('.chip').forEach(b => b.classList.remove('active'));
+    if (btn) btn.classList.add('active');
+  }
+
+  function show(sc, btn, navItem) {
+    // screens
+    ['salas','mensajes','chat','global'].forEach(id => {
+      const el = document.getElementById('s-'+id);
+      el.classList.add('off');
+      el.style.display = '';
+    });
+    const target = document.getElementById('s-'+sc);
+    target.classList.remove('off');
+    if (sc==='chat'||sc==='global') target.style.display='flex';
+
+    // bars
+    document.getElementById('main-bar').style.display =
+      (sc==='salas'||sc==='mensajes') ? 'flex' : 'none';
+    document.getElementById('mp').style.display =
+      sc==='salas' ? 'flex' : 'none';
+
+    // screen chips
+    if (btn) {
+      document.querySelectorAll('.row:last-of-type .chip').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    }
+
+    // nav
+    document.querySelectorAll('.navitem').forEach(n => n.classList.remove('on'));
+    if (sc==='salas') document.getElementById('n-salas').classList.add('on');
+    if (sc==='mensajes') document.getElementById('n-mensajes').classList.add('on');
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,12 @@
+### 1. Probar la búsqueda de canción
+GET http://localhost:8080/api/music/search?q=Michael+Jackson
+Accept: application/json
+
+### 2. Probar creación de sala
+POST http://localhost:8080/api/rooms/create
+Content-Type: application/json
+
+{
+  "name": "Sala de Rock",
+  "genre": "Rock"
+}

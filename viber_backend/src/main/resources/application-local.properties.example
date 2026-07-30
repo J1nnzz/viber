@@ -1,0 +1,52 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# Plantilla de configuración local. Cópiala y rellena tus propias claves:
+#
+#   cp application-local.properties.example application-local.properties
+#
+# El archivo resultante está en .gitignore, así que tus secretos no se publican.
+# Alternativa: no crear el archivo y exportar las variables de entorno
+# equivalentes (YOUTUBE_API_KEY, DB_PASSWORD, JWT_SECRET, GROQ_API_KEY...),
+# que es lo que se hace en producción.
+# ─────────────────────────────────────────────────────────────────────────────
+
+# Base de datos MySQL local. Crea el esquema antes de arrancar:
+#   CREATE DATABASE viber_db CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+spring.datasource.username=root
+spring.datasource.password=
+
+# API Key de Google Cloud Console con la YouTube Data API v3 activada.
+# https://console.cloud.google.com/apis/library/youtube.googleapis.com
+youtube.api.key=
+
+# Client ID de OAuth 2.0 del mismo proyecto de Google Cloud. Necesario para
+# el login con Google; debe coincidir con el que usa el frontend.
+google.client-id=
+
+# Clave de firma de los JWT. Genera una aleatoria y larga:
+#   openssl rand -base64 48
+jwt.secret=
+
+# API de Groq — genera los emojis del quiz automáticamente. Gratis y sin
+# tarjeta: https://console.groq.com/keys
+# Si la dejas vacía todo funciona igual, sólo se desactiva el botón
+# 'Emojis (IA)' del panel de administración.
+groq.api.key=
+
+# Last.fm — OPCIONAL. Mejora el grafo de artistas similares que alimenta el
+# auto-DJ y las recomendaciones: https://www.last.fm/api/account/create
+# Vacía = se usa solo Deezer (que no requiere clave).
+lastfm.api.key=
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Firebase (Firestore para chat/colas + push notifications)
+#
+# No se configura aquí: descarga el JSON de la service account desde
+# Firebase Console → Configuración del proyecto → Cuentas de servicio →
+# "Generar nueva clave privada" y guárdalo como:
+#
+#   src/main/resources/serviceAccountKey.json
+#
+# Está en .gitignore. Para apuntar a otra ruta usa la propiedad
+# `firebase.credentials` (admite `classpath:` y `file:`) o la env var
+# FIREBASE_CREDENTIALS. Ver FIREBASE_PUSH_SETUP.md.
+# ─────────────────────────────────────────────────────────────────────────────

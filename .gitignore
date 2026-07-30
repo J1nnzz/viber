@@ -1,0 +1,90 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# SECRETOS — nunca deben entrar en git.
+# Los valores reales viven en estos archivos, ignorados; los `.example`
+# versionados documentan qué claves hacen falta.
+# ─────────────────────────────────────────────────────────────────────────────
+**/application-local.properties
+**/serviceAccountKey.json
+**/google-services.json
+**/GoogleService-Info.plist
+**/firebase_options.dart
+**/key.properties
+**/*.jks
+**/*.keystore
+**/*.p12
+**/*.pem
+.env
+.env.*
+!.env.example
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Artefactos de build (aquí estaban los 4,6 GB)
+# ─────────────────────────────────────────────────────────────────────────────
+**/build/
+**/out/
+**/target/
+**/node_modules/
+**/.gradle/
+**/.dart_tool/
+**/.packages
+**/.flutter-plugins
+**/.flutter-plugins-dependencies
+**/generated_plugin_registrant.*
+**/.mvn/wrapper/maven-wrapper.jar
+
+# iOS / macOS
+**/Pods/
+**/.symlinks/
+**/Flutter/Flutter.framework/
+**/Flutter/Flutter.podspec
+**/Flutter/Generated.xcconfig
+**/Flutter/flutter_export_environment.sh
+**/ephemeral/
+**/xcuserdata/
+**/*.pbxuser
+**/*.mode1v3
+**/*.perspectivev3
+
+# Android
+**/local.properties
+**/captures/
+**/.cxx/
+
+# ─────────────────────────────────────────────────────────────────────────────
+# IDE / editores
+# ─────────────────────────────────────────────────────────────────────────────
+.vscode/
+.idea/
+*.iml
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Sistema operativo
+# ─────────────────────────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Logs y temporales
+# ─────────────────────────────────────────────────────────────────────────────
+*.log
+*.tmp
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Música con copyright del vídeo promo. El repo es público: no se distribuye
+# una canción comercial completa. Para renderizar el promo, pon tu propio
+# archivo de audio en viber-promo/public/passionfruit.mp3 (o cambia la ruta en
+# src/ViberPromo.tsx).
+# ─────────────────────────────────────────────────────────────────────────────
+viber-promo/public/passionfruit.mp3
+viber-promo/public/screens/tmp.png
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Material que no forma parte del producto
+# (siguen en disco, sólo no se publican)
+# ─────────────────────────────────────────────────────────────────────────────
+.agents/
+.claude/
+skills-lock.json
+Viber_Defensa.docx
+_pdf_render/

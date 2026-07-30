@@ -1,0 +1,26 @@
+{
+  "name": "viber-promo",
+  "version": "1.0.0",
+  "description": "Viber promotional video - created with Remotion",
+  "scripts": {
+    "start": "remotion studio",
+    "build": "remotion render ViberPromo out/viber-promo.mp4",
+    "render": "remotion render ViberPromo out/viber-promo.mp4 --log=verbose"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "dependencies": {
+    "@remotion/cli": "^4.0.464",
+    "@remotion/transitions": "^4.0.464",
+    "react": "^19.2.6",
+    "react-dom": "^19.2.6",
+    "remotion": "^4.0.464"
+  },
+  "devDependencies": {
+    "@types/react": "^19.2.15",
+    "@types/react-dom": "^19.2.3",
+    "typescript": "^6.0.3"
+  }
+}

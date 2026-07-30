@@ -1,0 +1,60 @@
+# API Key de Google Cloud Console
+youtube.api.key=YOUR_YOUTUBE_API_KEY
+
+# 1. Configuración de la Base de Datos (MySQL)
+# characterEncoding=UTF-8 + connectionCollation fuerzan utf8mb4 en la conexión:
+# sin esto el driver autodetecta el charset del servidor y, si está en latin1,
+# los emojis (pares surrogate) se guardan como "??". Imprescindible para el modo emoji.
+spring.datasource.url=jdbc:mysql://localhost:3306/viber_db?useUnicode=true&characterEncoding=UTF-8&connectionCollation=utf8mb4_unicode_ci
+spring.datasource.username=root
+spring.datasource.password=YOUR_DB_PASSWORD
+spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+
+# Forzamos el dialecto de MySQL 8 ya que Hibernate no puede autodetectarlo
+spring.jpa.database-platform=org.hibernate.dialect.MySQLDialect
+spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQLDialect
+
+# Muy importante: añade esto para evitar que Hibernate intente consultar metadatos que fallan
+spring.jpa.properties.hibernate.temp.use_jdbc_metadata_defaults=false
+
+# 2. Configuración de Hibernate / JPA
+# 'update' crea las tablas si no existen o las actualiza sin borrar datos
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.show-sql=true
+spring.jpa.properties.hibernate.format_sql=true
+
+# 3. Configuración del Servidor
+server.port=8080
+
+google.client-id=YOUR_GOOGLE_CLIENT_ID
+
+# JWT — mínimo 32 caracteres, usa una cadena aleatoria segura
+jwt.secret=YOUR_JWT_SECRET_KEY_MIN_32_CHARS
+
+# API de Groq — generación automática de emojis del quiz (gratis, sin tarjeta; opcional).
+# Crea una key en https://console.groq.com/keys. Si queda vacía,
+# el botón "Emojis (IA)" del panel admin lo indicará y todo lo demás funciona igual.
+groq.api.key=
+# Modelo gratis del tier de Groq (llama-3.3-70b-versatile = buena calidad)
+groq.model=llama-3.3-70b-versatile
+
+# ── Recomendación de salas y auto-DJ ────────────────────────────────────────
+# Vida media (días) del decaimiento por recencia del gusto: más bajo = manda lo
+# de hace poco (el rock reciente gana al hip-hop de hace un año); más alto = pesa
+# más el histórico.
+reco.half-life-days=14
+# Solo se miran eventos de escucha más recientes que esta ventana (días).
+reco.window-days=120
+
+# Auto-DJ de salas permanentes
+# Rellena la cola cuando baja de este tamaño (sin contar lo que suena ahora).
+autodj.min-queue=2
+# Cada cuánto revisa las salas auto-DJ (ms).
+autodj.scan-interval-ms=20000
+# Probabilidad de seguir con el mismo artista (continuidad) vs descubrir uno similar.
+autodj.same-artist-probability=0.5
+
+# Last.fm — mejora OPCIONAL del grafo de artistas similares (auto-DJ/recomendación).
+# Gratis: crea una key en https://www.last.fm/api/account/create. Vacía = solo
+# Deezer (sin key) como fuente de similares; Groq (groq.api.key) queda de último recurso.
+lastfm.api.key=

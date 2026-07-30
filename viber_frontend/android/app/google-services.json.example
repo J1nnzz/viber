@@ -1,0 +1,38 @@
+{
+  "_comment": [
+    "Plantilla. El google-services.json real está en .gitignore porque apunta a un",
+    "proyecto de Firebase concreto y su api_key consume cuota.",
+    "Para compilar la app Android: crea un proyecto en Firebase Console, añade una",
+    "app Android con el package name de abajo, descarga el google-services.json que",
+    "genera y colócalo en esta misma carpeta (android/app/).",
+    "Sin este archivo la build de Android falla; la web y el backend funcionan igual."
+  ],
+  "project_info": {
+    "project_number": "TU_PROJECT_NUMBER",
+    "firebase_url": "https://TU_PROJECT_ID-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "TU_PROJECT_ID",
+    "storage_bucket": "TU_PROJECT_ID.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:TU_PROJECT_NUMBER:android:TU_APP_ID",
+        "android_client_info": {
+          "package_name": "com.example.viber"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "TU_API_KEY_DE_ANDROID"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
