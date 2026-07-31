@@ -11,11 +11,18 @@ flutter run             # connected device or emulator
 flutter run -d chrome   # web
 ```
 
-Backend hosts are set in `lib/core/constants/api_constants.dart`: the web build
-points at `http://localhost:8080`, while mobile builds point at a LAN address,
-since an emulator or a phone cannot reach the host's `localhost`. **Change
-`_mobileHost` to your own machine's IP on the network** before running on a
-device.
+The backend host is resolved in `lib/core/constants/api_constants.dart`:
+`VIBER_API_HOST` if you define it at build time, otherwise `localhost:8080` on
+web and `10.0.2.2:8080` on mobile (the Android emulator's alias for the host
+machine).
+
+On a physical device, pass your machine's LAN address — the phone cannot reach
+the host's `localhost`:
+
+```bash
+flutter run --dart-define=VIBER_API_HOST=http://192.168.1.42:8080
+flutter build apk --release --dart-define=VIBER_API_HOST=http://192.168.1.42:8080
+```
 
 For Android builds you need your own `google-services.json` in `android/app/`
 (Firebase Cloud Messaging). There is a `.example` next to it describing what to

@@ -217,9 +217,17 @@ flutter run           # mobile
 flutter run -d chrome # web
 ```
 
-Running on a real device or emulator? Set `_mobileHost` in
-`lib/core/constants/api_constants.dart` to your machine's LAN address — a phone
-cannot reach the host's `localhost`. The web build needs no change.
+The web build talks to `localhost:8080` and mobile builds default to `10.0.2.2`,
+the Android emulator's alias for the host machine. On a **physical device**
+neither applies — the phone has its own `localhost` — so pass your machine's LAN
+address at build time:
+
+```bash
+flutter run --dart-define=VIBER_API_HOST=http://192.168.1.42:8080
+```
+
+The same flag works for `flutter build apk`. Nothing about the host is hardcoded
+in the source.
 
 For an Android build, add your own `google-services.json` to
 `viber_frontend/android/app/` — see the `.example` file next to it. The web build
