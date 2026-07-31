@@ -9,6 +9,9 @@
 Create a room, queue songs, and everyone hears the same second of the same track —
 with chat, live music quizzes, and rooms that keep playing on their own.
 
+[![Backend](https://github.com/J1nnzz/viber/actions/workflows/backend.yml/badge.svg)](https://github.com/J1nnzz/viber/actions/workflows/backend.yml)
+[![Frontend](https://github.com/J1nnzz/viber/actions/workflows/frontend.yml/badge.svg)](https://github.com/J1nnzz/viber/actions/workflows/frontend.yml)
+
 [![Flutter](https://img.shields.io/badge/Flutter-3.11-02569B?logo=flutter&logoColor=white)](https://flutter.dev)
 [![Spring Boot](https://img.shields.io/badge/Spring%20Boot-4.0-6DB33F?logo=springboot&logoColor=white)](https://spring.io/projects/spring-boot)
 [![Java](https://img.shields.io/badge/Java-25-ED8B00?logo=openjdk&logoColor=white)](https://openjdk.org)
