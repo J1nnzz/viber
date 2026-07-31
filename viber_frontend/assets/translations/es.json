@@ -69,7 +69,11 @@
     "new_messages_other": "{} mensajes nuevos",
     "global_empty": "Sé el primero en escribir\nen el chat global.",
     "quiz_duel_invite": "Retar a un duelo de quiz",
-    "start_conversation": "¡Empieza la conversación\ncon {user}!"
+    "start_conversation": "¡Empieza la conversación\ncon {user}!",
+    "new_messages": {
+      "one": "{} mensaje nuevo",
+      "other": "{} mensajes nuevos"
+    }
   },
   "profile": {
     "title": "Perfil",
@@ -107,7 +111,11 @@
     "time_listened": "Tiempo escuchado",
     "rooms_joined": "Salas unidas",
     "songs_played": "Canciones escuchadas",
-    "my_profile": "Mi perfil"
+    "my_profile": "Mi perfil",
+    "friends_count": {
+      "one": "{} amigo",
+      "other": "{} amigos"
+    }
   },
   "edit_profile": {
     "title": "Editar perfil",
@@ -500,7 +508,8 @@
     "next_round_in": "Siguiente ronda en",
     "you_challenged": "Has retado a este chat",
     "challenged_you": "{user} te ha retado",
-    "winner_wins": "{user} gana"
+    "winner_wins": "{user} gana",
+    "mode_rounds": "Modo {mode} · {rounds} rondas"
   },
   "explore": {
     "title": "Explorar",
@@ -670,7 +679,9 @@
     "pending_reports": {
       "one": "{} reporte pendiente",
       "other": "{} reportes pendientes"
-    }
+    },
+    "delete_song_confirm": "¿Eliminar \"{title}\" del pool del quiz?",
+    "song_lyrics_hint": "Una línea por verso; se rellena sola con \"Buscar letras\" si lrclib la tiene"
   },
   "youtube": {
     "add_to_queue": "Añadir a la cola",
@@ -689,7 +700,15 @@
     "import_playlist": "Importar playlist",
     "searching": "Buscando...",
     "deselect_all": "Deseleccionar todo",
-    "select_all": "Seleccionar todo"
+    "select_all": "Seleccionar todo",
+    "add_n_songs": {
+      "one": "Añadir {} canción",
+      "other": "Añadir {} canciones"
+    },
+    "n_added_to_queue": {
+      "one": "{} canción añadida a la cola",
+      "other": "{} canciones añadidas a la cola"
+    }
   },
   "errors": {
     "group_load": "Error al cargar el grupo",

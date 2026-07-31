@@ -69,7 +69,11 @@
     "new_messages_other": "{} new messages",
     "global_empty": "Be the first to write\nin the global chat.",
     "quiz_duel_invite": "Challenge to a quiz duel",
-    "start_conversation": "Start the conversation\nwith {user}!"
+    "start_conversation": "Start the conversation\nwith {user}!",
+    "new_messages": {
+      "one": "{} new message",
+      "other": "{} new messages"
+    }
   },
   "profile": {
     "title": "Profile",
@@ -107,7 +111,11 @@
     "time_listened": "Time listened",
     "rooms_joined": "Rooms joined",
     "songs_played": "Songs played",
-    "my_profile": "My profile"
+    "my_profile": "My profile",
+    "friends_count": {
+      "one": "{} friend",
+      "other": "{} friends"
+    }
   },
   "edit_profile": {
     "title": "Edit profile",
@@ -500,7 +508,8 @@
     "next_round_in": "Next round in",
     "you_challenged": "You challenged this chat",
     "challenged_you": "{user} challenged you",
-    "winner_wins": "{user} wins"
+    "winner_wins": "{user} wins",
+    "mode_rounds": "Mode {mode} · {rounds} rounds"
   },
   "explore": {
     "title": "Explore",
@@ -670,7 +679,9 @@
     "pending_reports": {
       "one": "{} pending report",
       "other": "{} pending reports"
-    }
+    },
+    "delete_song_confirm": "Remove \"{title}\" from the quiz pool?",
+    "song_lyrics_hint": "One line per verse; \"Fetch lyrics\" fills it in if lrclib has it"
   },
   "youtube": {
     "add_to_queue": "Add to queue",
@@ -689,7 +700,15 @@
     "import_playlist": "Import playlist",
     "searching": "Searching...",
     "deselect_all": "Deselect all",
-    "select_all": "Select all"
+    "select_all": "Select all",
+    "add_n_songs": {
+      "one": "Add {} song",
+      "other": "Add {} songs"
+    },
+    "n_added_to_queue": {
+      "one": "{} song added to the queue",
+      "other": "{} songs added to the queue"
+    }
   },
   "errors": {
     "group_load": "Couldn't load the group",
