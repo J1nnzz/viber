@@ -1,0 +1,53 @@
+name: Backend
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'viber_backend/**'
+      - '.github/workflows/backend.yml'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'viber_backend/**'
+      - '.github/workflows/backend.yml'
+  workflow_dispatch:
+
+jobs:
+  test:
+    name: Build and test
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: viber_backend
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up JDK 25
+        uses: actions/setup-java@v4
+        with:
+          java-version: '25'
+          distribution: 'temurin'
+          cache: maven
+
+      # El repo se clona desde Windows, donde el bit de ejecución no se
+      # conserva; sin esto el runner de Linux no puede lanzar el wrapper.
+      - name: Make the Maven wrapper executable
+        run: chmod +x mvnw
+
+      # Los tests son unitarios (JUnit + Mockito), no necesitan MySQL ni
+      # credenciales de Firebase. Por eso no se levanta ningún servicio aquí.
+      - name: Run tests
+        run: ./mvnw --batch-mode --no-transfer-progress test
+
+      - name: Package
+        run: ./mvnw --batch-mode --no-transfer-progress -DskipTests package
+
+      - name: Upload test reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: surefire-reports
+          path: viber_backend/target/surefire-reports/
+          if-no-files-found: ignore

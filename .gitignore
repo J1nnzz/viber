@@ -25,6 +25,7 @@
 **/target/
 **/node_modules/
 **/.gradle/
+**/.kotlin/
 **/.dart_tool/
 **/.packages
 **/.flutter-plugins
