@@ -1,4 +1,5 @@
 ﻿import 'dart:async';
+import 'package:easy_localization/easy_localization.dart';
 import 'dart:convert';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -108,7 +109,7 @@ class AuthService implements AuthRepository {
       await saveToken(data['token']);
       await _saveRole(data['role'] ?? 'USER');
     } else {
-      throw Exception(data['error'] ?? 'Error al registrar');
+      throw Exception(data['error'] ?? 'errors.register'.tr());
     }
   }
 
@@ -129,7 +130,7 @@ class AuthService implements AuthRepository {
       await saveToken(data['token']);
       await _saveRole(data['role'] ?? 'USER');
     } else {
-      throw Exception(data['error'] ?? 'Error al iniciar sesión');
+      throw Exception(data['error'] ?? 'errors.login'.tr());
     }
   }
 
@@ -138,11 +139,11 @@ class AuthService implements AuthRepository {
   @override
   Future<void> loginWithGoogle() async {
     final googleUser = await _googleSignIn.signIn();
-    if (googleUser == null) throw Exception('Inicio de sesión cancelado');
+    if (googleUser == null) throw Exception('errors.login_cancelled'.tr());
 
     final googleAuth = await googleUser.authentication;
     final idToken = googleAuth.idToken;
-    if (idToken == null) throw Exception('No se pudo obtener el token de Google');
+    if (idToken == null) throw Exception('errors.google_token'.tr());
 
     await loginWithGoogleToken(idToken);
   }
@@ -161,7 +162,7 @@ class AuthService implements AuthRepository {
       await saveToken(data['token']);
       await _saveRole(data['role'] ?? 'USER');
     } else {
-      throw Exception(data['error'] ?? 'Error al autenticar con Google');
+      throw Exception(data['error'] ?? 'errors.google_auth'.tr());
     }
   }
   
@@ -187,7 +188,7 @@ class AuthService implements AuthRepository {
     );
     final data = jsonDecode(response.body);
     if (response.statusCode != 200) {
-      throw Exception(data['error'] ?? 'Error al cambiar contraseña');
+      throw Exception(data['error'] ?? 'errors.password_change'.tr());
     }
   }
   

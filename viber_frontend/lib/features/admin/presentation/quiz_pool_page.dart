@@ -89,7 +89,7 @@ class _QuizPoolPageState extends State<QuizPoolPage> {
         );
         _load();
       } else {
-        _snack(jsonDecode(res.body)['error'] ?? 'Error al importar',
+        _snack(jsonDecode(res.body)['error'] ?? 'errors.import_failed'.tr(),
             error: true);
       }
     } catch (e) {
@@ -109,7 +109,7 @@ class _QuizPoolPageState extends State<QuizPoolPage> {
     if (res.statusCode == 200) {
       _load();
     } else {
-      _snack(jsonDecode(res.body)['error'] ?? 'Error al guardar', error: true);
+      _snack(jsonDecode(res.body)['error'] ?? 'errors.save_failed'.tr(), error: true);
     }
   }
 
@@ -180,10 +180,10 @@ class _QuizPoolPageState extends State<QuizPoolPage> {
     );
     if (!mounted) return;
     if (res.statusCode == 200) {
-      _snack('Canción re-matcheada con Deezer');
+      _snack('admin.song_rematched'.tr());
       _load();
     } else {
-      _snack(jsonDecode(res.body)['error'] ?? 'Sin resultados en Deezer',
+      _snack(jsonDecode(res.body)['error'] ?? 'admin.no_deezer_results'.tr(),
           error: true);
     }
   }
@@ -214,7 +214,7 @@ class _QuizPoolPageState extends State<QuizPoolPage> {
     if (res.statusCode == 200) {
       _load();
     } else {
-      _snack(jsonDecode(res.body)['error'] ?? 'Error al eliminar',
+      _snack(jsonDecode(res.body)['error'] ?? 'errors.delete_failed'.tr(),
           error: true);
     }
   }
@@ -367,7 +367,7 @@ class _QuizPoolPageState extends State<QuizPoolPage> {
                       child: Text(
                         _songs.isEmpty
                             ? 'El pool está vacío.\nImporta una playlist para empezar.'
-                            : 'Ninguna canción con este filtro',
+                            : 'admin.no_songs_filter'.tr(),
                         textAlign: TextAlign.center,
                         style: TextStyle(color: context.appTextSecColor),
                       ),
@@ -450,12 +450,12 @@ class _QuizPoolPageState extends State<QuizPoolPage> {
               ),
             ),
             if (incomplete) _badge('Incompleta', appError),
-            if (_hasNoPreview(s)) _badge('Sin preview', quizWarn),
+            if (_hasNoPreview(s)) _badge('admin.no_preview'.tr(), quizWarn),
             if (inactive) _badge('Inactiva', appTextDim),
           ],
         ),
         subtitle: Text(
-          details.isEmpty ? 'Sin metadata — edítala o re-matchea' : details,
+          details.isEmpty ? 'admin.no_metadata'.tr() : details,
           style: TextStyle(color: context.appTextSecColor, fontSize: 12),
         ),
         trailing: PopupMenuButton<String>(

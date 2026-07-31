@@ -138,7 +138,7 @@ class _GenresPageState extends State<_GenresPage> {
   }
 
   Future<void> _delete(dynamic id, String name) async {
-    if (!await _confirm('¿Eliminar el género "$name"?')) return;
+    if (!await _confirm('admin.delete_genre_confirm'.tr(namedArgs: {'name': name}))) return;
     final auth = await widget.getAuthHeader();
     final res = await http.delete(
       Uri.parse('${ApiConstants.baseUrl}/admin/genres/$id'),
@@ -157,8 +157,8 @@ class _GenresPageState extends State<_GenresPage> {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         _SectionHeader(
-          title: 'Catálogo de géneros',
-          subtitle: '${_genres.length} géneros registrados',
+          title: 'admin.genres_catalog'.tr(),
+          subtitle: 'admin.genres_registered'.tr(namedArgs: {'n': '${_genres.length}'}),
           icon: Icons.music_note,
         ),
         Padding(
@@ -191,7 +191,7 @@ class _GenresPageState extends State<_GenresPage> {
           child: _loading
               ? const Center(child: CircularProgressIndicator())
               : _genres.isEmpty
-                  ? _Empty(icon: Icons.music_off, text: 'No hay géneros todavía')
+                  ? _Empty(icon: Icons.music_off, text: 'admin.no_genres'.tr())
                   : ListView.separated(
                       itemCount: _genres.length,
                       separatorBuilder: (_, __) => const Divider(height: 1, indent: 16),
@@ -464,7 +464,7 @@ class _RoomsPageState extends State<_RoomsPage> {
       body: jsonEncode({'reason': newReason}),
     );
     if (mounted) {
-      _snack(res.statusCode == 200 ? 'Nota actualizada' : 'Error al guardar',
+      _snack(res.statusCode == 200 ? 'Nota actualizada' : 'errors.save_failed'.tr(),
              error: res.statusCode != 200);
     }
     _load();
@@ -479,7 +479,7 @@ class _RoomsPageState extends State<_RoomsPage> {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         _SectionHeader(
-          title: 'Gestión de salas',
+          title: 'admin.rooms_management'.tr(),
           subtitle: pendingTotal > 0
               ? '${_rooms.length} salas · $pendingTotal reportes pendientes'
               : '${_rooms.length} salas totales',
@@ -529,7 +529,7 @@ class _RoomsPageState extends State<_RoomsPage> {
           child: _loading
               ? const Center(child: CircularProgressIndicator())
               : filtered.isEmpty
-                  ? _Empty(icon: Icons.meeting_room_outlined, text: 'No hay salas con este filtro')
+                  ? _Empty(icon: Icons.meeting_room_outlined, text: 'admin.no_rooms_filter'.tr())
                   : RefreshIndicator(
                       onRefresh: _load,
                       child: ListView.separated(
@@ -569,7 +569,7 @@ class _RoomsPageState extends State<_RoomsPage> {
         headers: {'Authorization': auth},
       );
       if (res.statusCode != 200) {
-        _snack('No se pudo obtener la sala', error: true);
+        _snack('errors.room_fetch'.tr(), error: true);
         return;
       }
       if (!ctx.mounted) return;
@@ -579,7 +579,7 @@ class _RoomsPageState extends State<_RoomsPage> {
         MaterialPageRoute(builder: (_) => RoomScreen(room: room)),
       );
     } catch (_) {
-      _snack('Error al entrar en "$name"', error: true);
+      _snack('errors.room_enter'.tr(namedArgs: {'name': name}), error: true);
     }
   }
 
@@ -722,7 +722,7 @@ class _RoomCard extends StatelessWidget {
                         child: Text(
                           flagReason != null && flagReason.isNotEmpty
                               ? flagReason
-                              : 'Sin nota de incidencia',
+                              : 'admin.no_report_note'.tr(),
                           style: TextStyle(
                             fontSize: 12,
                             color: flagReason != null && flagReason.isNotEmpty
@@ -759,7 +759,7 @@ class _RoomCard extends StatelessWidget {
                       icon: const Icon(Icons.edit_note, size: 16),
                       label: Text(flagReason != null && flagReason.isNotEmpty
                           ? 'Editar nota'
-                          : 'Añadir nota'),
+                          : 'admin.add_note'.tr()),
                       style: OutlinedButton.styleFrom(foregroundColor: Colors.orange.shade800),
                     ),
                   // Marcar / desmarcar incidencia
@@ -806,7 +806,7 @@ class _RoomCard extends StatelessWidget {
                     Text(
                       pendingReports.isNotEmpty
                           ? '${pendingReports.length} reporte${pendingReports.length > 1 ? 's' : ''} pendiente${pendingReports.length > 1 ? 's' : ''}'
-                          : 'Todos los reportes resueltos',
+                          : 'admin.all_reports_resolved'.tr(),
                       style: TextStyle(
                         fontSize: 12,
                         fontWeight: FontWeight.w600,
@@ -953,7 +953,7 @@ class _UsersPageState extends State<_UsersPage> {
 
   Future<void> _changeRole(String username, String currentRole) async {
     final newRole = currentRole == 'ADMIN' ? 'USER' : 'ADMIN';
-    if (!await _showConfirm(context, '¿Cambiar rol de "$username" a $newRole?')) return;
+    if (!await _showConfirm(context, 'admin.change_role_confirm'.tr(namedArgs: {'user': username, 'role': newRole}))) return;
     final auth = await widget.getAuthHeader();
     final res = await http.put(
       Uri.parse('${ApiConstants.baseUrl}/admin/users/$username/role'),
@@ -962,7 +962,7 @@ class _UsersPageState extends State<_UsersPage> {
     );
     if (mounted) {
       if (res.statusCode == 200) {
-        _snack('Rol de $username actualizado a $newRole');
+        _snack('admin.role_updated'.tr(namedArgs: {'user': username, 'role': newRole}));
         _load();
       } else {
         _snack(jsonDecode(res.body)['error'] ?? 'Error', error: true);
@@ -978,7 +978,7 @@ class _UsersPageState extends State<_UsersPage> {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         _SectionHeader(
-          title: 'Gestión de usuarios',
+          title: 'admin.users_management'.tr(),
           subtitle: '${_users.length} usuarios registrados',
           icon: Icons.people,
         ),
@@ -999,7 +999,7 @@ class _UsersPageState extends State<_UsersPage> {
           child: _loading
               ? const Center(child: CircularProgressIndicator())
               : filtered.isEmpty
-                  ? _Empty(icon: Icons.person_off, text: 'No se encontraron usuarios')
+                  ? _Empty(icon: Icons.person_off, text: 'admin.no_users'.tr())
                   : RefreshIndicator(
                       onRefresh: _load,
                       child: ListView.separated(

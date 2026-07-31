@@ -98,7 +98,7 @@ class _GroupInfoScreenState extends State<GroupInfoScreen> {
     );
     if (picked == null) return;
     await _run(() => _service.invite(_group!.id, picked.username),
-        ok: 'Invitación enviada a @${picked.username}');
+        ok: 'groups.invite_sent_to'.tr(namedArgs: {'user': '${picked.username}'}));
   }
 
   Future<void> _confirm(String title, String message, String confirmLabel,
@@ -124,7 +124,7 @@ class _GroupInfoScreenState extends State<GroupInfoScreen> {
   bool _pendingConfirm = false;
 
   Future<void> _leave() async {
-    await _confirm('groups.leave_group'.tr(), '¿Seguro que quieres salir de "${_group!.name}"?', 'Salir', danger: true);
+    await _confirm('groups.leave_group'.tr(), 'groups.leave_confirm'.tr(namedArgs: {'name': '${_group!.name}'}), 'Salir', danger: true);
     if (!_pendingConfirm) return;
     try {
       await _service.leave(_group!.id);
@@ -135,7 +135,7 @@ class _GroupInfoScreenState extends State<GroupInfoScreen> {
   }
 
   Future<void> _delete() async {
-    await _confirm('Borrar grupo', 'Esto eliminará "${_group!.name}" para todos. No se puede deshacer.', 'Borrar', danger: true);
+    await _confirm('Borrar grupo', 'groups.delete_confirm'.tr(namedArgs: {'name': '${_group!.name}'}), 'Borrar', danger: true);
     if (!_pendingConfirm) return;
     try {
       await _service.deleteGroup(_group!.id);
@@ -241,7 +241,7 @@ class _GroupInfoScreenState extends State<GroupInfoScreen> {
         _sectionHeader('PERMISOS'),
         _permissionRow('Invitar miembros', g.invitePolicy,
             (p) => _service.updatePermissions(g.id, invitePolicy: p)),
-        _permissionRow('Editar la info', g.editInfoPolicy,
+        _permissionRow('groups.edit_info'.tr(), g.editInfoPolicy,
             (p) => _service.updatePermissions(g.id, editInfoPolicy: p)),
         _permissionRow('Enviar mensajes', g.sendMessagePolicy,
             (p) => _service.updatePermissions(g.id, sendMessagePolicy: p)),
@@ -353,11 +353,11 @@ class _GroupInfoScreenState extends State<GroupInfoScreen> {
         switch (value) {
           case 'promote':
             _run(() => _service.changeRole(g.id, m.username, GroupRole.admin),
-                ok: '@${m.username} es ahora administrador');
+                ok: 'groups.now_admin'.tr(namedArgs: {'user': '${m.username}'}));
             break;
           case 'demote':
             _run(() => _service.changeRole(g.id, m.username, GroupRole.member),
-                ok: '@${m.username} ya no es administrador');
+                ok: 'groups.no_longer_admin'.tr(namedArgs: {'user': '${m.username}'}));
             break;
           case 'transfer':
             _confirmTransfer(m);
@@ -383,7 +383,7 @@ class _GroupInfoScreenState extends State<GroupInfoScreen> {
 
   Future<void> _confirmTransfer(GroupMemberModel m) async {
     await _confirm('groups.transfer_ownership'.tr(),
-        'Pasarás a ser administrador y @${m.username} será el nuevo propietario.',
+        'groups.transfer_confirm'.tr(namedArgs: {'user': '${m.username}'}),
         'Transferir');
     if (!_pendingConfirm) return;
     await _run(() => _service.transferOwnership(_group!.id, m.username),

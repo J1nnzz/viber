@@ -87,7 +87,7 @@ class _LoginScreenState extends State<LoginScreen> {
       widget.onLoginSuccess();
     } catch (e) {
       final msg = e.toString().replaceAll('Exception: ', '');
-      if (msg != 'Inicio de sesión cancelado') {
+      if (msg != 'errors.login_cancelled'.tr()) {
         setState(() => _error = msg);
       }
     } finally {

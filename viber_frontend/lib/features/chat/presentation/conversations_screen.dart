@@ -147,7 +147,7 @@ class _ConversationsScreenState extends State<ConversationsScreen> {
                     )
                   else
                     SliverToBoxAdapter(child: _buildEmptyHint(
-                      'Crea un grupo para chatear con varios amigos a la vez.',
+                      'groups.empty_hint'.tr(),
                     )),
                   SliverToBoxAdapter(
                     child: Divider(height: 1, color: appDivider),

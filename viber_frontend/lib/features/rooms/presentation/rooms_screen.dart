@@ -122,7 +122,7 @@ class _RoomsScreenState extends State<RoomsScreen> {
       });
       _loadRecommended();
     } catch (_) {
-      if (!silent) _showError('Error al cargar salas');
+      if (!silent) _showError('errors.rooms_list_load'.tr());
     } finally {
       if (mounted && !silent) setState(() => _loading = false);
     }

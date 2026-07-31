@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:viber/core/theme/app_theme.dart';
 import 'emoji_picker_panel.dart';
@@ -215,8 +216,8 @@ class _ChatInputBarState extends State<ChatInputBar> {
                   },
                   decoration: InputDecoration(
                     hintText: widget.isMuted
-                        ? 'Estás silenciado...'
-                        : 'Escribe un mensaje...',
+                        ? 'room_chat.muted_hint'.tr()
+                        : 'room_chat.input_hint'.tr(),
                     hintStyle: TextStyle(
                         color: hintColor.withOpacity(
                             widget.isMuted ? 0.3 : 0.55),

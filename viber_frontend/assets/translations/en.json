@@ -25,7 +25,8 @@
     "crop_error": "Couldn't crop the image",
     "confirm": "Confirm",
     "reload": "Reload",
-    "back": "Back"
+    "back": "Back",
+    "music": "Music"
   },
   "auth": {
     "login_subtitle": "Sign in to continue",
@@ -40,7 +41,9 @@
     "login_link": "Already have an account? Sign in",
     "password_too_short": "Password must be at least 6 characters",
     "passwords_mismatch": "Passwords do not match",
-    "continue_google": "Continue with Google"
+    "continue_google": "Continue with Google",
+    "show_password": "Show password",
+    "hide_password": "Hide password"
   },
   "nav": {
     "chat": "Chat",
@@ -48,7 +51,8 @@
     "friends": "Friends",
     "profile": "Profile",
     "notifications": "Notifications",
-    "account": "Account"
+    "account": "Account",
+    "admin": "Admin"
   },
   "chat": {
     "global_title": "Global Chat",
@@ -85,7 +89,11 @@
     "settings": "Settings",
     "view_full": "View full profile",
     "delete_friend_confirm": "Remove {user}?",
-    "top_artists": "Most played artists"
+    "top_artists": "Most played artists",
+    "songs_added": "Songs added",
+    "top_genres": "Most played genres",
+    "no_genres_hint": "Join rooms to see your genres",
+    "no_artists_hint": "Listen to songs in rooms to see your artists"
   },
   "edit_profile": {
     "title": "Edit profile",
@@ -104,7 +112,8 @@
     "username_rule": "Letters, numbers and underscores only. Between 3 and 50 characters.",
     "name_hint": "Your Full Name",
     "name_rule": "Shown on your profile. Spaces are allowed.",
-    "bio_hint": "Tell us something about yourself..."
+    "bio_hint": "Tell us something about yourself...",
+    "adjust_photo": "Adjust profile photo"
   },
   "settings": {
     "title": "Settings",
@@ -206,7 +215,8 @@
     "permanent": "Permanent room (auto-DJ)",
     "autodj_desc": "When the queue runs short, songs in the same style as what already played are added automatically.",
     "your_room": "Your room",
-    "public": "Public"
+    "public": "Public",
+    "welcome_label": "Welcome message (optional)"
   },
   "edit_room": {
     "title": "Manage room",
@@ -232,7 +242,8 @@
     "close_message": "All listeners will be removed and the room will cease to exist.",
     "name_empty_error": "Name cannot be empty",
     "autodj_hint": "Auto-DJ: queues songs in the same style when the queue runs short.",
-    "desc_hint": "Describe your room…"
+    "desc_hint": "Describe your room…",
+    "genres": "Genres"
   },
   "room": {
     "admin_banner": "Admin mode · Observing only",
@@ -285,7 +296,13 @@
     "room_full": "Room \"{room}\" is full",
     "host_closed": "The host closed room \"{room}\"",
     "invite_to_named": "Invite to \"{room}\"",
-    "user_kicked": "{user} was kicked from the room"
+    "user_kicked": "{user} was kicked from the room",
+    "add_to_liked": "Add to liked songs",
+    "anonymous": "Anonymous",
+    "ban_lifted": "{user}'s ban has been lifted",
+    "unmuted": "{user} can speak again",
+    "user_joined": "{user} joined the room",
+    "user_left": "{user} left the room"
   },
   "mini_player": {
     "no_playback": "Nothing playing",
@@ -306,7 +323,9 @@
     "kick_button": "Kick",
     "actions": "Actions",
     "banned_count": "BANNED  •  {n}",
-    "kick_confirm": "Are you sure you want to kick {user} from the room?"
+    "kick_confirm": "Are you sure you want to kick {user} from the room?",
+    "muted_hint": "You are muted...",
+    "input_hint": "Write a message..."
   },
   "queue": {
     "title": "Queue",
@@ -323,7 +342,8 @@
     "invitation_from": "From {}",
     "join_button": "Join",
     "wants_friend": "@{user} wants to be your friend",
-    "invited_you": "{user} invited you"
+    "invited_you": "{user} invited you",
+    "from_user": "From {user}"
   },
   "home": {
     "connecting": "Connecting to \"{}\"…",
@@ -340,7 +360,10 @@
     "quiz_challenge_from": "{user} challenges you to a quiz duel",
     "currently_in": "You are currently in \"{room}\". ",
     "kicked_no_rejoin": "You were kicked from \"{room}\" and cannot rejoin",
-    "switch_confirm": "Do you want to leave and join \"{room}\"?"
+    "switch_confirm": "Do you want to leave and join \"{room}\"?",
+    "friend_request_from": "{user} sent you a friend request",
+    "group_invite_from": "{user} invited you to the group \"{group}\"",
+    "room_invite_from": "{user} invited you to \"{room}\""
   },
   "quiz": {
     "title": "Music quiz",
@@ -439,7 +462,12 @@
     "waiting_host": "Waiting for {host} to start…",
     "round_of": "Round {n}/{total}",
     "and_more": "and {n} more",
-    "correct": "Correct!"
+    "correct": "Correct!",
+    "no_answer": "No answer",
+    "you_won": "You won!",
+    "no_winner": "No winner",
+    "seconds_per_round": "Seconds per round",
+    "winner_line": "{user} won · {pts} pts"
   },
   "explore": {
     "title": "Explore",
@@ -453,7 +481,10 @@
     "no_results_hint": "Try another term or clear the filters",
     "empty_category": "No rooms in this category",
     "search_hint": "Search rooms, genres, hosts…",
-    "close_room_confirm": "\"{room}\" will be closed permanently."
+    "close_room_confirm": "\"{room}\" will be closed permanently.",
+    "sort_listeners": "Most listeners",
+    "sort_newest": "Newest",
+    "sort_oldest": "Oldest"
   },
   "groups": {
     "info_title": "Group info",
@@ -479,7 +510,18 @@
     "say_hi": "Say hi to\n{name}!",
     "adjust_photo": "Adjust group photo",
     "leave_group": "Leave group",
-    "member_you": "{name} (you)"
+    "member_you": "{name} (you)",
+    "edit_info": "Edit info",
+    "name_required": "The group name is required",
+    "joined": "You joined the group",
+    "invite_rejected": "Group invitation rejected",
+    "empty_hint": "Create a group to chat with several friends at once.",
+    "invite_sent_to": "Invitation sent to @{user}",
+    "leave_confirm": "Are you sure you want to leave \"{name}\"?",
+    "delete_confirm": "This will delete \"{name}\" for everyone. It cannot be undone.",
+    "now_admin": "@{user} is now an admin",
+    "no_longer_admin": "@{user} is no longer an admin",
+    "transfer_confirm": "You will become an admin and @{user} will be the new owner."
   },
   "liked_songs": {
     "title": "Liked songs",
@@ -488,7 +530,8 @@
     "search_hint": "Search songs or artists…",
     "remove": "Remove from liked",
     "no_results_for": "No results for \"{query}\"",
-    "sort_title": "Title A–Z"
+    "sort_title": "Title A–Z",
+    "removed": "Removed from liked songs"
   },
   "admin": {
     "title": "Admin panel",
@@ -529,7 +572,25 @@
     "kick_online_n": "Kick connected users ({n})",
     "song_emojis_hint": "🌧️ 🔥 💃 — separated by spaces",
     "room_online": "{n} online",
-    "room_closed": "Closed"
+    "room_closed": "Closed",
+    "genres_catalog": "Genre catalogue",
+    "no_genres": "No genres yet",
+    "rooms_management": "Room management",
+    "users_management": "User management",
+    "no_rooms_filter": "No rooms match this filter",
+    "no_users": "No users found",
+    "no_report_note": "No report note",
+    "add_note": "Add note",
+    "all_reports_resolved": "All reports resolved",
+    "song_rematched": "Song re-matched with Deezer",
+    "no_deezer_results": "No results on Deezer",
+    "no_songs_filter": "No songs match this filter",
+    "no_preview": "No preview",
+    "no_metadata": "No metadata — edit it or re-match",
+    "genres_registered": "{n} genres registered",
+    "delete_genre_confirm": "Delete the genre \"{name}\"?",
+    "change_role_confirm": "Change {user}'s role to {role}?",
+    "role_updated": "{user}'s role updated to {role}"
   },
   "youtube": {
     "add_to_queue": "Add to queue",
@@ -540,7 +601,10 @@
     "paste_clipboard": "Paste from clipboard",
     "added_to_queue": "\"{title}\" added to the queue",
     "tracks_found": "{n} songs found",
-    "adding_n": "Adding {n} songs to the queue..."
+    "adding_n": "Adding {n} songs to the queue...",
+    "search_song": "Search song",
+    "search_by": "Search by title or artist",
+    "paste_url": "Paste a YouTube URL"
   },
   "errors": {
     "group_load": "Couldn't load the group",
@@ -558,6 +622,54 @@
     "like_add": "Couldn't add to liked songs",
     "stats_load": "Couldn't load the stats",
     "playlist_import": "Couldn't import the playlist",
-    "report_resolve": "Couldn't resolve the report"
+    "report_resolve": "Couldn't resolve the report",
+    "profile_load": "Couldn't load the profile",
+    "user_not_found": "User not found",
+    "privacy_update": "Couldn't update privacy",
+    "profile_update": "Couldn't update the profile",
+    "image_upload": "Couldn't upload the image",
+    "friends_load": "Couldn't load your friends",
+    "request_send": "Couldn't send the request",
+    "request_accept": "Couldn't accept the request",
+    "friend_remove": "Couldn't remove the friend",
+    "requests_load": "Couldn't load the requests",
+    "friend_status_load": "Couldn't load the friendship status",
+    "invite_send": "Couldn't send the invitation",
+    "invites_load": "Couldn't load the invitations",
+    "invite_dismiss": "Couldn't dismiss the invitation",
+    "groups_load": "Couldn't load your groups",
+    "messages_load": "Couldn't load the messages",
+    "message_send": "Couldn't send the message",
+    "invite_generic": "Couldn't send the invite",
+    "group_invites_load": "Couldn't load the group invitations",
+    "invite_accept": "Couldn't accept the invitation",
+    "invite_reject": "Couldn't reject the invitation",
+    "kick": "Couldn't remove the member",
+    "ownership_transfer": "Couldn't transfer ownership",
+    "group_image": "Couldn't upload the group image",
+    "register": "Couldn't sign you up",
+    "login": "Couldn't sign you in",
+    "login_cancelled": "Sign-in cancelled",
+    "google_token": "Couldn't get the Google token",
+    "google_auth": "Couldn't authenticate with Google",
+    "password_change": "Couldn't change the password",
+    "conversations_load": "Couldn't load your conversations",
+    "global_chat_load": "Couldn't load the global chat",
+    "quiz_stats_load": "Couldn't load the stats",
+    "leaderboard_load": "Couldn't load the leaderboard",
+    "match_load": "Couldn't load the match",
+    "guess_failed": "That guess failed",
+    "rooms_list_load": "Couldn't load the rooms",
+    "recommendations_load": "Couldn't load the recommendations",
+    "invalid_code": "Invalid code",
+    "report_send": "Couldn't send the report",
+    "likes_load": "Couldn't load your liked songs",
+    "like_remove": "Couldn't remove from liked songs",
+    "search_failed": "Search failed",
+    "save_failed": "Couldn't save",
+    "import_failed": "Import failed",
+    "delete_failed": "Couldn't delete",
+    "room_fetch": "Couldn't fetch the room",
+    "room_enter": "Couldn't enter \"{name}\""
   }
 }

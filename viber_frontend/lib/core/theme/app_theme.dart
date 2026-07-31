@@ -1,4 +1,5 @@
-﻿import 'package:flutter/material.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/material.dart';
 
 // ══════════════════════════════════════════════════════════════════════════════
 // VIBER — Design Tokens
@@ -681,7 +682,7 @@ class _AppTextFieldState extends State<AppTextField> {
                   size: 20,
                   color: appTextSec,
                 ),
-                tooltip: _hidden ? 'Mostrar contraseña' : 'Ocultar contraseña',
+                tooltip: _hidden ? 'auth.show_password'.tr() : 'auth.hide_password'.tr(),
                 onPressed: () => setState(() => _hidden = !_hidden),
               )
             : null,

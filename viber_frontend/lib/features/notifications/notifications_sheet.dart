@@ -408,7 +408,7 @@ class _RoomInvitationTile extends StatelessWidget {
                             invitation.senderAvatar, radius: 8),
                         const SizedBox(width: 4),
                         Text(
-                          'De ${invitation.senderName}',
+                          'notifications.from_user'.tr(namedArgs: {'user': '${invitation.senderName}'}),
                           style: TextStyle(
                               color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6), fontSize: 11),
                         ),

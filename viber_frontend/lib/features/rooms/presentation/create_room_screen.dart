@@ -312,7 +312,7 @@ class _CreateRoomScreenState extends State<CreateRoomScreen> {
             // ── Mensaje de bienvenida ─────────────────────────────────
             AppTextField(
               controller: _welcomeController,
-              label: 'Mensaje de bienvenida (opcional)',
+              label: 'create_room.welcome_label'.tr(),
               prefixIcon: Icons.waving_hand_outlined,
               textInputAction: TextInputAction.done,
             ),

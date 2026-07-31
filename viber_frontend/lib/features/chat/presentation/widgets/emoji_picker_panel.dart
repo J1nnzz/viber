@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:viber/core/theme/app_theme.dart';
 
@@ -12,7 +13,9 @@ class _EmojiCategory {
   const _EmojiCategory(this.label, this.icon, this.emojis);
 }
 
-const _categories = [
+// Getter y no `const`: los nombres de categoría se traducen con .tr(), que
+// debe reevaluarse para que un cambio de idioma se refleje.
+List<_EmojiCategory> get _categories => [
   _EmojiCategory('Caras', Icons.tag_faces_rounded, [
     '😀','😁','😂','🤣','😃','😄','😅','😆','😊','😇',
     '🙂','🙃','😉','😌','😍','🥰','😘','😗','😙','😚',
@@ -35,7 +38,7 @@ const _categories = [
     '❤️‍🔥','❤️‍🩹','💕','💞','💓','💗','💖','💘','💝','💟',
     '☮️','✝️','☪️','🕉️','✡️','🔯','🪯','☯️','☦️','🛐',
   ]),
-  _EmojiCategory('Música', Icons.music_note_rounded, [
+  _EmojiCategory('common.music'.tr(), Icons.music_note_rounded, [
     '🎵','🎶','🎸','🎹','🥁','🎷','🎺','🎻','🪕','🎤',
     '🎧','📻','🎼','🎙️','🎚️','🎛️','📯','🪗','🪘','🎹',
     '🎭','🎬','🎤','🔊','🔉','🔈','🔇','📢','📣','🎉',

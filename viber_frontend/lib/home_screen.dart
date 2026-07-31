@@ -180,7 +180,7 @@ class _HomeScreenState extends State<HomeScreen> {
             .firstWhere((i) => addedInvites.contains(i.id));
         NotificationService.playNotificationSound();
         _showSnackBar(
-          '${inv.senderName} te ha invitado a "${inv.roomName}"',
+          'home.room_invite_from'.tr(namedArgs: {'user': '${inv.senderName}', 'room': '${inv.roomName}'}),
           icon: Icons.headphones_rounded,
         );
       }
@@ -189,7 +189,7 @@ class _HomeScreenState extends State<HomeScreen> {
             .firstWhere((p) => addedRequests.contains(p.username));
         NotificationService.playNotificationSound();
         _showSnackBar(
-          '${req.displayLabel} te ha enviado una solicitud de amistad',
+          'home.friend_request_from'.tr(namedArgs: {'user': '${req.displayLabel}'}),
           icon: Icons.person_add_alt_1_rounded,
         );
       }
@@ -198,7 +198,7 @@ class _HomeScreenState extends State<HomeScreen> {
             .firstWhere((i) => addedGroups.contains(i.id));
         NotificationService.playNotificationSound();
         _showSnackBar(
-          '${inv.senderName} te ha invitado al grupo "${inv.groupName}"',
+          'home.group_invite_from'.tr(namedArgs: {'user': '${inv.senderName}', 'group': '${inv.groupName}'}),
           icon: Icons.groups_rounded,
         );
       }
@@ -232,14 +232,14 @@ class _HomeScreenState extends State<HomeScreen> {
     await _groupService.acceptInvitation(invId);
     if (!mounted) return;
     setState(() => _groupInvitations.removeWhere((i) => i.id == invId));
-    _showSnackBar('Te has unido al grupo', icon: Icons.groups_rounded);
+    _showSnackBar('groups.joined'.tr(), icon: Icons.groups_rounded);
   }
 
   Future<void> _handleRejectGroup(int invId) async {
     await _groupService.rejectInvitation(invId);
     if (!mounted) return;
     setState(() => _groupInvitations.removeWhere((i) => i.id == invId));
-    _showSnackBar('Invitación de grupo rechazada');
+    _showSnackBar('groups.invite_rejected'.tr());
   }
 
   Future<void> _handleDismissInvitation(int id) async {
@@ -515,11 +515,11 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
             if (_isAdmin)
-              const PopupMenuItem(
+              PopupMenuItem(
                 value: 'admin',
                 child: _AccountMenuRow(
                   icon: Icons.admin_panel_settings_outlined,
-                  label: 'Administración',
+                  label: 'nav.admin'.tr(),
                 ),
               ),
             const PopupMenuItem(

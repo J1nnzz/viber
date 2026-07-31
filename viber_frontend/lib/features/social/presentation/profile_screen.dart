@@ -331,7 +331,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             children: [
               Expanded(child: _StatRow(
                 icon: Icons.queue_music_rounded,
-                label: 'Canciones añadidas',
+                label: 'profile.songs_added'.tr(),
                 value: '${stats.songsAdded}',
               )),
               Expanded(child: _StatRow(
@@ -358,9 +358,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
           // ── Géneros más escuchados ──────────────────────────────────
           const SizedBox(height: spacingLg),
           _BarChartSection(
-            title: 'Géneros más escuchados',
+            title: 'profile.top_genres'.tr(),
             entries: stats.topGenres,
-            emptyLabel: 'Únete a salas para ver tus géneros',
+            emptyLabel: 'profile.no_genres_hint'.tr(),
             tooltipSuffix: (n) => n == 1 ? 'sala' : 'salas',
           ),
 
@@ -369,7 +369,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           _BarChartSection(
             title: 'profile.top_artists'.tr(),
             entries: stats.topArtists,
-            emptyLabel: 'Escucha canciones en salas para ver tus artistas',
+            emptyLabel: 'profile.no_artists_hint'.tr(),
             tooltipSuffix: (n) => n == 1 ? 'reproducción' : 'reproducciones',
           ),
         ],

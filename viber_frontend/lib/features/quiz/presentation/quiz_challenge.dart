@@ -145,7 +145,7 @@ class _ChallengeSheetState extends State<_ChallengeSheet> {
 
           _stepperRow('Rondas', _rounds, 3, 10, (v) => setState(() => _rounds = v)),
           const SizedBox(height: 10),
-          _stepperRow('Segundos por ronda', _seconds, 5, 30, (v) => setState(() => _seconds = v), step: 5),
+          _stepperRow('quiz.seconds_per_round'.tr(), _seconds, 5, 30, (v) => setState(() => _seconds = v), step: 5),
           const SizedBox(height: 20),
 
           ElevatedButton.icon(

@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
@@ -80,7 +81,7 @@ class ChatService extends BaseApiService implements ChatRepository {
           .map((e) => Conversation.fromJson(e))
           .toList();
     }
-    throwFromResponse(res, 'Error al cargar conversaciones');
+    throwFromResponse(res, 'errors.conversations_load'.tr());
   }
 
   // ── Mensajes directos ─────────────────────────────────────────────────────
@@ -101,7 +102,7 @@ class ChatService extends BaseApiService implements ChatRepository {
         otherReadAt: (body['otherReadAt'] as num?)?.toInt() ?? 0,
       );
     }
-    throwFromResponse(res, 'Error al cargar mensajes');
+    throwFromResponse(res, 'errors.messages_load'.tr());
   }
 
   @override
@@ -111,7 +112,7 @@ class ChatService extends BaseApiService implements ChatRepository {
       headers: await authHeaders(),
       body: jsonEncode({'text': text}),
     );
-    if (res.statusCode != 200) throwFromResponse(res, 'Error al enviar mensaje');
+    if (res.statusCode != 200) throwFromResponse(res, 'errors.message_send'.tr());
   }
 
   // ── Chat global ───────────────────────────────────────────────────────────
@@ -127,7 +128,7 @@ class ChatService extends BaseApiService implements ChatRepository {
           .map((e) => ChatMessage.fromJson(e))
           .toList();
     }
-    throwFromResponse(res, 'Error al cargar chat global');
+    throwFromResponse(res, 'errors.global_chat_load'.tr());
   }
 
   @override
@@ -137,6 +138,6 @@ class ChatService extends BaseApiService implements ChatRepository {
       headers: await authHeaders(),
       body: jsonEncode({'text': text}),
     );
-    if (res.statusCode != 200) throwFromResponse(res, 'Error al enviar mensaje');
+    if (res.statusCode != 200) throwFromResponse(res, 'errors.message_send'.tr());
   }
 }

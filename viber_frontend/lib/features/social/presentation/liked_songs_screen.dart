@@ -58,7 +58,7 @@ class _LikedSongsScreenState extends State<LikedSongsScreen> {
       await _service.unlikeSong(song.videoId);
       if (mounted) {
         setState(() => _songs.removeWhere((s) => s.id == song.id));
-        AppSnackBar.show(context, 'Eliminado de favoritos');
+        AppSnackBar.show(context, 'liked_songs.removed'.tr());
       }
     } catch (e) {
       if (mounted) {
@@ -166,7 +166,7 @@ class _LikedSongsScreenState extends State<LikedSongsScreen> {
         scrollDirection: Axis.horizontal,
         padding: const EdgeInsets.symmetric(horizontal: 12),
         children: [
-          _sortChip('date', 'Más recientes', Icons.schedule_rounded),
+          _sortChip('date', 'explore.sort_newest'.tr(), Icons.schedule_rounded),
           _sortChip('title', 'liked_songs.sort_title'.tr(), Icons.sort_by_alpha_rounded),
           _sortChip('channel', 'Artista A–Z', Icons.person_outline_rounded),
         ],

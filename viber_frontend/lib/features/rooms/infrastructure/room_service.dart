@@ -28,7 +28,7 @@ class RoomService extends BaseApiService implements RoomRepository {
           .map((j) => Room.fromJson(j))
           .toList();
     }
-    throwFromResponse(res, 'Error al cargar salas');
+    throwFromResponse(res, 'errors.rooms_list_load'.tr());
   }
 
   // ── Salas recomendadas por el gusto del usuario ───────────────────────────
@@ -40,7 +40,7 @@ class RoomService extends BaseApiService implements RoomRepository {
           .map((j) => Room.fromJson(j))
           .toList();
     }
-    throwFromResponse(res, 'Error al cargar recomendaciones');
+    throwFromResponse(res, 'errors.recommendations_load'.tr());
   }
 
   // ── Salas propias del usuario (públicas + privadas) ───────────────────────
@@ -98,7 +98,7 @@ class RoomService extends BaseApiService implements RoomRepository {
     );
     final data = jsonDecode(res.body);
     if (res.statusCode == 200) return Room.fromJson(data);
-    throw Exception(data['error'] ?? 'Código inválido');
+    throw Exception(data['error'] ?? 'errors.invalid_code'.tr());
   }
 
   // ── Editar sala ───────────────────────────────────────────────────────────
@@ -175,7 +175,7 @@ class RoomService extends BaseApiService implements RoomRepository {
       headers: await authHeaders(),
       body: jsonEncode({'reason': reason}),
     );
-    if (res.statusCode != 200) throwFromResponse(res, 'Error al enviar el reporte');
+    if (res.statusCode != 200) throwFromResponse(res, 'errors.report_send'.tr());
   }
 
   // ── Catálogo de géneros ───────────────────────────────────────────────────

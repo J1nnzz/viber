@@ -16,7 +16,7 @@ class LikedSongsService extends BaseApiService {
           .map((e) => LikedSong.fromJson(e as Map<String, dynamic>))
           .toList();
     }
-    throwFromResponse(res, 'Error al cargar favoritos');
+    throwFromResponse(res, 'errors.likes_load'.tr());
   }
 
   Future<LikedSong> likeSong({
@@ -43,7 +43,7 @@ class LikedSongsService extends BaseApiService {
       Uri.parse('${ApiConstants.userUrl}/liked-songs/$videoId'),
       headers: await authHeaders(),
     );
-    if (res.statusCode != 200) throwFromResponse(res, 'Error al eliminar de favoritos');
+    if (res.statusCode != 200) throwFromResponse(res, 'errors.like_remove'.tr());
   }
 
   Future<bool> isLiked(String videoId) async {

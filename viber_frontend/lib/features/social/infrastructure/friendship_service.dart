@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'dart:convert';
 import 'dart:typed_data';
 import 'package:http/http.dart' as http;
@@ -23,7 +24,7 @@ class FriendshipService extends BaseApiService implements SocialRepository {
       headers: await authHeaders(),
     );
     if (res.statusCode == 200) return UserProfile.fromJson(jsonDecode(res.body));
-    throwFromResponse(res, 'Error al cargar perfil');
+    throwFromResponse(res, 'errors.profile_load'.tr());
   }
 
   @override
@@ -33,7 +34,7 @@ class FriendshipService extends BaseApiService implements SocialRepository {
       headers: await authHeaders(),
     );
     if (res.statusCode == 200) return UserProfile.fromJson(jsonDecode(res.body));
-    throwFromResponse(res, 'Usuario no encontrado');
+    throwFromResponse(res, 'errors.user_not_found'.tr());
   }
 
   @override
@@ -59,7 +60,7 @@ class FriendshipService extends BaseApiService implements SocialRepository {
       body: jsonEncode({'profileHidden': hidden.toString()}),
     );
     if (res.statusCode == 200) return UserProfile.fromJson(jsonDecode(res.body));
-    throwFromResponse(res, 'Error al actualizar privacidad');
+    throwFromResponse(res, 'errors.privacy_update'.tr());
   }
 
   @override
@@ -81,7 +82,7 @@ class FriendshipService extends BaseApiService implements SocialRepository {
       body: jsonEncode(body),
     );
     if (res.statusCode == 200) return UserProfile.fromJson(jsonDecode(res.body));
-    throwFromResponse(res, 'Error al actualizar perfil');
+    throwFromResponse(res, 'errors.profile_update'.tr());
   }
 
   @override
@@ -105,7 +106,7 @@ class FriendshipService extends BaseApiService implements SocialRepository {
     if (streamed.statusCode == 200) {
       return jsonDecode(body)['secure_url'] as String;
     }
-    throw Exception('Error al subir imagen a Cloudinary');
+    throw Exception('errors.image_upload'.tr());
   }
 
   String _mimeFromFilename(String name) {
@@ -130,7 +131,7 @@ class FriendshipService extends BaseApiService implements SocialRepository {
           .map((e) => UserProfile.fromJson(e))
           .toList();
     }
-    throwFromResponse(res, 'Error al cargar amigos');
+    throwFromResponse(res, 'errors.friends_load'.tr());
   }
 
   @override
@@ -139,7 +140,7 @@ class FriendshipService extends BaseApiService implements SocialRepository {
       Uri.parse('${ApiConstants.userUrl}/friends/request/$username'),
       headers: await authHeaders(),
     );
-    if (res.statusCode != 200) throwFromResponse(res, 'Error al enviar solicitud');
+    if (res.statusCode != 200) throwFromResponse(res, 'errors.request_send'.tr());
   }
 
   @override
@@ -148,7 +149,7 @@ class FriendshipService extends BaseApiService implements SocialRepository {
       Uri.parse('${ApiConstants.userUrl}/friends/accept/$username'),
       headers: await authHeaders(),
     );
-    if (res.statusCode != 200) throwFromResponse(res, 'Error al aceptar solicitud');
+    if (res.statusCode != 200) throwFromResponse(res, 'errors.request_accept'.tr());
   }
 
   @override
@@ -157,7 +158,7 @@ class FriendshipService extends BaseApiService implements SocialRepository {
       Uri.parse('${ApiConstants.userUrl}/friends/$username'),
       headers: await authHeaders(),
     );
-    if (res.statusCode != 200) throwFromResponse(res, 'Error al eliminar amigo');
+    if (res.statusCode != 200) throwFromResponse(res, 'errors.friend_remove'.tr());
   }
 
   @override
@@ -171,7 +172,7 @@ class FriendshipService extends BaseApiService implements SocialRepository {
           .map((e) => UserProfile.fromJson(e))
           .toList();
     }
-    throwFromResponse(res, 'Error al cargar solicitudes');
+    throwFromResponse(res, 'errors.requests_load'.tr());
   }
 
   // ── Presencia ─────────────────────────────────────────────────────────────
@@ -187,7 +188,7 @@ class FriendshipService extends BaseApiService implements SocialRepository {
           .map((e) => FriendStatus.fromJson(e))
           .toList();
     }
-    throwFromResponse(res, 'Error al cargar estado de amigos');
+    throwFromResponse(res, 'errors.friend_status_load'.tr());
   }
 
   // ── Invitaciones ──────────────────────────────────────────────────────────
@@ -199,7 +200,7 @@ class FriendshipService extends BaseApiService implements SocialRepository {
       headers: await authHeaders(),
       body: jsonEncode({'roomId': roomId}),
     );
-    if (res.statusCode != 200) throwFromResponse(res, 'Error al enviar invitación');
+    if (res.statusCode != 200) throwFromResponse(res, 'errors.invite_send'.tr());
   }
 
   @override
@@ -213,7 +214,7 @@ class FriendshipService extends BaseApiService implements SocialRepository {
           .map((e) => RoomInvitation.fromJson(e))
           .toList();
     }
-    throwFromResponse(res, 'Error al cargar invitaciones');
+    throwFromResponse(res, 'errors.invites_load'.tr());
   }
 
   @override
@@ -222,6 +223,6 @@ class FriendshipService extends BaseApiService implements SocialRepository {
       Uri.parse('${ApiConstants.userUrl}/me/invitations/$id'),
       headers: await authHeaders(),
     );
-    if (res.statusCode != 200) throwFromResponse(res, 'Error al descartar invitación');
+    if (res.statusCode != 200) throwFromResponse(res, 'errors.invite_dismiss'.tr());
   }
 }

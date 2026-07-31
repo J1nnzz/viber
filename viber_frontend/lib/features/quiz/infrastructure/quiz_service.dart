@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:viber/core/constants/api_constants.dart';
@@ -78,7 +79,7 @@ class QuizService extends BaseApiService implements QuizRepository {
     if (res.statusCode == 200) {
       return QuizStats.fromJson(jsonDecode(res.body) as Map<String, dynamic>);
     }
-    throwFromResponse(res, 'Error cargando estadísticas');
+    throwFromResponse(res, 'errors.quiz_stats_load'.tr());
   }
 
   // ── Leaderboard ─────────────────────────────────────────────────────────────
@@ -93,7 +94,7 @@ class QuizService extends BaseApiService implements QuizRepository {
     if (res.statusCode == 200) {
       return Leaderboard.fromJson(jsonDecode(res.body) as Map<String, dynamic>);
     }
-    throwFromResponse(res, 'Error cargando la clasificación');
+    throwFromResponse(res, 'errors.leaderboard_load'.tr());
   }
 
   // ── Helpers ───────────────────────────────────────────────────────────────
@@ -103,7 +104,7 @@ class QuizService extends BaseApiService implements QuizRepository {
     if (res.statusCode == 200) {
       return QuizGameState.fromJson(jsonDecode(res.body) as Map<String, dynamic>);
     }
-    throwFromResponse(res, 'Error cargando la partida');
+    throwFromResponse(res, 'errors.match_load'.tr());
   }
 
   Future<QuizGameState> _postState(String url, {Map<String, dynamic>? body}) async {
@@ -115,6 +116,6 @@ class QuizService extends BaseApiService implements QuizRepository {
     if (res.statusCode == 200) {
       return QuizGameState.fromJson(jsonDecode(res.body) as Map<String, dynamic>);
     }
-    throwFromResponse(res, 'Error en la jugada');
+    throwFromResponse(res, 'errors.guess_failed'.tr());
   }
 }

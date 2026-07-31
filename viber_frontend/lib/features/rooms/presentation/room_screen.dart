@@ -551,7 +551,7 @@ class _RoomScreenState extends State<RoomScreen> {
             _roomState = _roomState.withUnkicked(target);
             _chatMessages.add({
               'user': 'system',
-              'text': 'El ban de $target ha sido levantado',
+              'text': 'room.ban_lifted'.tr(namedArgs: {'user': target}),
               'time': _timeNow(),
             });
           }
@@ -576,7 +576,7 @@ class _RoomScreenState extends State<RoomScreen> {
             _roomState = _roomState.withUnmuted(target);
             _chatMessages.add({
               'user': 'system',
-              'text': '$target ya puede hablar de nuevo',
+              'text': 'room.unmuted'.tr(namedArgs: {'user': target}),
               'time': _timeNow(),
             });
             if (target == _username) {
@@ -594,7 +594,7 @@ class _RoomScreenState extends State<RoomScreen> {
           }
           _chatMessages.add({
             'user': 'system',
-            'text': '${msg.senderUsername} entró a la sala',
+            'text': 'room.user_joined'.tr(namedArgs: {'user': '${msg.senderUsername}'}),
             'time': _timeNow(),
           });
 
@@ -605,14 +605,14 @@ class _RoomScreenState extends State<RoomScreen> {
           }
           _chatMessages.add({
             'user': 'system',
-            'text': '${msg.senderUsername} salió de la sala',
+            'text': 'room.user_left'.tr(namedArgs: {'user': '${msg.senderUsername}'}),
             'time': _timeNow(),
           });
 
         case RoomMessage.chat:
           final chatContent = msg.content ?? '';
           _chatMessages.add({
-            'user': msg.senderUsername ?? 'Anónimo',
+            'user': msg.senderUsername ?? 'room.anonymous'.tr(),
             'text': chatContent,
             'time': _timeNow(),
           });

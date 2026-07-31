@@ -748,9 +748,9 @@ enum _SortOrder { listeners, newest, oldest, nameAZ }
 extension _SortOrderLabel on _SortOrder {
   String get label {
     switch (this) {
-      case _SortOrder.listeners: return 'Más oyentes';
-      case _SortOrder.newest:    return 'Más recientes';
-      case _SortOrder.oldest:    return 'Más antiguas';
+      case _SortOrder.listeners: return 'explore.sort_listeners'.tr();
+      case _SortOrder.newest:    return 'explore.sort_newest'.tr();
+      case _SortOrder.oldest:    return 'explore.sort_oldest'.tr();
       case _SortOrder.nameAZ:    return 'Nombre A-Z';
     }
   }

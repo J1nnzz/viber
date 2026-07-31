@@ -225,7 +225,7 @@ class _RoomPlayerState extends State<RoomPlayer> {
 
     final liked = _isLiked ?? false;
     return Tooltip(
-      message: liked ? 'liked_songs.remove'.tr() : 'Añadir a favoritos',
+      message: liked ? 'liked_songs.remove'.tr() : 'room.add_to_liked'.tr(),
       child: InkWell(
         onTap: _toggleLike,
         borderRadius: BorderRadius.circular(20),

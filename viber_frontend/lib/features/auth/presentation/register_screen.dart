@@ -100,7 +100,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
       widget.onRegisterSuccess();
     } catch (e) {
       final msg = e.toString().replaceAll('Exception: ', '');
-      if (msg != 'Inicio de sesión cancelado') setState(() => _error = msg);
+      if (msg != 'errors.login_cancelled'.tr()) setState(() => _error = msg);
     } finally {
       setState(() => _isGoogleLoading = false);
     }

@@ -26,7 +26,7 @@ class GroupService extends BaseApiService {
           .map((e) => GroupModel.fromJson(e as Map<String, dynamic>))
           .toList();
     }
-    throwFromResponse(res, 'Error al cargar grupos');
+    throwFromResponse(res, 'errors.groups_load'.tr());
   }
 
   Future<GroupModel> getGroup(int id) async {
@@ -122,7 +122,7 @@ class GroupService extends BaseApiService {
           .map((e) => GroupMessage.fromJson(e as Map<String, dynamic>))
           .toList();
     }
-    throwFromResponse(res, 'Error al cargar mensajes');
+    throwFromResponse(res, 'errors.messages_load'.tr());
   }
 
   Future<void> sendMessage(int id, String text) async {
@@ -131,7 +131,7 @@ class GroupService extends BaseApiService {
       headers: await authHeaders(),
       body: jsonEncode({'text': text}),
     );
-    if (res.statusCode != 200) throwFromResponse(res, 'Error al enviar mensaje');
+    if (res.statusCode != 200) throwFromResponse(res, 'errors.message_send'.tr());
   }
 
   // ── Invitaciones ────────────────────────────────────────────────────────────
@@ -141,7 +141,7 @@ class GroupService extends BaseApiService {
       Uri.parse('${ApiConstants.groupsUrl}/$id/invite/$username'),
       headers: await authHeaders(),
     );
-    if (res.statusCode != 200) throwFromResponse(res, 'Error al invitar');
+    if (res.statusCode != 200) throwFromResponse(res, 'errors.invite_generic'.tr());
   }
 
   Future<List<GroupInvitationModel>> getInvitations() async {
@@ -154,7 +154,7 @@ class GroupService extends BaseApiService {
           .map((e) => GroupInvitationModel.fromJson(e as Map<String, dynamic>))
           .toList();
     }
-    throwFromResponse(res, 'Error al cargar invitaciones de grupo');
+    throwFromResponse(res, 'errors.group_invites_load'.tr());
   }
 
   Future<void> acceptInvitation(int invId) async {
@@ -162,7 +162,7 @@ class GroupService extends BaseApiService {
       Uri.parse('${ApiConstants.groupsUrl}/invitations/$invId/accept'),
       headers: await authHeaders(),
     );
-    if (res.statusCode != 200) throwFromResponse(res, 'Error al aceptar la invitación');
+    if (res.statusCode != 200) throwFromResponse(res, 'errors.invite_accept'.tr());
   }
 
   Future<void> rejectInvitation(int invId) async {
@@ -170,7 +170,7 @@ class GroupService extends BaseApiService {
       Uri.parse('${ApiConstants.groupsUrl}/invitations/$invId/reject'),
       headers: await authHeaders(),
     );
-    if (res.statusCode != 200) throwFromResponse(res, 'Error al rechazar la invitación');
+    if (res.statusCode != 200) throwFromResponse(res, 'errors.invite_reject'.tr());
   }
 
   // ── Administración ──────────────────────────────────────────────────────────
@@ -180,7 +180,7 @@ class GroupService extends BaseApiService {
       Uri.parse('${ApiConstants.groupsUrl}/$id/members/$username'),
       headers: await authHeaders(),
     );
-    if (res.statusCode != 200) throwFromResponse(res, 'Error al expulsar');
+    if (res.statusCode != 200) throwFromResponse(res, 'errors.kick'.tr());
   }
 
   Future<void> changeRole(int id, String username, GroupRole role) async {
@@ -197,7 +197,7 @@ class GroupService extends BaseApiService {
       Uri.parse('${ApiConstants.groupsUrl}/$id/transfer/$username'),
       headers: await authHeaders(),
     );
-    if (res.statusCode != 200) throwFromResponse(res, 'Error al transferir la propiedad');
+    if (res.statusCode != 200) throwFromResponse(res, 'errors.ownership_transfer'.tr());
   }
 
   Future<void> leave(int id) async {
@@ -225,7 +225,7 @@ class GroupService extends BaseApiService {
     if (streamed.statusCode == 200) {
       return jsonDecode(body)['secure_url'] as String;
     }
-    throw Exception('Error al subir la imagen del grupo');
+    throw Exception('errors.group_image'.tr());
   }
 
   String _mimeFromFilename(String name) {

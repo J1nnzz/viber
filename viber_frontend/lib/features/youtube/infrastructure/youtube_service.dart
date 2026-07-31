@@ -23,7 +23,7 @@ class YoutubeService extends BaseApiService implements YoutubeRepository {
           .map((e) => YoutubeSearchResult.fromJson(e))
           .toList();
     }
-    throwFromResponse(res, 'Error en la búsqueda');
+    throwFromResponse(res, 'errors.search_failed'.tr());
   }
 
   // ── Importar playlist ─────────────────────────────────────────────────────

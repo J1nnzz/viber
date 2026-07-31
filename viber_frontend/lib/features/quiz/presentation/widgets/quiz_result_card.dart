@@ -60,8 +60,8 @@ class QuizResultCard extends StatelessWidget {
                               color: Theme.of(context).colorScheme.onSurface,
                               fontSize: 14, fontWeight: FontWeight.w800)),
                       Text(winner != null
-                              ? 'Ganó $winner · $topScore pts'
-                              : 'Sin ganador',
+                              ? 'quiz.winner_line'.tr(namedArgs: {'user': '$winner', 'pts': '$topScore'})
+                              : 'quiz.no_winner'.tr(),
                           maxLines: 1, overflow: TextOverflow.ellipsis,
                           style: TextStyle(
                               color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6),

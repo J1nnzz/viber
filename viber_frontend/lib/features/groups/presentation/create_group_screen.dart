@@ -55,7 +55,7 @@ class _CreateGroupScreenState extends State<CreateGroupScreen> {
   Future<void> _create() async {
     final name = _nameCtrl.text.trim();
     if (name.isEmpty) {
-      setState(() => _error = 'El nombre del grupo es obligatorio');
+      setState(() => _error = 'groups.name_required'.tr());
       return;
     }
     setState(() { _creating = true; _error = null; });

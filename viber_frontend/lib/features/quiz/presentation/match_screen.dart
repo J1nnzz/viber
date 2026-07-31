@@ -491,7 +491,7 @@ class _MatchScreenState extends State<MatchScreen>
                 color: iWasRight ? appSuccess : appError, size: 48),
           ),
           const SizedBox(height: spacingSm),
-          Text(iWasRight ? 'quiz.correct'.tr() : (_myPick == null ? 'Sin respuesta' : 'Fallaste'),
+          Text(iWasRight ? 'quiz.correct'.tr() : (_myPick == null ? 'quiz.no_answer'.tr() : 'Fallaste'),
               textAlign: TextAlign.center,
               style: TextStyle(
                   color: Theme.of(context).colorScheme.onSurface,
@@ -590,7 +590,7 @@ class _MatchScreenState extends State<MatchScreen>
             child: const Icon(Icons.emoji_events_rounded, color: appAccent, size: 56),
           ),
           const SizedBox(height: spacingSm),
-          Text(iWon ? '¡Has ganado!' : '${f.winner ?? "Nadie"} gana',
+          Text(iWon ? 'quiz.you_won'.tr() : '${f.winner ?? "Nadie"} gana',
               textAlign: TextAlign.center,
               style: TextStyle(
                   color: Theme.of(context).colorScheme.onSurface,

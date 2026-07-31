@@ -223,7 +223,7 @@ class _EditRoomSheetState extends State<EditRoomSheet> {
             // ── Géneros ───────────────────────────────────────────────────────
             Row(
               children: [
-                _Label('Géneros'),
+                _Label('edit_room.genres'.tr()),
                 if (_selectedGenres.isNotEmpty) ...[
                   const SizedBox(width: spacingXs),
                   Container(

@@ -93,8 +93,8 @@ class _AddMenuSheet extends StatelessWidget {
             // Opción: canción
             _MenuOption(
               icon: Icons.music_note_rounded,
-              label: 'Buscar canción',
-              subtitle: 'Busca por título o artista',
+              label: 'youtube.search_song'.tr(),
+              subtitle: 'youtube.search_by'.tr(),
               onTap: () => Navigator.pop(context, _AddChoice.search),
             ),
             Divider(height: 1, color: appDivider, indent: 56),
@@ -102,7 +102,7 @@ class _AddMenuSheet extends StatelessWidget {
             _MenuOption(
               icon: Icons.queue_music_rounded,
               label: 'Importar playlist',
-              subtitle: 'Pega una URL de YouTube',
+              subtitle: 'youtube.paste_url'.tr(),
               onTap: () => Navigator.pop(context, _AddChoice.playlist),
             ),
             const SizedBox(height: 8),
@@ -244,7 +244,7 @@ class _SearchSongSheetState extends State<SearchSongSheet> {
       child: Column(
         children: [
           _buildHandle(context),
-          _buildHeader(context, 'Buscar canción', Icons.search_rounded),
+          _buildHeader(context, 'youtube.search_song'.tr(), Icons.search_rounded),
           Divider(height: 1, color: appDivider),
           // Buscador
           Padding(

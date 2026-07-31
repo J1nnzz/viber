@@ -330,7 +330,7 @@ class _QueueTileState extends State<_QueueTile> {
                     color: liked ? appAccent : context.appTextSecColor,
                   ),
                   splashRadius: 18,
-                  tooltip: liked ? 'liked_songs.remove'.tr() : 'Añadir a favoritos',
+                  tooltip: liked ? 'liked_songs.remove'.tr() : 'room.add_to_liked'.tr(),
                   onPressed: _toggleLike,
                 ),
           // Botón de borrar — solo Host/DJ

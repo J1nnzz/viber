@@ -51,7 +51,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     final cropped = await pickAndCropImage(
       context,
       circle: true,
-      title: 'Ajustar foto de perfil',
+      title: 'edit_profile.adjust_photo'.tr(),
     );
     if (cropped == null) return;
 
