@@ -259,7 +259,7 @@ class _MatchScreenState extends State<MatchScreen>
                   border: canStart ? null : Border.all(color: appDivider),
                 ),
                 child: Center(
-                  child: Text(canStart ? 'Empezar partida' : 'Esperando jugadores…',
+                  child: Text(canStart ? 'quiz.start_match'.tr() : 'quiz.waiting_players'.tr(),
                       style: TextStyle(
                           color: canStart ? Colors.white : Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6),
                           fontSize: 15, fontWeight: FontWeight.w700)),
@@ -515,7 +515,7 @@ class _MatchScreenState extends State<MatchScreen>
   }
 
   Widget _nextCountdownChip(RevealEvent r) {
-    final label = r.last ? 'Resultados en' : 'Siguiente ronda en';
+    final label = r.last ? 'quiz.results_in'.tr() : 'quiz.next_round_in'.tr();
     return Center(
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 7),
@@ -590,7 +590,7 @@ class _MatchScreenState extends State<MatchScreen>
             child: const Icon(Icons.emoji_events_rounded, color: appAccent, size: 56),
           ),
           const SizedBox(height: spacingSm),
-          Text(iWon ? 'quiz.you_won'.tr() : '${f.winner ?? "Nadie"} gana',
+          Text(iWon ? 'quiz.you_won'.tr() : 'quiz.winner_wins'.tr(namedArgs: {'user': '${f.winner ?? 'quiz.nobody'.tr()}'}),
               textAlign: TextAlign.center,
               style: TextStyle(
                   color: Theme.of(context).colorScheme.onSurface,

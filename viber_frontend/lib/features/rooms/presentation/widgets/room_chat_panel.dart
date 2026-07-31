@@ -639,14 +639,14 @@ class _ModerationMenu extends StatelessWidget {
           _menuItem(
             value: 'promote',
             icon:  Icons.queue_music_rounded,
-            label: 'Hacer DJ',
+            label: 'room_chat.make_dj'.tr(),
             color: appAccent,
           )
         else
           _menuItem(
             value: 'demote',
             icon:  Icons.person_outline,
-            label: 'Quitar DJ',
+            label: 'room_chat.remove_dj'.tr(),
             color: context.appTextSecColor,
           ),
 
@@ -664,7 +664,7 @@ class _ModerationMenu extends StatelessWidget {
           _menuItem(
             value: 'unmute',
             icon:  Icons.mic_outlined,
-            label: 'Quitar silencio',
+            label: 'room_chat.unmute'.tr(),
             color: appSuccess,
           ),
 

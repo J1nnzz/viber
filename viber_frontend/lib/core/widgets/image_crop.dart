@@ -10,7 +10,7 @@ import 'package:viber/core/widgets/motion.dart';
 class CroppedImage {
   final Uint8List bytes;
   final String name;
-  const CroppedImage(this.bytes, this.name);
+  CroppedImage(this.bytes, this.name);
 }
 
 /// Abre el selector de archivos, deja al usuario recortar la imagen elegida y
@@ -25,7 +25,7 @@ Future<CroppedImage?> pickAndCropImage(
   BuildContext context, {
   double? aspectRatio,
   bool circle = false,
-  String title = 'Ajustar imagen',
+  String? title,
 }) async {
   final result = await FilePicker.platform.pickFiles(
     type: FileType.image,
@@ -44,7 +44,7 @@ Future<CroppedImage?> pickAndCropImage(
         imageBytes: file.bytes!,
         aspectRatio: aspectRatio,
         circle: circle,
-        title: title,
+        title: title ?? 'common.adjust_image'.tr(),
       ),
     ),
   );
@@ -61,14 +61,14 @@ class ImageCropperScreen extends StatefulWidget {
   final Uint8List imageBytes;
   final double? aspectRatio;
   final bool circle;
-  final String title;
+  final String? title;
 
-  const ImageCropperScreen({
+  ImageCropperScreen({
     super.key,
     required this.imageBytes,
     this.aspectRatio,
     this.circle = false,
-    this.title = 'Ajustar imagen',
+    this.title,
   });
 
   @override
@@ -107,7 +107,7 @@ class _ImageCropperScreenState extends State<ImageCropperScreen> {
         backgroundColor: Colors.black,
         foregroundColor: Colors.white,
         elevation: 0,
-        title: Text(widget.title, style: const TextStyle(fontSize: 16)),
+        title: Text(widget.title ?? 'common.adjust_image'.tr(), style: const TextStyle(fontSize: 16)),
         leading: IconButton(
           icon: const Icon(Icons.close),
           tooltip: 'common.cancel'.tr(),

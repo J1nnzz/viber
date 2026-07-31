@@ -276,7 +276,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Future<void> _joinFromInvitation(RoomInvitation inv) async {
     if (_joiningRoom) return;
     setState(() => _joiningRoom = true);
-    _showSnackBar('Conectando a "${inv.roomName}"…',
+    _showSnackBar('home.connecting_to'.tr(namedArgs: {'room': '${inv.roomName}'}),
         icon: Icons.headphones_rounded, color: appAccent);
     try {
       final Room room;
@@ -507,11 +507,11 @@ class _HomeScreenState extends State<HomeScreen> {
             }
           },
           itemBuilder: (context) => [
-            const PopupMenuItem(
+            PopupMenuItem(
               value: 'profile',
               child: _AccountMenuRow(
                 icon: Icons.person_outlined,
-                label: 'Mi perfil',
+                label: 'profile.my_profile'.tr(),
               ),
             ),
             if (_isAdmin)

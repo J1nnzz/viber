@@ -23,7 +23,7 @@ class QuizService extends BaseApiService implements QuizRepository {
           .map((e) => QuizPoolSong.fromJson(e as Map<String, dynamic>))
           .toList();
     }
-    throwFromResponse(res, 'Error buscando canciones');
+    throwFromResponse(res, 'errors.song_search'.tr());
   }
 
   // ── Partidas ──────────────────────────────────────────────────────────────

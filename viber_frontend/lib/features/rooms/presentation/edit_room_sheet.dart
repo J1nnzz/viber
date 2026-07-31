@@ -371,7 +371,7 @@ class _EditRoomSheetState extends State<EditRoomSheet> {
             const SizedBox(height: spacingLg),
 
             // ── Sala permanente (auto-DJ) ─────────────────────────────────────
-            _Label('Sala permanente'),
+            _Label('edit_room.permanent'.tr()),
             const SizedBox(height: spacingXs),
             Material(
               color: _autoDj ? appAccentGlow : context.appSurfaceAltColor,

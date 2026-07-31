@@ -156,7 +156,7 @@ class _NotificationsSheetState extends State<NotificationsSheet> {
                   // ── Invitaciones a grupo ─────────────────────────────────
                   if (widget.groupInvitations.isNotEmpty) ...[
                     _sectionHeader(
-                        'INVITACIONES A GRUPO', widget.groupInvitations.length),
+                        'notifications.group_invites_header'.tr(), widget.groupInvitations.length),
                     ...widget.groupInvitations.indexed.map((e) {
                       final inv = e.$2;
                       return AppEntrance(

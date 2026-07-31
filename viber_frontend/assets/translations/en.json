@@ -26,7 +26,8 @@
     "confirm": "Confirm",
     "reload": "Reload",
     "back": "Back",
-    "music": "Music"
+    "music": "Music",
+    "adjust_image": "Adjust image"
   },
   "auth": {
     "login_subtitle": "Sign in to continue",
@@ -101,7 +102,12 @@
     "rooms_count": {
       "one": "{} room",
       "other": "{} rooms"
-    }
+    },
+    "rooms_created": "Rooms created",
+    "time_listened": "Time listened",
+    "rooms_joined": "Rooms joined",
+    "songs_played": "Songs played",
+    "my_profile": "My profile"
   },
   "edit_profile": {
     "title": "Edit profile",
@@ -224,7 +230,8 @@
     "autodj_desc": "When the queue runs short, songs in the same style as what already played are added automatically.",
     "your_room": "Your room",
     "public": "Public",
-    "welcome_label": "Welcome message (optional)"
+    "welcome_label": "Welcome message (optional)",
+    "adjust_cover": "Adjust cover"
   },
   "edit_room": {
     "title": "Manage room",
@@ -252,7 +259,8 @@
     "autodj_hint": "Auto-DJ: queues songs in the same style when the queue runs short.",
     "desc_hint": "Describe your room…",
     "genres": "Genres",
-    "current_code": "Current: {code} (empty = keep)"
+    "current_code": "Current: {code} (empty = keep)",
+    "permanent": "Permanent room"
   },
   "room": {
     "admin_banner": "Admin mode · Observing only",
@@ -312,7 +320,9 @@
     "unmuted": "{user} can speak again",
     "user_joined": "{user} joined the room",
     "user_left": "{user} left the room",
-    "role_now": "{user} is now {role}"
+    "role_now": "{user} is now {role}",
+    "in_progress": "in progress",
+    "user_muted": "{user} was muted"
   },
   "mini_player": {
     "no_playback": "Nothing playing",
@@ -335,7 +345,10 @@
     "banned_count": "BANNED  •  {n}",
     "kick_confirm": "Are you sure you want to kick {user} from the room?",
     "muted_hint": "You are muted...",
-    "input_hint": "Write a message..."
+    "input_hint": "Write a message...",
+    "make_dj": "Make DJ",
+    "remove_dj": "Remove DJ",
+    "unmute": "Unmute"
   },
   "queue": {
     "title": "Queue",
@@ -353,7 +366,8 @@
     "join_button": "Join",
     "wants_friend": "@{user} wants to be your friend",
     "invited_you": "{user} invited you",
-    "from_user": "From {user}"
+    "from_user": "From {user}",
+    "group_invites_header": "GROUP INVITATIONS"
   },
   "home": {
     "connecting": "Connecting to \"{}\"…",
@@ -373,7 +387,8 @@
     "switch_confirm": "Do you want to leave and join \"{room}\"?",
     "friend_request_from": "{user} sent you a friend request",
     "group_invite_from": "{user} invited you to the group \"{group}\"",
-    "room_invite_from": "{user} invited you to \"{room}\""
+    "room_invite_from": "{user} invited you to \"{room}\"",
+    "connecting_to": "Connecting to \"{room}\"…"
   },
   "quiz": {
     "title": "Music quiz",
@@ -477,7 +492,15 @@
     "you_won": "You won!",
     "no_winner": "No winner",
     "seconds_per_round": "Seconds per round",
-    "winner_line": "{user} won · {pts} pts"
+    "winner_line": "{user} won · {pts} pts",
+    "nobody": "Nobody",
+    "start_match": "Start match",
+    "waiting_players": "Waiting for players…",
+    "results_in": "Results in",
+    "next_round_in": "Next round in",
+    "you_challenged": "You challenged this chat",
+    "challenged_you": "{user} challenged you",
+    "winner_wins": "{user} wins"
   },
   "explore": {
     "title": "Explore",
@@ -494,7 +517,9 @@
     "close_room_confirm": "\"{room}\" will be closed permanently.",
     "sort_listeners": "Most listeners",
     "sort_newest": "Newest",
-    "sort_oldest": "Oldest"
+    "sort_oldest": "Oldest",
+    "live_now": "Live now",
+    "sort_name": "Name A-Z"
   },
   "groups": {
     "info_title": "Group info",
@@ -531,7 +556,14 @@
     "delete_confirm": "This will delete \"{name}\" for everyone. It cannot be undone.",
     "now_admin": "@{user} is now an admin",
     "no_longer_admin": "@{user} is no longer an admin",
-    "transfer_confirm": "You will become an admin and @{user} will be the new owner."
+    "transfer_confirm": "You will become an admin and @{user} will be the new owner.",
+    "delete_group": "Delete group",
+    "perm_invite": "Invite members",
+    "perm_send": "Send messages",
+    "perm_quiz": "Start quizzes",
+    "members_header": "MEMBERS ({n})",
+    "member_kicked": "@{user} removed",
+    "ownership_transferred": "Ownership transferred to @{user}"
   },
   "liked_songs": {
     "title": "Liked songs",
@@ -541,7 +573,8 @@
     "remove": "Remove from liked",
     "no_results_for": "No results for \"{query}\"",
     "sort_title": "Title A–Z",
-    "removed": "Removed from liked songs"
+    "removed": "Removed from liked songs",
+    "sort_artist": "Artist A–Z"
   },
   "admin": {
     "title": "Admin panel",
@@ -612,7 +645,32 @@
     "close_room_confirm": "Close the room \"{name}\" for good?\n\nEveryone will be kicked out and the room will be deactivated. The data is kept.",
     "kick_all_confirm": "Kick everyone out of \"{name}\"?\n\nThe room stays active and they can come back in.",
     "unflag_confirm": "Remove the report flag from \"{name}\"?\n\nThe report note will be deleted too.",
-    "with_reports": "⚠ Reported"
+    "with_reports": "⚠ Reported",
+    "room_closed_ok": "Room closed",
+    "users_kicked": "Users kicked",
+    "flag_removed": "Flag removed",
+    "room_flagged": "Room flagged",
+    "note_updated": "Note updated",
+    "flagged_chip": "⚑ Flagged",
+    "edit_note": "Edit note",
+    "remove_flag": "Remove flag",
+    "demote": "Remove admin",
+    "promote": "Make admin",
+    "importing": "Importing…",
+    "searching": "Searching…",
+    "fetch_lyrics": "Fetch lyrics",
+    "generating": "Generating…",
+    "emojis_ai": "Emojis (AI)",
+    "rooms_total": "{n} rooms total",
+    "users_registered": "{n} registered users",
+    "filter_all": "All ({n})",
+    "filter_incomplete": "Incomplete ({n})",
+    "kicked_suffix": "{n} users kicked",
+    "rooms_with_reports": "{rooms} rooms · {reports} pending reports",
+    "pending_reports": {
+      "one": "{} pending report",
+      "other": "{} pending reports"
+    }
   },
   "youtube": {
     "add_to_queue": "Add to queue",
@@ -627,7 +685,11 @@
     "search_song": "Search song",
     "search_by": "Search by title or artist",
     "paste_url": "Paste a YouTube URL",
-    "search_empty": "Search for a song\nto add it to the queue"
+    "search_empty": "Search for a song\nto add it to the queue",
+    "import_playlist": "Import playlist",
+    "searching": "Searching...",
+    "deselect_all": "Deselect all",
+    "select_all": "Select all"
   },
   "errors": {
     "group_load": "Couldn't load the group",
@@ -695,6 +757,11 @@
     "room_fetch": "Couldn't fetch the room",
     "room_enter": "Couldn't enter \"{name}\"",
     "import_failed_detail": "Import failed: {error}",
-    "image_upload_detail": "Couldn't upload the image: {error}"
+    "image_upload_detail": "Couldn't upload the image: {error}",
+    "lyrics_search": "Couldn't fetch the lyrics",
+    "emoji_generate": "Couldn't generate the emojis",
+    "song_search": "Couldn't search for songs",
+    "lyrics_search_detail": "Couldn't fetch the lyrics: {error}",
+    "emoji_generate_detail": "Couldn't generate the emojis: {error}"
   }
 }

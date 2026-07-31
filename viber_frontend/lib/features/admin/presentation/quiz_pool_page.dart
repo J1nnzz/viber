@@ -140,11 +140,11 @@ class _QuizPoolPageState extends State<QuizPoolPage> {
         );
         _load();
       } else {
-        _snack(jsonDecode(res.body)['error'] ?? 'Error buscando letras',
+        _snack(jsonDecode(res.body)['error'] ?? 'errors.lyrics_search'.tr(),
             error: true);
       }
     } catch (e) {
-      if (mounted) _snack('Error buscando letras: $e', error: true);
+      if (mounted) _snack('errors.lyrics_search_detail'.tr(namedArgs: {'error': '$e'}), error: true);
     } finally {
       if (mounted) setState(() => _fetchingLyrics = false);
     }
@@ -175,11 +175,11 @@ class _QuizPoolPageState extends State<QuizPoolPage> {
         );
         _load();
       } else {
-        _snack(jsonDecode(res.body)['error'] ?? 'Error generando emojis',
+        _snack(jsonDecode(res.body)['error'] ?? 'errors.emoji_generate'.tr(),
             error: true);
       }
     } catch (e) {
-      if (mounted) _snack('Error generando emojis: $e', error: true);
+      if (mounted) _snack('errors.emoji_generate_detail'.tr(namedArgs: {'error': '$e'}), error: true);
     } finally {
       if (mounted) setState(() => _suggestingEmojis = false);
     }
@@ -301,7 +301,7 @@ class _QuizPoolPageState extends State<QuizPoolPage> {
                                 strokeWidth: 2, color: Colors.white),
                           )
                         : const Icon(Icons.download_rounded, size: 18),
-                    label: Text(_importing ? 'Importando…' : 'Importar'),
+                    label: Text(_importing ? 'admin.importing'.tr() : 'Importar'),
                   ),
                   const SizedBox(width: spacingSm),
                   OutlinedButton.icon(
@@ -315,7 +315,7 @@ class _QuizPoolPageState extends State<QuizPoolPage> {
                           )
                         : const Icon(Icons.lyrics_outlined, size: 18),
                     label: Text(
-                        _fetchingLyrics ? 'Buscando…' : 'Buscar letras'),
+                        _fetchingLyrics ? 'admin.searching'.tr() : 'admin.fetch_lyrics'.tr()),
                   ),
                   const SizedBox(width: spacingSm),
                   OutlinedButton.icon(
@@ -329,7 +329,7 @@ class _QuizPoolPageState extends State<QuizPoolPage> {
                           )
                         : const Icon(Icons.auto_awesome_outlined, size: 18),
                     label: Text(
-                        _suggestingEmojis ? 'Generando…' : 'Emojis (IA)'),
+                        _suggestingEmojis ? 'admin.generating'.tr() : 'admin.emojis_ai'.tr()),
                   ),
                 ],
               ),
@@ -352,9 +352,9 @@ class _QuizPoolPageState extends State<QuizPoolPage> {
           child: Wrap(
             spacing: spacingSm,
             children: [
-              _filterChip('Todas (${_songs.length})', _Filter.all),
+              _filterChip('admin.filter_all'.tr(namedArgs: {'n': '${_songs.length}'}), _Filter.all),
               _filterChip(
-                  'Incompletas (${_songs.where(_isIncomplete).length})',
+                  'admin.filter_incomplete'.tr(namedArgs: {'n': '${_songs.where(_isIncomplete).length}'}),
                   _Filter.incomplete),
               _filterChip(
                   'admin.filter_no_preview'.tr(namedArgs: {'n': '${_songs.where(_hasNoPreview).length}'}),

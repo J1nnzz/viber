@@ -168,7 +168,7 @@ class _LikedSongsScreenState extends State<LikedSongsScreen> {
         children: [
           _sortChip('date', 'explore.sort_newest'.tr(), Icons.schedule_rounded),
           _sortChip('title', 'liked_songs.sort_title'.tr(), Icons.sort_by_alpha_rounded),
-          _sortChip('channel', 'Artista A–Z', Icons.person_outline_rounded),
+          _sortChip('channel', 'liked_songs.sort_artist'.tr(), Icons.person_outline_rounded),
         ],
       ),
     );

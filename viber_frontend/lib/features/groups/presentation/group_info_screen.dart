@@ -135,7 +135,7 @@ class _GroupInfoScreenState extends State<GroupInfoScreen> {
   }
 
   Future<void> _delete() async {
-    await _confirm('Borrar grupo', 'groups.delete_confirm'.tr(namedArgs: {'name': '${_group!.name}'}), 'Borrar', danger: true);
+    await _confirm('groups.delete_group'.tr(), 'groups.delete_confirm'.tr(namedArgs: {'name': '${_group!.name}'}), 'Borrar', danger: true);
     if (!_pendingConfirm) return;
     try {
       await _service.deleteGroup(_group!.id);
@@ -239,13 +239,13 @@ class _GroupInfoScreenState extends State<GroupInfoScreen> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         _sectionHeader('PERMISOS'),
-        _permissionRow('Invitar miembros', g.invitePolicy,
+        _permissionRow('groups.perm_invite'.tr(), g.invitePolicy,
             (p) => _service.updatePermissions(g.id, invitePolicy: p)),
         _permissionRow('groups.edit_info'.tr(), g.editInfoPolicy,
             (p) => _service.updatePermissions(g.id, editInfoPolicy: p)),
-        _permissionRow('Enviar mensajes', g.sendMessagePolicy,
+        _permissionRow('groups.perm_send'.tr(), g.sendMessagePolicy,
             (p) => _service.updatePermissions(g.id, sendMessagePolicy: p)),
-        _permissionRow('Lanzar quiz', g.startQuizPolicy,
+        _permissionRow('groups.perm_quiz'.tr(), g.startQuizPolicy,
             (p) => _service.updatePermissions(g.id, startQuizPolicy: p)),
       ],
     );
@@ -307,7 +307,7 @@ class _GroupInfoScreenState extends State<GroupInfoScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _sectionHeader('MIEMBROS (${g.members.length})'),
+        _sectionHeader('groups.members_header'.tr(namedArgs: {'n': '${g.members.length}'})),
         ...g.members.map(_memberTile),
       ],
     );
@@ -363,7 +363,7 @@ class _GroupInfoScreenState extends State<GroupInfoScreen> {
             _confirmTransfer(m);
             break;
           case 'kick':
-            _run(() => _service.kick(g.id, m.username), ok: '@${m.username} expulsado');
+            _run(() => _service.kick(g.id, m.username), ok: 'groups.member_kicked'.tr(namedArgs: {'user': '${m.username}'}));
             break;
         }
       },
@@ -387,7 +387,7 @@ class _GroupInfoScreenState extends State<GroupInfoScreen> {
         'Transferir');
     if (!_pendingConfirm) return;
     await _run(() => _service.transferOwnership(_group!.id, m.username),
-        ok: 'Propiedad transferida a @${m.username}');
+        ok: 'groups.ownership_transferred'.tr(namedArgs: {'user': '${m.username}'}));
   }
 
   // ── Zona peligrosa ──────────────────────────────────────────────────────────
@@ -399,7 +399,7 @@ class _GroupInfoScreenState extends State<GroupInfoScreen> {
       child: Column(
         children: [
           if (g.isOwner)
-            _dangerButton('Borrar grupo', Icons.delete_outline_rounded, _delete)
+            _dangerButton('groups.delete_group'.tr(), Icons.delete_outline_rounded, _delete)
           else
             _dangerButton('groups.leave_group'.tr(), Icons.logout_rounded, _leave),
           if (g.isOwner && g.memberCount > 1) ...[

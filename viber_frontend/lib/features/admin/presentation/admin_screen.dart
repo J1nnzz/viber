@@ -336,7 +336,7 @@ class _RoomsPageState extends State<_RoomsPage> {
     );
     if (mounted) {
       _snack(res.statusCode == 200
-          ? 'Sala cerrada correctamente'
+          ? 'admin.room_closed_ok'.tr()
           : jsonDecode(res.body)['error'] ?? 'Error',
           error: res.statusCode != 200);
     }
@@ -355,7 +355,7 @@ class _RoomsPageState extends State<_RoomsPage> {
     if (mounted) {
       if (res.statusCode == 200) {
         final data = jsonDecode(res.body);
-        _snack(data['message'] ?? 'Usuarios echados');
+        _snack(data['message'] ?? 'admin.users_kicked'.tr());
       } else {
         _snack(jsonDecode(res.body)['error'] ?? 'Error', error: true);
       }
@@ -384,7 +384,7 @@ class _RoomsPageState extends State<_RoomsPage> {
       );
       if (mounted) {
         _snack(res.statusCode == 200
-            ? (jsonDecode(res.body)['message'] ?? 'Incidencia retirada')
+            ? (jsonDecode(res.body)['message'] ?? 'admin.flag_removed'.tr())
             : (jsonDecode(res.body)['error']   ?? 'Error'),
             error: res.statusCode != 200);
       }
@@ -411,8 +411,8 @@ class _RoomsPageState extends State<_RoomsPage> {
         if (res.statusCode == 200) {
           final data    = jsonDecode(res.body);
           final kicked  = data['kicked'] as int?;
-          var msg       = data['message'] ?? 'Sala marcada';
-          if (kicked != null && kicked > 0) msg += ' · $kicked usuarios echados';
+          var msg       = data['message'] ?? 'admin.room_flagged'.tr();
+          if (kicked != null && kicked > 0) msg += ' · ${'admin.kicked_suffix'.tr(namedArgs: {'n': '$kicked'})}';
           _snack(msg);
         } else {
           _snack(jsonDecode(res.body)['error'] ?? 'Error', error: true);
@@ -464,7 +464,7 @@ class _RoomsPageState extends State<_RoomsPage> {
       body: jsonEncode({'reason': newReason}),
     );
     if (mounted) {
-      _snack(res.statusCode == 200 ? 'Nota actualizada' : 'errors.save_failed'.tr(),
+      _snack(res.statusCode == 200 ? 'admin.note_updated'.tr() : 'errors.save_failed'.tr(),
              error: res.statusCode != 200);
     }
     _load();
@@ -481,8 +481,8 @@ class _RoomsPageState extends State<_RoomsPage> {
         _SectionHeader(
           title: 'admin.rooms_management'.tr(),
           subtitle: pendingTotal > 0
-              ? '${_rooms.length} salas · $pendingTotal reportes pendientes'
-              : '${_rooms.length} salas totales',
+              ? 'admin.rooms_with_reports'.tr(namedArgs: {'rooms': '${_rooms.length}', 'reports': '$pendingTotal'})
+              : 'admin.rooms_total'.tr(namedArgs: {'n': '${_rooms.length}'}),
           icon: Icons.meeting_room,
           trailing: IconButton(
             icon: const Icon(Icons.refresh),
@@ -513,7 +513,7 @@ class _RoomsPageState extends State<_RoomsPage> {
               _FilterChip(label: 'Todas',        selected: _filter == _RoomFilter.all,     onTap: () => setState(() => _filter = _RoomFilter.all)),
               _FilterChip(label: 'Activas',      selected: _filter == _RoomFilter.active,  onTap: () => setState(() => _filter = _RoomFilter.active),  color: Colors.green),
               _FilterChip(label: 'Cerradas',     selected: _filter == _RoomFilter.closed,  onTap: () => setState(() => _filter = _RoomFilter.closed),  color: Colors.grey),
-              _FilterChip(label: '⚑ Incidencia', selected: _filter == _RoomFilter.flagged, onTap: () => setState(() => _filter = _RoomFilter.flagged), color: Colors.orange),
+              _FilterChip(label: 'admin.flagged_chip'.tr(), selected: _filter == _RoomFilter.flagged, onTap: () => setState(() => _filter = _RoomFilter.flagged), color: Colors.orange),
               _FilterChip(
                 label: 'admin.with_reports'.tr(),
                 selected: _filterReports,
@@ -758,7 +758,7 @@ class _RoomCard extends StatelessWidget {
                       onPressed: onEditNote,
                       icon: const Icon(Icons.edit_note, size: 16),
                       label: Text(flagReason != null && flagReason.isNotEmpty
-                          ? 'Editar nota'
+                          ? 'admin.edit_note'.tr()
                           : 'admin.add_note'.tr()),
                       style: OutlinedButton.styleFrom(foregroundColor: Colors.orange.shade800),
                     ),
@@ -770,7 +770,7 @@ class _RoomCard extends StatelessWidget {
                       size: 16,
                       color: flagged ? Colors.grey : Colors.orange,
                     ),
-                    label: Text(flagged ? 'Retirar incidencia' : 'admin.flag_report'.tr()),
+                    label: Text(flagged ? 'admin.remove_flag'.tr() : 'admin.flag_report'.tr()),
                     style: OutlinedButton.styleFrom(
                       foregroundColor: flagged ? Colors.grey : Colors.orange,
                     ),
@@ -805,7 +805,7 @@ class _RoomCard extends StatelessWidget {
                     const SizedBox(width: 5),
                     Text(
                       pendingReports.isNotEmpty
-                          ? '${pendingReports.length} reporte${pendingReports.length > 1 ? 's' : ''} pendiente${pendingReports.length > 1 ? 's' : ''}'
+                          ? 'admin.pending_reports'.plural(pendingReports.length)
                           : 'admin.all_reports_resolved'.tr(),
                       style: TextStyle(
                         fontSize: 12,
@@ -979,7 +979,7 @@ class _UsersPageState extends State<_UsersPage> {
       children: [
         _SectionHeader(
           title: 'admin.users_management'.tr(),
-          subtitle: '${_users.length} usuarios registrados',
+          subtitle: 'admin.users_registered'.tr(namedArgs: {'n': '${_users.length}'}),
           icon: Icons.people,
         ),
         Padding(
@@ -1042,7 +1042,7 @@ class _UsersPageState extends State<_UsersPage> {
                                     size: 18,
                                     color: isAdmin ? Colors.orange : Colors.deepPurple,
                                   ),
-                                  tooltip: isAdmin ? 'Quitar admin' : 'Hacer admin',
+                                  tooltip: isAdmin ? 'admin.demote'.tr() : 'admin.promote'.tr(),
                                   onPressed: () => _changeRole(u['username'], role),
                                 ),
                               ],

@@ -562,7 +562,7 @@ class _RoomScreenState extends State<RoomScreen> {
             _roomState = _roomState.withMuted(target);
             _chatMessages.add({
               'user': 'system',
-              'text': '$target fue silenciado',
+              'text': 'room.user_muted'.tr(namedArgs: {'user': target}),
               'time': _timeNow(),
             });
             if (target == _username) {

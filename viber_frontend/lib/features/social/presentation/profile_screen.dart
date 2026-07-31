@@ -192,7 +192,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       if (_stats != null) ...[
                         _Stat(
                           value: '${_stats!.roomsCreated}',
-                          label: 'Salas creadas',
+                          label: 'profile.rooms_created'.tr(),
                         ),
                         _Stat(
                           value: '${_stats!.likedSongsCount}',
@@ -314,12 +314,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
             children: [
               Expanded(child: _StatRow(
                 icon: Icons.headphones_rounded,
-                label: 'Tiempo escuchado',
+                label: 'profile.time_listened'.tr(),
                 value: stats.listenTimeFormatted,
               )),
               Expanded(child: _StatRow(
                 icon: Icons.meeting_room_outlined,
-                label: 'Salas unidas',
+                label: 'profile.rooms_joined'.tr(),
                 value: '${stats.roomsJoined}',
               )),
             ],
@@ -336,7 +336,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               )),
               Expanded(child: _StatRow(
                 icon: Icons.headset_rounded,
-                label: 'Canciones escuchadas',
+                label: 'profile.songs_played'.tr(),
                 value: '${stats.songsPlayed}',
               )),
             ],

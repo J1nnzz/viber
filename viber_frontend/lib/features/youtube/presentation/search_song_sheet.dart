@@ -101,7 +101,7 @@ class _AddMenuSheet extends StatelessWidget {
             // Opción: playlist
             _MenuOption(
               icon: Icons.queue_music_rounded,
-              label: 'Importar playlist',
+              label: 'youtube.import_playlist'.tr(),
               subtitle: 'youtube.paste_url'.tr(),
               onTap: () => Navigator.pop(context, _AddChoice.playlist),
             ),
@@ -270,7 +270,7 @@ class _SearchSongSheetState extends State<SearchSongSheet> {
                     ? SizedBox(width: 14, height: 14,
                         child: CircularProgressIndicator(strokeWidth: 2, color: context.appTextPrimColor))
                     : const Icon(Icons.search_rounded, size: 16),
-                  label: Text(_loading ? 'Buscando...' : 'Buscar'),
+                  label: Text(_loading ? 'youtube.searching'.tr() : 'Buscar'),
                   onPressed: _loading ? null : _search,
                 ),
               ],
@@ -420,7 +420,7 @@ class _ImportPlaylistSheetState extends State<ImportPlaylistSheet> {
       child: Column(
         children: [
           _buildHandle(context),
-          _buildHeader(context, 'Importar playlist', Icons.queue_music_rounded),
+          _buildHeader(context, 'youtube.import_playlist'.tr(), Icons.queue_music_rounded),
           Divider(height: 1, color: appDivider),
           Expanded(child: _buildBody()),
         ],
@@ -552,7 +552,7 @@ class _ImportPlaylistSheetState extends State<ImportPlaylistSheet> {
                   }
                 }),
                 child: Text(
-                  allSelected ? 'Deseleccionar todo' : 'Seleccionar todo',
+                  allSelected ? 'youtube.deselect_all'.tr() : 'youtube.select_all'.tr(),
                   style: const TextStyle(color: appAccent, fontSize: 12),
                 ),
               ),

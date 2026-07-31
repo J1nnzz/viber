@@ -80,7 +80,7 @@ class QuizChallengeCard extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: 6),
-              Text(isMine ? 'Has retado a este chat' : '$fromLabel te ha retado',
+              Text(isMine ? 'quiz.you_challenged'.tr() : 'quiz.challenged_you'.tr(namedArgs: {'user': fromLabel}),
                   style: TextStyle(color: Colors.white.withValues(alpha: 0.85), fontSize: 12)),
               const SizedBox(height: 12),
               PressableScale(

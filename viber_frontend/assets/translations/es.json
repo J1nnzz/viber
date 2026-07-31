@@ -26,7 +26,8 @@
     "confirm": "Confirmar",
     "reload": "Recargar",
     "back": "Volver",
-    "music": "Música"
+    "music": "Música",
+    "adjust_image": "Ajustar imagen"
   },
   "auth": {
     "login_subtitle": "Inicia sesión para continuar",
@@ -101,7 +102,12 @@
     "rooms_count": {
       "one": "{} sala",
       "other": "{} salas"
-    }
+    },
+    "rooms_created": "Salas creadas",
+    "time_listened": "Tiempo escuchado",
+    "rooms_joined": "Salas unidas",
+    "songs_played": "Canciones escuchadas",
+    "my_profile": "Mi perfil"
   },
   "edit_profile": {
     "title": "Editar perfil",
@@ -224,7 +230,8 @@
     "autodj_desc": "Cuando la cola se quede corta, se añaden solas canciones del mismo estilo que lo que ya ha sonado.",
     "your_room": "Tu sala",
     "public": "Pública",
-    "welcome_label": "Mensaje de bienvenida (opcional)"
+    "welcome_label": "Mensaje de bienvenida (opcional)",
+    "adjust_cover": "Ajustar portada"
   },
   "edit_room": {
     "title": "Gestionar sala",
@@ -252,7 +259,8 @@
     "autodj_hint": "Auto-DJ: añade canciones del mismo estilo cuando la cola se queda corta.",
     "desc_hint": "Describe tu sala…",
     "genres": "Géneros",
-    "current_code": "Actual: {code} (vacío = mantener)"
+    "current_code": "Actual: {code} (vacío = mantener)",
+    "permanent": "Sala permanente"
   },
   "room": {
     "admin_banner": "Modo administrador · Solo observando",
@@ -312,7 +320,9 @@
     "unmuted": "{user} ya puede hablar de nuevo",
     "user_joined": "{user} entró a la sala",
     "user_left": "{user} salió de la sala",
-    "role_now": "{user} ahora es {role}"
+    "role_now": "{user} ahora es {role}",
+    "in_progress": "en proceso",
+    "user_muted": "{user} fue silenciado"
   },
   "mini_player": {
     "no_playback": "Sin reproducción",
@@ -335,7 +345,10 @@
     "banned_count": "BANEADOS  •  {n}",
     "kick_confirm": "¿Seguro que quieres expulsar a {user} de la sala?",
     "muted_hint": "Estás silenciado...",
-    "input_hint": "Escribe un mensaje..."
+    "input_hint": "Escribe un mensaje...",
+    "make_dj": "Hacer DJ",
+    "remove_dj": "Quitar DJ",
+    "unmute": "Quitar silencio"
   },
   "queue": {
     "title": "Cola de reproducción",
@@ -353,7 +366,8 @@
     "join_button": "Unirse",
     "wants_friend": "@{user} quiere ser tu amigo",
     "invited_you": "{user} te ha invitado",
-    "from_user": "De {user}"
+    "from_user": "De {user}",
+    "group_invites_header": "INVITACIONES A GRUPO"
   },
   "home": {
     "connecting": "Conectando a \"{}\"…",
@@ -373,7 +387,8 @@
     "switch_confirm": "¿Quieres salir y unirte a \"{room}\"?",
     "friend_request_from": "{user} te ha enviado una solicitud de amistad",
     "group_invite_from": "{user} te ha invitado al grupo \"{group}\"",
-    "room_invite_from": "{user} te ha invitado a \"{room}\""
+    "room_invite_from": "{user} te ha invitado a \"{room}\"",
+    "connecting_to": "Conectando a \"{room}\"…"
   },
   "quiz": {
     "title": "Quiz musical",
@@ -477,7 +492,15 @@
     "you_won": "¡Has ganado!",
     "no_winner": "Sin ganador",
     "seconds_per_round": "Segundos por ronda",
-    "winner_line": "Ganó {user} · {pts} pts"
+    "winner_line": "Ganó {user} · {pts} pts",
+    "nobody": "Nadie",
+    "start_match": "Empezar partida",
+    "waiting_players": "Esperando jugadores…",
+    "results_in": "Resultados en",
+    "next_round_in": "Siguiente ronda en",
+    "you_challenged": "Has retado a este chat",
+    "challenged_you": "{user} te ha retado",
+    "winner_wins": "{user} gana"
   },
   "explore": {
     "title": "Explorar",
@@ -494,7 +517,9 @@
     "close_room_confirm": "Se cerrará \"{room}\" permanentemente.",
     "sort_listeners": "Más oyentes",
     "sort_newest": "Más recientes",
-    "sort_oldest": "Más antiguas"
+    "sort_oldest": "Más antiguas",
+    "live_now": "En vivo ahora",
+    "sort_name": "Nombre A-Z"
   },
   "groups": {
     "info_title": "Información del grupo",
@@ -531,7 +556,14 @@
     "delete_confirm": "Esto eliminará \"{name}\" para todos. No se puede deshacer.",
     "now_admin": "@{user} es ahora administrador",
     "no_longer_admin": "@{user} ya no es administrador",
-    "transfer_confirm": "Pasarás a ser administrador y @{user} será el nuevo propietario."
+    "transfer_confirm": "Pasarás a ser administrador y @{user} será el nuevo propietario.",
+    "delete_group": "Borrar grupo",
+    "perm_invite": "Invitar miembros",
+    "perm_send": "Enviar mensajes",
+    "perm_quiz": "Lanzar quiz",
+    "members_header": "MIEMBROS ({n})",
+    "member_kicked": "@{user} expulsado",
+    "ownership_transferred": "Propiedad transferida a @{user}"
   },
   "liked_songs": {
     "title": "Canciones favoritas",
@@ -541,7 +573,8 @@
     "remove": "Quitar de favoritos",
     "no_results_for": "Sin resultados para \"{query}\"",
     "sort_title": "Título A–Z",
-    "removed": "Eliminado de favoritos"
+    "removed": "Eliminado de favoritos",
+    "sort_artist": "Artista A–Z"
   },
   "admin": {
     "title": "Panel de administración",
@@ -612,7 +645,32 @@
     "close_room_confirm": "¿Cerrar definitivamente la sala \"{name}\"?\n\nLos usuarios serán expulsados y la sala quedará desactivada. Los datos se conservan.",
     "kick_all_confirm": "¿Echar a todos los usuarios de \"{name}\"?\n\nLa sala seguirá activa y podrán volver a entrar.",
     "unflag_confirm": "¿Retirar la marca de incidencia de \"{name}\"?\n\nLa nota de incidencia también se borrará.",
-    "with_reports": "⚠ Con reportes"
+    "with_reports": "⚠ Con reportes",
+    "room_closed_ok": "Sala cerrada correctamente",
+    "users_kicked": "Usuarios echados",
+    "flag_removed": "Incidencia retirada",
+    "room_flagged": "Sala marcada",
+    "note_updated": "Nota actualizada",
+    "flagged_chip": "⚑ Incidencia",
+    "edit_note": "Editar nota",
+    "remove_flag": "Retirar incidencia",
+    "demote": "Quitar admin",
+    "promote": "Hacer admin",
+    "importing": "Importando…",
+    "searching": "Buscando…",
+    "fetch_lyrics": "Buscar letras",
+    "generating": "Generando…",
+    "emojis_ai": "Emojis (IA)",
+    "rooms_total": "{n} salas totales",
+    "users_registered": "{n} usuarios registrados",
+    "filter_all": "Todas ({n})",
+    "filter_incomplete": "Incompletas ({n})",
+    "kicked_suffix": "{n} usuarios echados",
+    "rooms_with_reports": "{rooms} salas · {reports} reportes pendientes",
+    "pending_reports": {
+      "one": "{} reporte pendiente",
+      "other": "{} reportes pendientes"
+    }
   },
   "youtube": {
     "add_to_queue": "Añadir a la cola",
@@ -627,7 +685,11 @@
     "search_song": "Buscar canción",
     "search_by": "Busca por título o artista",
     "paste_url": "Pega una URL de YouTube",
-    "search_empty": "Busca una canción\npara añadirla a la cola"
+    "search_empty": "Busca una canción\npara añadirla a la cola",
+    "import_playlist": "Importar playlist",
+    "searching": "Buscando...",
+    "deselect_all": "Deseleccionar todo",
+    "select_all": "Seleccionar todo"
   },
   "errors": {
     "group_load": "Error al cargar el grupo",
@@ -695,6 +757,11 @@
     "room_fetch": "No se pudo obtener la sala",
     "room_enter": "Error al entrar en \"{name}\"",
     "import_failed_detail": "Error al importar: {error}",
-    "image_upload_detail": "Error al subir imagen: {error}"
+    "image_upload_detail": "Error al subir imagen: {error}",
+    "lyrics_search": "Error buscando letras",
+    "emoji_generate": "Error generando emojis",
+    "song_search": "Error buscando canciones",
+    "lyrics_search_detail": "Error buscando letras: {error}",
+    "emoji_generate_detail": "Error generando emojis: {error}"
   }
 }

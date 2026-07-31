@@ -614,7 +614,7 @@ class _GenreCarousels extends StatelessWidget {
           _SectionHeader(
             icon: Icons.radio_rounded,
             iconColor: appEnergy,
-            title: 'En vivo ahora',
+            title: 'explore.live_now'.tr(),
           ),
           _HorizontalCarousel(
             rooms: liveRooms.where((r) => r.listenerCount > 0).toList(),
@@ -751,7 +751,7 @@ extension _SortOrderLabel on _SortOrder {
       case _SortOrder.listeners: return 'explore.sort_listeners'.tr();
       case _SortOrder.newest:    return 'explore.sort_newest'.tr();
       case _SortOrder.oldest:    return 'explore.sort_oldest'.tr();
-      case _SortOrder.nameAZ:    return 'Nombre A-Z';
+      case _SortOrder.nameAZ:    return 'explore.sort_name'.tr();
     }
   }
 }

@@ -72,7 +72,7 @@ class _CreateRoomScreenState extends State<CreateRoomScreen> {
     final cropped = await pickAndCropImage(
       context,
       aspectRatio: 16 / 9,
-      title: 'Ajustar portada',
+      title: 'create_room.adjust_cover'.tr(),
     );
     if (cropped == null) return;
 
