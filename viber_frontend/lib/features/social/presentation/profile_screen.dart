@@ -524,15 +524,10 @@ class _StatRow extends StatelessWidget {
   final IconData icon;
   final String label;
   final String value;
-  final Color? valueColor;
-  final VoidCallback? onTap;
-
   const _StatRow({
     required this.icon,
     required this.label,
     required this.value,
-    this.valueColor,
-    this.onTap,
   });
 
   @override
@@ -551,7 +546,7 @@ class _StatRow extends StatelessWidget {
               Text(
                 value,
                 style: TextStyle(
-                  color: valueColor ?? Theme.of(context).colorScheme.onSurface,
+                  color: Theme.of(context).colorScheme.onSurface,
                   fontSize: 16,
                   fontWeight: FontWeight.w700,
                   letterSpacing: -0.3,
@@ -569,16 +564,6 @@ class _StatRow extends StatelessWidget {
       ],
     );
 
-    if (onTap != null) {
-      return InkWell(
-        onTap: onTap,
-        borderRadius: BorderRadius.circular(8),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 2),
-          child: content,
-        ),
-      );
-    }
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 2),
       child: content,

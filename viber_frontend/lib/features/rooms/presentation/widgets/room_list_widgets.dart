@@ -544,38 +544,6 @@ class _PrivatePill extends StatelessWidget {
   }
 }
 
-class _Pill extends StatelessWidget {
-  final String label;
-  final IconData? icon;
-  final Color labelColor;
-  const _Pill({required this.label, this.icon, required this.labelColor});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 3),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(radiusFull),
-        border: Border.all(color: appDivider),
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          if (icon != null) ...[
-            Icon(icon, color: labelColor, size: 10),
-            const SizedBox(width: 3),
-          ],
-          Text(label,
-              style: TextStyle(
-                  color: labelColor,
-                  fontSize: 10,
-                  fontWeight: FontWeight.w500)),
-        ],
-      ),
-    );
-  }
-}
-
 class _HostPill extends StatelessWidget {
   final String username;
   const _HostPill({required this.username});

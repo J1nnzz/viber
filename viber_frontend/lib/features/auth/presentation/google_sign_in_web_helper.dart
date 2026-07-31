@@ -44,8 +44,10 @@ Future<void> initGoogleSignInWeb() async {
     } catch (_) {}
   });
 
-  // Intentar restaurar sesión silenciosa
-  _googleSignIn.signInSilently().catchError((_) {});
+  // Intentar restaurar sesión silenciosa. El handler devuelve null
+  // explícitamente: catchError debe retornar un GoogleSignInAccount?, y un
+  // cuerpo vacío no retorna nada.
+  _googleSignIn.signInSilently().catchError((_) => null);
 }
 
 /// Suscribirse al stream de idTokens

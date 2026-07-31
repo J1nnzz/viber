@@ -80,7 +80,6 @@ class _RoomScreenState extends State<RoomScreen> {
 
   // ── Permisos derivados del estado ──────────────────────────────────────────
   bool get _isHost        => _username != null && _roomState.isHost(_username!);
-  bool get _isDJ          => _username != null && _roomState.isDJ(_username!);
   bool get _canControlPb  => _username != null && _roomState.canControlPlayback(_username!);
   bool get _canManageQ    => _username != null && _roomState.canManageQueue(_username!);
   bool get _isMuted       => _username != null && _roomState.isMuted(_username!);
@@ -393,7 +392,7 @@ class _RoomScreenState extends State<RoomScreen> {
           _refreshProgress?.call();
           if (needsLoad) {
             _totalSeconds = 0.0;
-            _loadVideo(videoId: newId!, startSeconds: msg.position ?? 0.0, shouldPlay: true);
+            _loadVideo(videoId: newId, startSeconds: msg.position ?? 0.0, shouldPlay: true);
           } else {
             _playerInitializing = true;
             _ytBridge
