@@ -1,4 +1,5 @@
 ﻿import 'package:flutter/material.dart';
+import 'package:easy_localization/easy_localization.dart';
 import '../infrastructure/room_service.dart';
 import 'package:viber/core/theme/app_theme.dart';
 import 'package:viber/core/widgets/image_crop.dart';
@@ -98,7 +99,7 @@ class _CreateRoomScreenState extends State<CreateRoomScreen> {
   Future<void> _create() async {
     if (_nameController.text.trim().isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('El nombre es obligatorio')),
+        SnackBar(content: Text('create_room.name_required'.tr())),
       );
       return;
     }
@@ -175,7 +176,7 @@ class _CreateRoomScreenState extends State<CreateRoomScreen> {
                 right: spacingMd,
                 bottom: spacingMd,
                 child: Text(
-                  name.isEmpty ? 'Tu sala' : name,
+                  name.isEmpty ? 'create_room.your_room'.tr() : name,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: const TextStyle(
@@ -275,7 +276,7 @@ class _CreateRoomScreenState extends State<CreateRoomScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Nueva Sala'),
+        title: Text('create_room.title'.tr()),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios_new, size: 16),
           onPressed: () => Navigator.pop(context),
@@ -293,7 +294,7 @@ class _CreateRoomScreenState extends State<CreateRoomScreen> {
             // ── Nombre ────────────────────────────────────────────────
             AppTextField(
               controller: _nameController,
-              label: 'Nombre de la sala *',
+              label: 'create_room.name_label'.tr(),
               prefixIcon: Icons.meeting_room_outlined,
               textInputAction: TextInputAction.next,
             ),
@@ -302,7 +303,7 @@ class _CreateRoomScreenState extends State<CreateRoomScreen> {
             // ── Descripción ───────────────────────────────────────────
             AppTextField(
               controller: _descController,
-              label: 'Descripción (opcional)',
+              label: 'create_room.description_label'.tr(),
               prefixIcon: Icons.description_outlined,
               textInputAction: TextInputAction.next,
             ),
@@ -317,7 +318,7 @@ class _CreateRoomScreenState extends State<CreateRoomScreen> {
             ),
             const SizedBox(height: spacingXs),
             Text(
-              'Se muestra a quien entra por primera vez a la sala.',
+              'create_room.welcome_hint'.tr(),
               style: TextStyle(
                 color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6),
                 fontSize: 11,
@@ -328,8 +329,7 @@ class _CreateRoomScreenState extends State<CreateRoomScreen> {
             // ── Géneros (multi-select) ─────────────────────────────────
             Row(
               children: [
-                Text(
-                  'Géneros musicales',
+                Text('create_room.genres_label'.tr(),
                   style: TextStyle(
                     color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6),
                     fontSize: 13,
@@ -369,8 +369,7 @@ class _CreateRoomScreenState extends State<CreateRoomScreen> {
             else if (_availableGenres.isEmpty)
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 6),
-                child: Text(
-                  'El administrador aún no ha configurado géneros.',
+                child: Text('create_room.no_genres'.tr(),
                   style: TextStyle(color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6), fontSize: 12),
                 ),
               )
@@ -405,7 +404,7 @@ class _CreateRoomScreenState extends State<CreateRoomScreen> {
 
             // ── Color de acento ───────────────────────────────────────
             Text(
-              'Color de acento',
+              'create_room.accent_color'.tr(),
               style: TextStyle(
                 color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6),
                 fontSize: 13,
@@ -420,8 +419,7 @@ class _CreateRoomScreenState extends State<CreateRoomScreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  'Máximo de participantes',
+                Text('create_room.max_participants_label'.tr(),
                   style: TextStyle(
                     color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6),
                     fontSize: 13,
@@ -474,8 +472,7 @@ class _CreateRoomScreenState extends State<CreateRoomScreen> {
             const SizedBox(height: spacingLg),
 
             // ── Privacidad ─────────────────────────────────────────────
-            Text(
-              'Privacidad',
+            Text('settings.privacy_section'.tr(),
               style: TextStyle(
                 color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6),
                 fontSize: 13,
@@ -487,9 +484,9 @@ class _CreateRoomScreenState extends State<CreateRoomScreen> {
               children: [
                 Expanded(
                   child: _PrivacyOption(
-                    label: 'Pública',
+                    label: 'create_room.public'.tr(),
                     icon: Icons.public_rounded,
-                    description: 'Cualquiera puede unirse',
+                    description: 'create_room.public_desc'.tr(),
                     selected: _privacy == 'PUBLIC',
                     onTap: () => setState(() => _privacy = 'PUBLIC'),
                   ),
@@ -499,7 +496,7 @@ class _CreateRoomScreenState extends State<CreateRoomScreen> {
                   child: _PrivacyOption(
                     label: 'Privada',
                     icon: Icons.lock_outlined,
-                    description: 'Solo con código',
+                    description: 'create_room.private_desc'.tr(),
                     selected: _privacy == 'PRIVATE',
                     onTap: () => setState(() => _privacy = 'PRIVATE'),
                   ),
@@ -512,7 +509,7 @@ class _CreateRoomScreenState extends State<CreateRoomScreen> {
               const SizedBox(height: spacingMd),
               AppTextField(
                 controller: _codeController,
-                label: 'Código de acceso (vacío = auto-generado)',
+                label: 'create_room.access_code_label'.tr(),
                 prefixIcon: Icons.vpn_key_outlined,
                 textInputAction: TextInputAction.done,
               ),
@@ -552,7 +549,7 @@ class _CreateRoomScreenState extends State<CreateRoomScreen> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              'Sala permanente (auto-DJ)',
+                              'create_room.permanent'.tr(),
                               style: TextStyle(
                                 color: _autoDj
                                     ? appAccent
@@ -563,7 +560,7 @@ class _CreateRoomScreenState extends State<CreateRoomScreen> {
                             ),
                             const SizedBox(height: 2),
                             Text(
-                              'Cuando la cola se quede corta, se añaden solas canciones del mismo estilo que lo que ya ha sonado.',
+                              'create_room.autodj_desc'.tr(),
                               style: TextStyle(
                                 color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6),
                                 fontSize: 11,
@@ -588,7 +585,7 @@ class _CreateRoomScreenState extends State<CreateRoomScreen> {
 
             // ── Botón crear ───────────────────────────────────────────
             AppPrimaryButton(
-              label: 'Crear Sala',
+              label: 'create_room.create_button'.tr(),
               icon: Icons.add_rounded,
               isLoading: _isLoading,
               onPressed: _create,

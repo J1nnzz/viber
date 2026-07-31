@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'dart:typed_data';
 import 'package:crop_your_image/crop_your_image.dart';
 import 'package:file_picker/file_picker.dart';
@@ -86,7 +87,7 @@ class _ImageCropperScreenState extends State<ImageCropperScreen> {
       case CropFailure():
         setState(() => _cropping = false);
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('No se pudo recortar la imagen')),
+          SnackBar(content: Text('common.crop_error'.tr())),
         );
     }
   }
@@ -109,7 +110,7 @@ class _ImageCropperScreenState extends State<ImageCropperScreen> {
         title: Text(widget.title, style: const TextStyle(fontSize: 16)),
         leading: IconButton(
           icon: const Icon(Icons.close),
-          tooltip: 'Cancelar',
+          tooltip: 'common.cancel'.tr(),
           onPressed: _cropping ? null : () => Navigator.pop(context),
         ),
         actions: [
@@ -128,8 +129,8 @@ class _ImageCropperScreenState extends State<ImageCropperScreen> {
           else
             TextButton(
               onPressed: _confirm,
-              child: const Text(
-                'Listo',
+              child: Text(
+                'common.done'.tr(),
                 style: TextStyle(
                   color: appAccent,
                   fontWeight: FontWeight.w600,

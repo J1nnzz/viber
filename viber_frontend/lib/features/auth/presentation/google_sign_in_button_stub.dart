@@ -1,4 +1,5 @@
 ﻿// Implementación móvil (Android / iOS)
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:viber/core/theme/app_theme.dart';
 
@@ -47,7 +48,7 @@ class GoogleSignInButton extends StatelessWidget {
                   _GoogleLogo(size: 20, bgColor: cs.surfaceContainerHighest),
                   const SizedBox(width: 10),
                   Text(
-                    'Continuar con Google',
+                    'auth.continue_google'.tr(),
                     style: TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.w500,

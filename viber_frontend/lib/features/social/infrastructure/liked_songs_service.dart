@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import '../../../core/services/base_api_service.dart';
@@ -34,7 +35,7 @@ class LikedSongsService extends BaseApiService {
       body: jsonEncode(body),
     );
     if (res.statusCode == 200) return LikedSong.fromJson(jsonDecode(res.body));
-    throwFromResponse(res, 'Error al añadir a favoritos');
+    throwFromResponse(res, 'errors.like_add'.tr());
   }
 
   Future<void> unlikeSong(String videoId) async {

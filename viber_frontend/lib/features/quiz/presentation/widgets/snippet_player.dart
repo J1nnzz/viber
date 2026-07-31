@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'dart:async';
 
 import 'package:flutter/material.dart';
@@ -104,7 +105,7 @@ class _SnippetPlayerState extends State<SnippetPlayer> {
             const SizedBox(width: spacingSm),
             Expanded(
               child: Text(
-                'No se pudo cargar el audio',
+                'quiz.audio_error'.tr(),
                 style: TextStyle(color: context.appTextSecColor, fontSize: 13),
               ),
             ),

@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import '../../../../core/theme/app_theme.dart';
 import '../../../../core/widgets/app_image.dart';
@@ -114,7 +115,7 @@ class _RoomChatPanelState extends State<RoomChatPanel> {
       decoration: BoxDecoration(
         border: Border(bottom: BorderSide(color: appDivider)),
       ),
-      child: Row(children: [_tab_(context, 0, 'Chat'), _tab_(context, 1, 'Usuarios')]),
+      child: Row(children: [_tab_(context, 0, 'Chat'), _tab_(context, 1, 'room_chat.users_tab'.tr())]),
     );
   }
 
@@ -162,8 +163,7 @@ class _RoomChatPanelState extends State<RoomChatPanel> {
                           color: context.appTextSecColor.withOpacity(0.4),
                           size: 30),
                       const SizedBox(height: 8),
-                      Text(
-                        'Sin mensajes aún',
+                      Text('room_chat.no_messages'.tr(),
                         style: TextStyle(
                             color: context.appTextSecColor.withOpacity(0.5),
                             fontSize: 13),
@@ -317,7 +317,7 @@ class _RoomChatPanelState extends State<RoomChatPanel> {
           const Icon(Icons.block_rounded, color: appError, size: 13),
           const SizedBox(width: 5),
           Text(
-            'BANEADOS  •  ${widget.kickedUsers.length}',
+            'room_chat.banned_count'.tr(namedArgs: {'n': '${widget.kickedUsers.length}'}),
             style: const TextStyle(
               color: appError,
               fontSize: 10,
@@ -362,13 +362,12 @@ class _RoomChatPanelState extends State<RoomChatPanel> {
           decorationColor: context.appTextDimColor,
         ),
       ),
-      subtitle: const Text(
-        'Baneado',
+      subtitle: Text('room_chat.banned_label'.tr(),
         style: TextStyle(color: appError, fontSize: 10),
       ),
       trailing: TextButton.icon(
         icon: const Icon(Icons.lock_open_rounded, size: 14),
-        label: const Text('Quitar ban', style: TextStyle(fontSize: 11)),
+        label: Text('room_chat.unban_button'.tr(), style: TextStyle(fontSize: 11)),
         style: TextButton.styleFrom(
           foregroundColor: appSuccess,
           padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
@@ -523,13 +522,13 @@ class _RoomChatPanelState extends State<RoomChatPanel> {
     showDialog(
       context: context,
       builder: (_) => AlertDialog(
-        title: const Text('Expulsar usuario'),
+        title: Text('room_chat.kick_title'.tr()),
         content: Text(
-            '¿Seguro que quieres expulsar a $targetUsername de la sala?'),
+            'room_chat.kick_confirm'.tr(namedArgs: {'user': targetUsername})),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text('Cancelar'),
+            child: Text('common.cancel'.tr()),
           ),
           ElevatedButton(
             style: ElevatedButton.styleFrom(backgroundColor: appError),
@@ -537,7 +536,7 @@ class _RoomChatPanelState extends State<RoomChatPanel> {
               Navigator.pop(context);
               widget.onKick?.call(targetUsername);
             },
-            child: const Text('Expulsar'),
+            child: Text('groups.kick'.tr()),
           ),
         ],
       ),
@@ -557,8 +556,7 @@ class _DJBadge extends StatelessWidget {
         borderRadius:  BorderRadius.circular(4),
         border:        Border.all(color: roomAccent.withOpacity(0.5)),
       ),
-      child: const Text(
-        'DJ',
+      child: Text('room.role_dj'.tr(),
         style: TextStyle(
           color:      roomAccent,
           fontSize:   9,
@@ -625,7 +623,7 @@ class _ModerationMenu extends StatelessWidget {
       color: context.appSurfaceAltColor,
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(radiusMd)),
-      tooltip: 'Acciones',
+      tooltip: 'room_chat.actions'.tr(),
       onSelected: (value) {
         switch (value) {
           case 'promote': onPromoteDJ();
@@ -676,7 +674,7 @@ class _ModerationMenu extends StatelessWidget {
         _menuItem(
           value: 'kick',
           icon:  Icons.person_remove_outlined,
-          label: 'Expulsar',
+          label: 'room_chat.kick_button'.tr(),
           color: appError,
         ),
       ],

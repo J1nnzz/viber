@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
@@ -191,15 +192,15 @@ class _QuizPoolPageState extends State<QuizPoolPage> {
     final confirm = await showDialog<bool>(
       context: context,
       builder: (ctx) => AlertDialog(
-        title: const Text('Eliminar canción'),
-        content: Text('¿Eliminar "${song['title']}" del pool del quiz?'),
+        title: Text('admin.delete_song'.tr()),
+        content: Text('admin.delete_song_confirm'.tr(namedArgs: {'title': '${song['title']}'})),
         actions: [
           TextButton(
               onPressed: () => Navigator.pop(ctx, false),
-              child: const Text('Cancelar')),
+              child: Text('common.cancel'.tr())),
           TextButton(
               onPressed: () => Navigator.pop(ctx, true),
-              child: const Text('Eliminar')),
+              child: Text('common.delete'.tr())),
         ],
       ),
     );
@@ -269,9 +270,9 @@ class _QuizPoolPageState extends State<QuizPoolPage> {
                     child: TextField(
                       controller: _urlCtrl,
                       enabled: !_importing,
-                      decoration: const InputDecoration(
+                      decoration: InputDecoration(
                         hintText:
-                            'URL de playlist de YouTube (https://youtube.com/playlist?list=…)',
+                            'admin.playlist_url'.tr(),
                         prefixIcon: Icon(Icons.playlist_add_rounded),
                       ),
                       onSubmitted: (_) => _import(),
@@ -324,7 +325,7 @@ class _QuizPoolPageState extends State<QuizPoolPage> {
                 Padding(
                   padding: const EdgeInsets.only(top: spacingSm),
                   child: Text(
-                    'Matcheando cada canción con Deezer, puede tardar ~30 s por playlist…',
+                    'admin.matching_deezer'.tr(),
                     style: TextStyle(
                         color: context.appTextSecColor, fontSize: 12),
                   ),
@@ -466,13 +467,13 @@ class _QuizPoolPageState extends State<QuizPoolPage> {
             _ => null,
           },
           itemBuilder: (_) => [
-            const PopupMenuItem(value: 'edit', child: Text('Editar')),
-            const PopupMenuItem(
-                value: 'rematch', child: Text('Re-matchear con Deezer')),
+            PopupMenuItem(value: 'edit', child: Text('common.edit'.tr())),
+            PopupMenuItem(
+                value: 'rematch', child: Text('admin.rematch_deezer'.tr())),
             PopupMenuItem(
                 value: 'toggle',
                 child: Text(inactive ? 'Activar' : 'Desactivar')),
-            const PopupMenuItem(value: 'delete', child: Text('Eliminar')),
+            PopupMenuItem(value: 'delete', child: Text('common.delete'.tr())),
           ],
         ),
       ),
@@ -518,7 +519,7 @@ class _QuizPoolPageState extends State<QuizPoolPage> {
       context: context,
       builder: (ctx) => StatefulBuilder(
         builder: (ctx, setDialogState) => AlertDialog(
-          title: const Text('Editar canción'),
+          title: Text('admin.edit_song'.tr()),
           content: SizedBox(
             width: 380,
             child: SingleChildScrollView(
@@ -527,12 +528,12 @@ class _QuizPoolPageState extends State<QuizPoolPage> {
                 children: [
                   TextField(
                     controller: titleCtrl,
-                    decoration: const InputDecoration(labelText: 'Título'),
+                    decoration: InputDecoration(labelText: 'admin.song_title'.tr()),
                   ),
                   const SizedBox(height: spacingSm),
                   TextField(
                     controller: artistCtrl,
-                    decoration: const InputDecoration(labelText: 'Artista'),
+                    decoration: InputDecoration(labelText: 'admin.song_artist'.tr()),
                   ),
                   const SizedBox(height: spacingSm),
                   Row(
@@ -542,7 +543,7 @@ class _QuizPoolPageState extends State<QuizPoolPage> {
                           controller: yearCtrl,
                           keyboardType: TextInputType.number,
                           decoration:
-                              const InputDecoration(labelText: 'Año'),
+                              InputDecoration(labelText: 'admin.song_year'.tr()),
                         ),
                       ),
                       const SizedBox(width: spacingSm),
@@ -550,8 +551,8 @@ class _QuizPoolPageState extends State<QuizPoolPage> {
                         child: TextField(
                           controller: durationCtrl,
                           keyboardType: TextInputType.number,
-                          decoration: const InputDecoration(
-                              labelText: 'Duración (s)'),
+                          decoration: InputDecoration(
+                              labelText: 'admin.song_duration'.tr()),
                         ),
                       ),
                     ],
@@ -559,15 +560,15 @@ class _QuizPoolPageState extends State<QuizPoolPage> {
                   const SizedBox(height: spacingSm),
                   TextField(
                     controller: genreCtrl,
-                    decoration: const InputDecoration(
-                        labelText: 'Género (p. ej. Pop, Rock, Rap/Hip Hop)'),
+                    decoration: InputDecoration(
+                        labelText: 'admin.song_genre'.tr()),
                   ),
                   const SizedBox(height: spacingSm),
                   TextField(
                     controller: emojisCtrl,
-                    decoration: const InputDecoration(
-                      labelText: 'Emojis (modo emoji)',
-                      hintText: '🌧️ 🔥 💃 — separados por espacios',
+                    decoration: InputDecoration(
+                      labelText: 'admin.song_emojis'.tr(),
+                      hintText: 'admin.song_emojis_hint'.tr(),
                     ),
                   ),
                   const SizedBox(height: spacingSm),
@@ -575,10 +576,9 @@ class _QuizPoolPageState extends State<QuizPoolPage> {
                     controller: lyricsCtrl,
                     maxLines: 5,
                     style: const TextStyle(fontSize: 12),
-                    decoration: const InputDecoration(
-                      labelText: 'Letra (modo letra)',
-                      hintText: 'Una línea por verso; se rellena sola '
-                          'con "Buscar letras" si lrclib la tiene',
+                    decoration: InputDecoration(
+                      labelText: 'admin.song_lyrics'.tr(),
+                      hintText: 'admin.song_lyrics_hint'.tr(),
                       alignLabelWithHint: true,
                     ),
                   ),
@@ -587,7 +587,7 @@ class _QuizPoolPageState extends State<QuizPoolPage> {
                     value: explicit,
                     onChanged: (v) =>
                         setDialogState(() => explicit = v ?? false),
-                    title: const Text('Letra explícita',
+                    title: Text('admin.explicit_lyrics'.tr(),
                         style: TextStyle(fontSize: 14)),
                     contentPadding: EdgeInsets.zero,
                     controlAffinity: ListTileControlAffinity.leading,
@@ -599,10 +599,10 @@ class _QuizPoolPageState extends State<QuizPoolPage> {
           actions: [
             TextButton(
                 onPressed: () => Navigator.pop(ctx, false),
-                child: const Text('Cancelar')),
+                child: Text('common.cancel'.tr())),
             TextButton(
                 onPressed: () => Navigator.pop(ctx, true),
-                child: const Text('Guardar')),
+                child: Text('common.save'.tr())),
           ],
         ),
       ),

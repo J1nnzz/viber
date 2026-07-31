@@ -1,4 +1,5 @@
 ﻿import 'package:flutter/material.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/services.dart';
 import '../../rooms/domain/room_message.dart';
 import '../infrastructure/youtube_service.dart';
@@ -79,7 +80,7 @@ class _AddMenuSheet extends StatelessWidget {
               child: Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  'Añadir a la cola',
+                  'youtube.add_to_queue'.tr(),
                   style: TextStyle(
                     color: context.appTextPrimColor,
                     fontSize: 17,
@@ -217,7 +218,7 @@ class _SearchSongSheetState extends State<SearchSongSheet> {
       content: Row(children: [
         const Icon(Icons.queue_music_rounded, color: appAccent, size: 16),
         const SizedBox(width: spacingSm),
-        Expanded(child: Text('"${result.title}" añadida a la cola',
+        Expanded(child: Text('youtube.added_to_queue'.tr(namedArgs: {'title': '${result.title}'}),
           maxLines: 1, overflow: TextOverflow.ellipsis)),
       ]),
       duration: const Duration(seconds: 2),
@@ -257,8 +258,8 @@ class _SearchSongSheetState extends State<SearchSongSheet> {
                     style: TextStyle(color: context.appTextPrimColor),
                     textInputAction: TextInputAction.search,
                     onSubmitted: (_) => _search(),
-                    decoration: const InputDecoration(
-                      hintText: 'Buscar canción o artista...',
+                    decoration: InputDecoration(
+                      hintText: 'youtube.search_hint'.tr(),
                       prefixIcon: Icon(Icons.search_rounded),
                     ),
                   ),
@@ -298,7 +299,7 @@ class _SearchSongSheetState extends State<SearchSongSheet> {
                         trailing: IconButton(
                           icon: const Icon(Icons.add_circle_rounded,
                             color: appAccent, size: 28),
-                          tooltip: 'Añadir a la cola',
+                          tooltip: 'youtube.add_to_queue'.tr(),
                           onPressed: () => _addToQueue(r),
                         ),
                       );
@@ -460,7 +461,7 @@ class _ImportPlaylistSheetState extends State<ImportPlaylistSheet> {
                 const SizedBox(width: spacingSm),
                 Expanded(
                   child: Text(
-                    'Abre YouTube, entra a una playlist pública y copia la URL de la barra de dirección.',
+                    'youtube.playlist_help'.tr(),
                     style: TextStyle(color: context.appTextSecColor, fontSize: 12, height: 1.4),
                   ),
                 ),
@@ -479,7 +480,7 @@ class _ImportPlaylistSheetState extends State<ImportPlaylistSheet> {
               suffixIcon: IconButton(
                 icon: Icon(Icons.content_paste_rounded,
                   color: context.appTextSecColor, size: 18),
-                tooltip: 'Pegar del portapapeles',
+                tooltip: 'youtube.paste_clipboard'.tr(),
                 onPressed: () async {
                   final data = await Clipboard.getData('text/plain');
                   if (data?.text != null) {
@@ -498,7 +499,7 @@ class _ImportPlaylistSheetState extends State<ImportPlaylistSheet> {
           // Botón
           ElevatedButton.icon(
             icon: const Icon(Icons.search_rounded, size: 18),
-            label: const Text('Cargar playlist'),
+            label: Text('youtube.load_playlist'.tr()),
             style: ElevatedButton.styleFrom(
               padding: const EdgeInsets.symmetric(vertical: 14),
             ),
@@ -518,7 +519,7 @@ class _ImportPlaylistSheetState extends State<ImportPlaylistSheet> {
         children: [
           const CircularProgressIndicator(color: appAccent),
           const SizedBox(height: spacingMd),
-          Text('Cargando playlist...',
+          Text('youtube.loading_playlist'.tr(),
             style: TextStyle(color: context.appTextSecColor, fontSize: 13)),
         ],
       ),
@@ -538,7 +539,7 @@ class _ImportPlaylistSheetState extends State<ImportPlaylistSheet> {
             horizontal: spacingMd, vertical: spacingSm),
           child: Row(
             children: [
-              Text('${_tracks.length} canciones encontradas',
+              Text('youtube.tracks_found'.tr(namedArgs: {'n': '${_tracks.length}'}),
                 style: TextStyle(color: context.appTextSecColor, fontSize: 12)),
               const Spacer(),
               // Seleccionar/deseleccionar todo
@@ -600,13 +601,13 @@ class _ImportPlaylistSheetState extends State<ImportPlaylistSheet> {
               // Botón volver
               OutlinedButton(
                 onPressed: _reset,
-                child: const Text('Volver'),
+                child: Text('common.back'.tr()),
               ),
               const SizedBox(width: spacingMd),
               Expanded(
                 child: ElevatedButton.icon(
                   icon: const Icon(Icons.playlist_add_rounded, size: 18),
-                  label: Text('Añadir $_selectedCount canción${_selectedCount == 1 ? '' : 'es'}'),
+                  label: Text('youtube.add_n_songs'.plural(_selectedCount)),
                   onPressed: _selectedCount == 0 ? null : _importSelected,
                 ),
               ),
@@ -626,7 +627,7 @@ class _ImportPlaylistSheetState extends State<ImportPlaylistSheet> {
         children: [
           const CircularProgressIndicator(color: appAccent),
           const SizedBox(height: spacingMd),
-          Text('Añadiendo $_selectedCount canciones a la cola...',
+          Text('youtube.adding_n'.tr(namedArgs: {'n': '$_selectedCount'}),
             style: TextStyle(color: context.appTextSecColor, fontSize: 13)),
         ],
       ),
@@ -650,14 +651,14 @@ class _ImportPlaylistSheetState extends State<ImportPlaylistSheet> {
           ),
           const SizedBox(height: spacingMd),
           Text(
-            '$_selectedCount canción${_selectedCount == 1 ? '' : 'es'} añadida${_selectedCount == 1 ? '' : 's'} a la cola',
+            'youtube.n_added_to_queue'.plural(_selectedCount),
             style: TextStyle(
               color: context.appTextPrimColor, fontSize: 15, fontWeight: FontWeight.w600),
           ),
           const SizedBox(height: spacingLg),
           ElevatedButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text('Cerrar'),
+            child: Text('common.close'.tr()),
           ),
         ],
       ),

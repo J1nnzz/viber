@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'dart:convert';
 import 'dart:typed_data';
 import 'package:http/http.dart' as http;
@@ -51,7 +52,7 @@ class RoomService extends BaseApiService implements RoomRepository {
           .map((j) => Room.fromJson(j))
           .toList();
     }
-    throwFromResponse(res, 'Error al cargar tus salas');
+    throwFromResponse(res, 'errors.rooms_load'.tr());
   }
 
   // ── Crear sala ────────────────────────────────────────────────────────────
@@ -85,7 +86,7 @@ class RoomService extends BaseApiService implements RoomRepository {
     );
     final data = jsonDecode(res.body);
     if (res.statusCode == 200) return Room.fromJson(data);
-    throw Exception(data['error'] ?? 'Error al crear la sala');
+    throw Exception(data['error'] ?? 'errors.room_create'.tr());
   }
 
   // ── Unirse por código ─────────────────────────────────────────────────────
@@ -132,7 +133,7 @@ class RoomService extends BaseApiService implements RoomRepository {
     );
     final data = jsonDecode(res.body);
     if (res.statusCode == 200) return Room.fromJson(data);
-    throw Exception(data['error'] ?? 'Error al editar la sala');
+    throw Exception(data['error'] ?? 'errors.room_edit'.tr());
   }
 
   // ── Cerrar sala ───────────────────────────────────────────────────────────
@@ -207,7 +208,7 @@ class RoomService extends BaseApiService implements RoomRepository {
     if (streamed.statusCode == 200) {
       return jsonDecode(body)['secure_url'] as String;
     }
-    throw Exception('Error al subir la portada de la sala');
+    throw Exception('errors.room_cover'.tr());
   }
 
   String _mimeFromFilename(String name) {

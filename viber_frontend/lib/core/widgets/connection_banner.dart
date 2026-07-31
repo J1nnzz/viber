@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'dart:async';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
@@ -77,14 +78,14 @@ class _ConnectionBannerState extends State<ConnectionBanner> {
                           ),
                         ],
                       ),
-                      child: const Row(
+                      child: Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           Icon(Icons.wifi_off_rounded,
                               color: Colors.white, size: 15),
                           SizedBox(width: 7),
                           Text(
-                            'Sin conexión',
+                            'common.offline'.tr(),
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 12,

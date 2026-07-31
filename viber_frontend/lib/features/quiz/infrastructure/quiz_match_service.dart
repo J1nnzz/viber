@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:viber/core/constants/api_constants.dart';
@@ -32,6 +33,6 @@ class QuizMatchService extends BaseApiService {
       final j = jsonDecode(res.body) as Map<String, dynamic>;
       return (j['matchId'] as num).toInt();
     }
-    throwFromResponse(res, 'Error al crear la partida');
+    throwFromResponse(res, 'errors.match_create'.tr());
   }
 }

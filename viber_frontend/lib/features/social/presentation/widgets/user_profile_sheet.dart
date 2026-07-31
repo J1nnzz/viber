@@ -1,4 +1,5 @@
 ﻿import 'package:flutter/material.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:viber/core/theme/app_theme.dart';
 import 'package:viber/core/widgets/motion.dart';
 import 'package:viber/core/widgets/user_avatar.dart';
@@ -91,17 +92,17 @@ class _UserProfileSheetState extends State<_UserProfileSheet> {
     final ok = await showDialog<bool>(
       context: context,
       builder: (_) => AlertDialog(
-        title: Text('Eliminar amigo',
+        title: Text('profile.delete_friend'.tr(),
             style: TextStyle(color: Theme.of(context).colorScheme.onSurface)),
-        content: Text('¿Eliminar a ${widget.username}?',
+        content: Text('profile.delete_friend_confirm'.tr(namedArgs: {'user': '${widget.username}'}),
             style: TextStyle(color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6))),
         actions: [
           TextButton(
               onPressed: () => Navigator.pop(context, false),
-              child: const Text('Cancelar')),
+              child: Text('common.cancel'.tr())),
           TextButton(
               onPressed: () => Navigator.pop(context, true),
-              child: const Text('Eliminar',
+              child: Text('common.delete'.tr(),
                   style: TextStyle(color: appError))),
         ],
       ),
@@ -233,7 +234,7 @@ class _UserProfileSheetState extends State<_UserProfileSheet> {
             Icon(Icons.group_outlined, color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.38), size: 14),
             const SizedBox(width: 4),
             Text(
-              '${p.friendCount} amigo${p.friendCount == 1 ? '' : 's'}',
+              'profile.friends_count'.plural(p.friendCount),
               style: TextStyle(color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.38), fontSize: 12),
             ),
           ],
@@ -254,7 +255,7 @@ class _UserProfileSheetState extends State<_UserProfileSheet> {
           width: double.infinity,
           child: OutlinedButton.icon(
             icon: const Icon(Icons.person_outline, size: 16),
-            label: const Text('Ver perfil completo'),
+            label: Text('profile.view_full'.tr()),
             onPressed: _openFullProfile,
           ),
         ),
@@ -276,7 +277,7 @@ class _UserProfileSheetState extends State<_UserProfileSheet> {
     return switch (p.relation) {
       'FRIENDS' => OutlinedButton.icon(
           icon: const Icon(Icons.person_remove_outlined, size: 16),
-          label: const Text('Eliminar amigo'),
+          label: Text('profile.delete_friend'.tr()),
           style: OutlinedButton.styleFrom(
             foregroundColor: appError,
             side: const BorderSide(color: appError),
@@ -285,17 +286,17 @@ class _UserProfileSheetState extends State<_UserProfileSheet> {
         ),
       'PENDING_SENT' => OutlinedButton.icon(
           icon: const Icon(Icons.hourglass_top_rounded, size: 16),
-          label: const Text('Solicitud enviada'),
+          label: Text('profile.request_sent'.tr()),
           onPressed: null,
         ),
       'PENDING_RECEIVED' => ElevatedButton.icon(
           icon: const Icon(Icons.check_rounded, size: 16),
-          label: const Text('Aceptar solicitud'),
+          label: Text('profile.accept_request'.tr()),
           onPressed: _acceptRequest,
         ),
       _ => ElevatedButton.icon(
           icon: const Icon(Icons.person_add_rounded, size: 16),
-          label: const Text('Añadir amigo'),
+          label: Text('profile.add_friend'.tr()),
           onPressed: _sendRequest,
         ),
     };

@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:viber/core/theme/app_theme.dart';
 import 'package:viber/core/widgets/app_snack_bar.dart';
@@ -45,7 +46,7 @@ class _EditGroupScreenState extends State<EditGroupScreen> {
     final cropped = await pickAndCropImage(
       context,
       circle: true,
-      title: 'Ajustar foto del grupo',
+      title: 'groups.adjust_photo'.tr(),
     );
     if (cropped == null) return;
     setState(() => _uploading = true);
@@ -61,7 +62,7 @@ class _EditGroupScreenState extends State<EditGroupScreen> {
 
   Future<void> _save() async {
     final name = _nameCtrl.text.trim();
-    if (name.isEmpty) { setState(() => _error = 'El nombre no puede estar vacío'); return; }
+    if (name.isEmpty) { setState(() => _error = 'edit_room.name_empty_error'.tr()); return; }
     setState(() { _saving = true; _error = null; });
     try {
       final updated = await _service.updateGroup(
@@ -82,14 +83,14 @@ class _EditGroupScreenState extends State<EditGroupScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Editar grupo'),
+        title: Text('groups.edit_title'.tr()),
         actions: [
           TextButton(
             onPressed: (_saving || _uploading) ? null : _save,
             child: _saving
                 ? const SizedBox(width: 18, height: 18,
                     child: CircularProgressIndicator(strokeWidth: 2, color: appAccent))
-                : const Text('Guardar',
+                : Text('common.save'.tr(),
                     style: TextStyle(color: appAccent, fontWeight: FontWeight.w600, fontSize: 15)),
           ),
           const SizedBox(width: spacingSm),
@@ -134,8 +135,8 @@ class _EditGroupScreenState extends State<EditGroupScreen> {
               controller: _nameCtrl,
               maxLength: 80,
               style: TextStyle(color: Theme.of(context).colorScheme.onSurface, fontSize: 13),
-              decoration: const InputDecoration(
-                labelText: 'Nombre del grupo',
+              decoration: InputDecoration(
+                labelText: 'groups.name_label'.tr(),
                 prefixIcon: Icon(Icons.groups_rounded),
               ),
             ),
@@ -145,8 +146,8 @@ class _EditGroupScreenState extends State<EditGroupScreen> {
               maxLength: 255,
               maxLines: 3,
               style: TextStyle(color: Theme.of(context).colorScheme.onSurface, fontSize: 13),
-              decoration: const InputDecoration(
-                labelText: 'Descripción',
+              decoration: InputDecoration(
+                labelText: 'groups.description'.tr(),
                 alignLabelWithHint: true,
               ),
             ),

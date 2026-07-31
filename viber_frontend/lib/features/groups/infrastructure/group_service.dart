@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'dart:convert';
 import 'dart:typed_data';
 import 'package:http/http.dart' as http;
@@ -36,7 +37,7 @@ class GroupService extends BaseApiService {
     if (res.statusCode == 200) {
       return GroupModel.fromJson(jsonDecode(res.body) as Map<String, dynamic>);
     }
-    throwFromResponse(res, 'Error al cargar el grupo');
+    throwFromResponse(res, 'errors.group_load'.tr());
   }
 
   Future<GroupModel> createGroup({
@@ -56,7 +57,7 @@ class GroupService extends BaseApiService {
     if (res.statusCode == 200) {
       return GroupModel.fromJson(jsonDecode(res.body) as Map<String, dynamic>);
     }
-    throwFromResponse(res, 'Error al crear el grupo');
+    throwFromResponse(res, 'errors.group_create'.tr());
   }
 
   Future<GroupModel> updateGroup(int id, {
@@ -76,7 +77,7 @@ class GroupService extends BaseApiService {
     if (res.statusCode == 200) {
       return GroupModel.fromJson(jsonDecode(res.body) as Map<String, dynamic>);
     }
-    throwFromResponse(res, 'Error al actualizar el grupo');
+    throwFromResponse(res, 'errors.group_update'.tr());
   }
 
   Future<GroupModel> updatePermissions(int id, {
@@ -98,7 +99,7 @@ class GroupService extends BaseApiService {
     if (res.statusCode == 200) {
       return GroupModel.fromJson(jsonDecode(res.body) as Map<String, dynamic>);
     }
-    throwFromResponse(res, 'Error al actualizar los permisos');
+    throwFromResponse(res, 'errors.perms_update'.tr());
   }
 
   Future<void> deleteGroup(int id) async {
@@ -106,7 +107,7 @@ class GroupService extends BaseApiService {
       Uri.parse('${ApiConstants.groupsUrl}/$id'),
       headers: await authHeaders(),
     );
-    if (res.statusCode != 200) throwFromResponse(res, 'Error al borrar el grupo');
+    if (res.statusCode != 200) throwFromResponse(res, 'errors.group_delete'.tr());
   }
 
   // ── Mensajería ──────────────────────────────────────────────────────────────
@@ -188,7 +189,7 @@ class GroupService extends BaseApiService {
       headers: await authHeaders(),
       body: jsonEncode({'role': role.name.toUpperCase()}),
     );
-    if (res.statusCode != 200) throwFromResponse(res, 'Error al cambiar el rol');
+    if (res.statusCode != 200) throwFromResponse(res, 'errors.role_change'.tr());
   }
 
   Future<void> transferOwnership(int id, String username) async {
@@ -204,7 +205,7 @@ class GroupService extends BaseApiService {
       Uri.parse('${ApiConstants.groupsUrl}/$id/leave'),
       headers: await authHeaders(),
     );
-    if (res.statusCode != 200) throwFromResponse(res, 'Error al salir del grupo');
+    if (res.statusCode != 200) throwFromResponse(res, 'errors.group_leave'.tr());
   }
 
   // ── Foto de grupo (Cloudinary) ──────────────────────────────────────────────

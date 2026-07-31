@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import '../../../../core/theme/app_theme.dart';
 import '../../../../core/utils/haptics.dart';
@@ -224,7 +225,7 @@ class _RoomPlayerState extends State<RoomPlayer> {
 
     final liked = _isLiked ?? false;
     return Tooltip(
-      message: liked ? 'Quitar de favoritos' : 'Añadir a favoritos',
+      message: liked ? 'liked_songs.remove'.tr() : 'Añadir a favoritos',
       child: InkWell(
         onTap: _toggleLike,
         borderRadius: BorderRadius.circular(20),
@@ -254,7 +255,7 @@ class _RoomPlayerState extends State<RoomPlayer> {
           children: [
             Icon(Icons.music_note_outlined, color: context.appTextSecColor, size: 32),
             const SizedBox(height: 8),
-            Text('Sin canción en reproducción',
+            Text('room.no_song_playing'.tr(),
                 style: TextStyle(color: context.appTextSecColor, fontSize: 12)),
           ],
         ),

@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import '../../../core/services/base_api_service.dart';
@@ -40,6 +41,6 @@ class YoutubeService extends BaseApiService implements YoutubeRepository {
           .map((e) => YoutubeSearchResult.fromJson(e))
           .toList();
     }
-    throwFromResponse(res, 'Error al importar la playlist');
+    throwFromResponse(res, 'errors.playlist_import'.tr());
   }
 }

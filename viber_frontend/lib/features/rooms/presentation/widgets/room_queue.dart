@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import '../../../rooms/domain/room_state.dart';
 import '../../../../core/theme/app_theme.dart';
@@ -64,8 +65,7 @@ class RoomQueue extends StatelessWidget {
       padding: const EdgeInsets.fromLTRB(16, 14, 12, 0),
       child: Row(
         children: [
-          Text(
-            'Cola de reproducción',
+          Text('queue.title'.tr(),
             style: TextStyle(
               color: context.appTextPrimColor,
               fontSize: 13,
@@ -77,8 +77,7 @@ class RoomQueue extends StatelessWidget {
             TextButton.icon(
               onPressed: onAddSong,
               icon: const Icon(Icons.add, size: 15, color: appAccent),
-              label: const Text(
-                'Añadir',
+              label: Text('common.add'.tr(),
                 style: TextStyle(
                   color: appAccent,
                   fontSize: 12,
@@ -110,8 +109,7 @@ class RoomQueue extends StatelessWidget {
             Icon(Icons.queue_music_rounded,
                 color: context.appTextSecColor.withOpacity(0.5), size: 30),
             const SizedBox(height: 8),
-            Text(
-              'La cola está vacía',
+            Text('queue.empty'.tr(),
               style: TextStyle(
                   color: context.appTextSecColor.withOpacity(0.6), fontSize: 13),
             ),
@@ -332,7 +330,7 @@ class _QueueTileState extends State<_QueueTile> {
                     color: liked ? appAccent : context.appTextSecColor,
                   ),
                   splashRadius: 18,
-                  tooltip: liked ? 'Quitar de favoritos' : 'Añadir a favoritos',
+                  tooltip: liked ? 'liked_songs.remove'.tr() : 'Añadir a favoritos',
                   onPressed: _toggleLike,
                 ),
           // Botón de borrar — solo Host/DJ
@@ -341,7 +339,7 @@ class _QueueTileState extends State<_QueueTile> {
               icon: Icon(Icons.close_rounded,
                   size: 18, color: context.appTextSecColor),
               splashRadius: 18,
-              tooltip: 'Eliminar de la cola',
+              tooltip: 'room.remove_from_queue'.tr(),
               onPressed: widget.onRemove,
             ),
         ],

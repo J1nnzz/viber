@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/material.dart';
@@ -167,7 +168,7 @@ class _MatchScreenState extends State<MatchScreen>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Duelo musical'),
+        title: Text('quiz.match_title'.tr()),
         leading: IconButton(
           icon: const Icon(Icons.close_rounded),
           onPressed: () => Navigator.maybePop(context),
@@ -201,19 +202,19 @@ class _MatchScreenState extends State<MatchScreen>
           const SizedBox(height: spacingMd),
           const Icon(Icons.sports_esports_rounded, color: appAccent, size: 48),
           const SizedBox(height: spacingMd),
-          Text('Sala de espera',
+          Text('quiz.lobby_title'.tr(),
               textAlign: TextAlign.center,
               style: TextStyle(
                   color: Theme.of(context).colorScheme.onSurface,
                   fontSize: 20, fontWeight: FontWeight.w700)),
           const SizedBox(height: 4),
-          Text('Modo ${_modeLabel(lobby.mode)} · ${lobby.totalRounds} rondas · ${lobby.secondsPerRound}s',
+          Text('quiz.match_mode_line'.tr(namedArgs: {'mode': '${_modeLabel(lobby.mode)}', 'rounds': '${lobby.totalRounds}', 'seconds': '${lobby.secondsPerRound}'}),
               textAlign: TextAlign.center,
               style: TextStyle(
                   color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6),
                   fontSize: 13)),
           const SizedBox(height: spacingLg),
-          Text('JUGADORES (${lobby.players.length})',
+          Text('quiz.players_count'.tr(namedArgs: {'n': '${lobby.players.length}'}),
               style: TextStyle(
                   color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.38),
                   fontSize: 11, fontWeight: FontWeight.w700, letterSpacing: 1.1)),
@@ -234,7 +235,7 @@ class _MatchScreenState extends State<MatchScreen>
                     children: [
                       UserAvatar(username: e.$2, avatarUrl: null, radius: 16),
                       const SizedBox(width: 10),
-                      Text(e.$2 == _myUsername ? '${e.$2} (tú)' : e.$2,
+                      Text(e.$2 == _myUsername ? 'groups.member_you'.tr(namedArgs: {'name': '${e.$2}'}) : e.$2,
                           style: TextStyle(
                               color: Theme.of(context).colorScheme.onSurface,
                               fontSize: 14, fontWeight: FontWeight.w600)),
@@ -266,7 +267,7 @@ class _MatchScreenState extends State<MatchScreen>
               ),
             )
           else
-            Text('Esperando a que ${lobby.host} empiece…',
+            Text('quiz.waiting_host'.tr(namedArgs: {'host': '${lobby.host}'}),
                 textAlign: TextAlign.center,
                 style: TextStyle(
                     color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6),
@@ -287,7 +288,7 @@ class _MatchScreenState extends State<MatchScreen>
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text('Ronda ${q.round}/${q.totalRounds}',
+              Text('quiz.round_of'.tr(namedArgs: {'n': '${q.round}', 'total': '${q.totalRounds}'}),
                   style: TextStyle(
                       color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6),
                       fontSize: 14, fontWeight: FontWeight.w600)),
@@ -307,7 +308,7 @@ class _MatchScreenState extends State<MatchScreen>
           AnimatedOpacity(
             opacity: _myPick != null ? 1 : 0,
             duration: const Duration(milliseconds: 200),
-            child: Text('Respuesta enviada · esperando al resto…',
+            child: Text('quiz.answer_sent'.tr(),
                 style: TextStyle(color: appAccent, fontSize: 12, fontWeight: FontWeight.w600)),
           ),
           const SizedBox(height: spacingSm),
@@ -490,7 +491,7 @@ class _MatchScreenState extends State<MatchScreen>
                 color: iWasRight ? appSuccess : appError, size: 48),
           ),
           const SizedBox(height: spacingSm),
-          Text(iWasRight ? '¡Correcto!' : (_myPick == null ? 'Sin respuesta' : 'Fallaste'),
+          Text(iWasRight ? 'quiz.correct'.tr() : (_myPick == null ? 'Sin respuesta' : 'Fallaste'),
               textAlign: TextAlign.center,
               style: TextStyle(
                   color: Theme.of(context).colorScheme.onSurface,
@@ -502,7 +503,7 @@ class _MatchScreenState extends State<MatchScreen>
           const SizedBox(height: spacingMd),
           _nextCountdownChip(r),
           const SizedBox(height: spacingMd),
-          Text('MARCADOR',
+          Text('quiz.scoreboard'.tr(),
               style: TextStyle(
                   color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.38),
                   fontSize: 11, fontWeight: FontWeight.w700, letterSpacing: 1.1)),
@@ -563,7 +564,7 @@ class _MatchScreenState extends State<MatchScreen>
               Text('${e.$2.score}',
                   style: const TextStyle(color: appAccent, fontSize: 15, fontWeight: FontWeight.w800)),
               const SizedBox(width: 2),
-              Text('pts',
+              Text('quiz.lb_pts'.tr(),
                   style: TextStyle(
                       color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.38), fontSize: 10)),
             ],
@@ -605,8 +606,8 @@ class _MatchScreenState extends State<MatchScreen>
                 color: appAccent,
                 borderRadius: BorderRadius.circular(radiusMd),
               ),
-              child: const Center(
-                child: Text('Cerrar',
+              child: Center(
+                child: Text('common.close'.tr(),
                     style: TextStyle(color: Colors.white, fontSize: 15, fontWeight: FontWeight.w700)),
               ),
             ),

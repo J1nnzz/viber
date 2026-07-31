@@ -1,4 +1,5 @@
 ﻿import 'package:flutter/material.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:viber/core/theme/app_theme.dart';
 import 'package:viber/core/widgets/app_snack_bar.dart';
 import 'package:viber/core/widgets/image_crop.dart';
@@ -58,7 +59,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     try {
       final url = await _service.uploadAvatar(cropped.bytes, cropped.name);
       setState(() => _avatarUrl = url);
-      if (mounted) AppSnackBar.show(context, 'Foto actualizada');
+      if (mounted) AppSnackBar.show(context, 'edit_profile.avatar_updated'.tr());
     } catch (e) {
       if (mounted) AppSnackBar.show(context,
           'Error al subir imagen: ${e.toString().replaceAll("Exception: ", "")}',
@@ -93,14 +94,14 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Editar perfil'),
+        title: Text('profile.edit_button'.tr()),
         actions: [
           TextButton(
             onPressed: (_saving || _uploadingImg) ? null : _save,
             child: _saving
               ? const SizedBox(width: 18, height: 18,
                   child: CircularProgressIndicator(strokeWidth: 2, color: appAccent))
-              : const Text('Guardar',
+              : Text('common.save'.tr(),
                   style: TextStyle(
                     color: appAccent, fontWeight: FontWeight.w600, fontSize: 15)),
           ),
@@ -152,17 +153,17 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             const SizedBox(height: spacingXl),
 
             // ── Username ──────────────────────────────────────────────────────
-            _buildLabel('Nombre de usuario'),
+            _buildLabel('edit_profile.username_label'.tr()),
             const SizedBox(height: spacingXs),
             TextField(
               controller: _usernameCtrl,
               style: TextStyle(
                   color: Theme.of(context).colorScheme.onSurface, fontSize: 13),
               decoration: InputDecoration(
-                hintText: 'tu_usuario',
+                hintText: 'edit_profile.username_hint'.tr(),
                 prefixIcon: const Icon(Icons.alternate_email_rounded),
                 helperText:
-                    'Solo letras, números y guión bajo. Entre 3 y 50 caracteres.',
+                    'edit_profile.username_helper'.tr(),
                 helperStyle: TextStyle(
                     color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6),
                     fontSize: 11),
@@ -171,16 +172,16 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             const SizedBox(height: spacingLg),
 
             // ── Nombre visible ────────────────────────────────────────────────
-            _buildLabel('Nombre visible'),
+            _buildLabel('edit_profile.display_name_label'.tr()),
             const SizedBox(height: spacingXs),
             TextField(
               controller: _displayNameCtrl,
               style: TextStyle(
                   color: Theme.of(context).colorScheme.onSurface, fontSize: 13),
               decoration: InputDecoration(
-                hintText: 'Tu Nombre Completo',
+                hintText: 'edit_profile.name_hint'.tr(),
                 prefixIcon: const Icon(Icons.person_rounded),
-                helperText: 'Aparece en tu perfil. Puede tener espacios.',
+                helperText: 'edit_profile.name_rule'.tr(),
                 helperStyle: TextStyle(
                     color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6),
                     fontSize: 11),
@@ -197,8 +198,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   color: Theme.of(context).colorScheme.onSurface, fontSize: 13),
               maxLength: 150,
               maxLines:  3,
-              decoration: const InputDecoration(
-                hintText: 'Cuéntanos algo sobre ti...',
+              decoration: InputDecoration(
+                hintText: 'edit_profile.bio_hint'.tr(),
                 alignLabelWithHint: true,
               ),
             ),

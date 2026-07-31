@@ -1,4 +1,5 @@
 ﻿import 'dart:async';
+import 'package:easy_localization/easy_localization.dart';
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:viber/core/theme/app_theme.dart';
@@ -231,7 +232,7 @@ class _DirectChatScreenState extends State<DirectChatScreen> {
         actions: [
           IconButton(
             icon: const Icon(Icons.sports_esports_outlined),
-            tooltip: 'Retar a un duelo de quiz',
+            tooltip: 'chat.quiz_duel_invite'.tr(),
             onPressed: () => startQuizChallenge(
               context, scope: 'DM', otherUsername: widget.otherUsername),
           ),
@@ -283,7 +284,7 @@ class _DirectChatScreenState extends State<DirectChatScreen> {
             ),
             const SizedBox(height: spacingLg),
             Text(
-              '¡Empieza la conversación\ncon $_displayName!',
+              'chat.start_conversation'.tr(namedArgs: {'user': _displayName}),
               textAlign: TextAlign.center,
               style: TextStyle(
                 color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6),
@@ -317,7 +318,7 @@ class _DirectChatScreenState extends State<DirectChatScreen> {
                   color: appAccent.withValues(alpha: 0.25), width: 0.5),
             ),
             child: Text(
-              '$count mensaje${count == 1 ? '' : 's'} nuevo${count == 1 ? '' : 's'}',
+              'chat.new_messages'.plural(count),
               style: const TextStyle(
                 color: appAccent, fontSize: 11, fontWeight: FontWeight.w600,
               ),

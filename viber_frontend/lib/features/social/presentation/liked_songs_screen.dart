@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import '../../../core/theme/app_theme.dart';
 import '../../../core/utils/haptics.dart';
@@ -91,7 +92,7 @@ class _LikedSongsScreenState extends State<LikedSongsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Canciones favoritas')),
+      appBar: AppBar(title: Text('liked_songs.title'.tr())),
       body: _loading
           ? const SkeletonList(circleLeading: false)
           : _error != null
@@ -123,7 +124,7 @@ class _LikedSongsScreenState extends State<LikedSongsScreen> {
         controller: _searchController,
         textInputAction: TextInputAction.search,
         decoration: InputDecoration(
-          hintText: 'Buscar canción o artista…',
+          hintText: 'liked_songs.search_hint'.tr(),
           hintStyle: TextStyle(
               color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.4),
               fontSize: 14),
@@ -166,7 +167,7 @@ class _LikedSongsScreenState extends State<LikedSongsScreen> {
         padding: const EdgeInsets.symmetric(horizontal: 12),
         children: [
           _sortChip('date', 'Más recientes', Icons.schedule_rounded),
-          _sortChip('title', 'Título A–Z', Icons.sort_by_alpha_rounded),
+          _sortChip('title', 'liked_songs.sort_title'.tr(), Icons.sort_by_alpha_rounded),
           _sortChip('channel', 'Artista A–Z', Icons.person_outline_rounded),
         ],
       ),
@@ -225,14 +226,14 @@ class _LikedSongsScreenState extends State<LikedSongsScreen> {
                   color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.25)),
               const SizedBox(height: 16),
               Text(
-                'Aún no tienes favoritos',
+                'liked_songs.empty'.tr(),
                 style: TextStyle(
                     color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.5),
                     fontSize: 15),
               ),
               const SizedBox(height: 6),
               Text(
-                'Dale ♥ a una canción en la cola de una sala',
+                'liked_songs.empty_hint'.tr(),
                 style: TextStyle(
                     color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.35),
                     fontSize: 12),
@@ -256,7 +257,7 @@ class _LikedSongsScreenState extends State<LikedSongsScreen> {
                   color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.25)),
               const SizedBox(height: 12),
               Text(
-                'Sin resultados para "$_searchQuery"',
+                'liked_songs.no_results_for'.tr(namedArgs: {'query': _searchQuery}),
                 style: TextStyle(
                     color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.5),
                     fontSize: 14),
@@ -325,7 +326,7 @@ class _LikedSongTile extends StatelessWidget {
           : null,
       trailing: IconButton(
         icon: const Icon(Icons.favorite_rounded, color: appAccent, size: 20),
-        tooltip: 'Quitar de favoritos',
+        tooltip: 'liked_songs.remove'.tr(),
         onPressed: onUnlike,
       ),
     );

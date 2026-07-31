@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:viber/core/theme/app_theme.dart';
@@ -72,7 +73,7 @@ class _MatchAudioClueState extends State<MatchAudioClue> {
           ),
         ),
         const SizedBox(height: spacingMd),
-        Text('¿Qué canción suena?',
+        Text('quiz.which_song'.tr(),
             style: TextStyle(
                 color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6),
                 fontSize: 13)),

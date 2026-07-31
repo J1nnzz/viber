@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:viber/core/theme/app_theme.dart';
 import 'package:viber/core/widgets/app_snack_bar.dart';
@@ -35,7 +36,7 @@ class _CreateGroupScreenState extends State<CreateGroupScreen> {
     final cropped = await pickAndCropImage(
       context,
       circle: true,
-      title: 'Ajustar foto del grupo',
+      title: 'groups.adjust_photo'.tr(),
     );
     if (cropped == null) return;
 
@@ -76,14 +77,14 @@ class _CreateGroupScreenState extends State<CreateGroupScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Nuevo grupo'),
+        title: Text('groups.new_group'.tr()),
         actions: [
           TextButton(
             onPressed: (_creating || _uploading) ? null : _create,
             child: _creating
                 ? const SizedBox(width: 18, height: 18,
                     child: CircularProgressIndicator(strokeWidth: 2, color: appAccent))
-                : const Text('Crear',
+                : Text('groups.create'.tr(),
                     style: TextStyle(
                         color: appAccent, fontWeight: FontWeight.w600, fontSize: 15)),
           ),
@@ -132,28 +133,28 @@ class _CreateGroupScreenState extends State<CreateGroupScreen> {
             ),
             const SizedBox(height: spacingXl),
 
-            _label('Nombre del grupo'),
+            _label('groups.name_label'.tr()),
             const SizedBox(height: spacingXs),
             TextField(
               controller: _nameCtrl,
               maxLength: 80,
               style: TextStyle(color: Theme.of(context).colorScheme.onSurface, fontSize: 13),
-              decoration: const InputDecoration(
-                hintText: 'Mis colegas del insti',
+              decoration: InputDecoration(
+                hintText: 'groups.name_hint'.tr(),
                 prefixIcon: Icon(Icons.groups_rounded),
               ),
             ),
             const SizedBox(height: spacingMd),
 
-            _label('Descripción (opcional)'),
+            _label('create_room.description_label'.tr()),
             const SizedBox(height: spacingXs),
             TextField(
               controller: _descCtrl,
               maxLength: 255,
               maxLines: 3,
               style: TextStyle(color: Theme.of(context).colorScheme.onSurface, fontSize: 13),
-              decoration: const InputDecoration(
-                hintText: '¿De qué va este grupo?',
+              decoration: InputDecoration(
+                hintText: 'groups.desc_hint'.tr(),
                 alignLabelWithHint: true,
               ),
             ),

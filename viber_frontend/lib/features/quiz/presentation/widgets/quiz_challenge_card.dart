@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:viber/core/theme/app_theme.dart';
 import 'package:viber/core/widgets/motion.dart';
@@ -69,9 +70,9 @@ class QuizChallengeCard extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text('Duelo de quiz',
+                        Text('quiz.duel_card_title'.tr(),
                             style: TextStyle(color: Colors.white, fontSize: 15, fontWeight: FontWeight.w800)),
-                        Text('Modo $_modeLabel · ${totalRounds ?? '?'} rondas',
+                        Text('quiz.mode_rounds'.tr(namedArgs: {'mode': _modeLabel, 'rounds': '${totalRounds ?? '?'}'}),
                             style: TextStyle(color: Colors.white.withValues(alpha: 0.85), fontSize: 12)),
                       ],
                     ),
@@ -94,12 +95,12 @@ class QuizChallengeCard extends StatelessWidget {
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(radiusMd),
                   ),
-                  child: const Row(
+                  child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Icon(Icons.play_arrow_rounded, color: appAccent, size: 20),
                       SizedBox(width: 4),
-                      Text('Unirse',
+                      Text('common.join'.tr(),
                           style: TextStyle(color: appAccent, fontSize: 14, fontWeight: FontWeight.w800)),
                     ],
                   ),

@@ -1,4 +1,5 @@
 ﻿import 'dart:async';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:viber/core/services/notification_service.dart';
@@ -108,7 +109,7 @@ class _HomeScreenState extends State<HomeScreen> {
           const Icon(Icons.sports_esports_rounded, color: Colors.white, size: 16),
           const SizedBox(width: 8),
           Expanded(child: Text(
-            '${invite.from} te reta a un duelo de quiz',
+            'home.quiz_challenge_from'.tr(namedArgs: {'user': '${invite.from}'}),
             style: const TextStyle(fontSize: 13))),
         ],
       ),
@@ -245,7 +246,7 @@ class _HomeScreenState extends State<HomeScreen> {
     await _friendshipService.dismissInvitation(id);
     if (!mounted) return;
     setState(() => _invitations.removeWhere((i) => i.id == id));
-    _showSnackBar('Invitación rechazada');
+    _showSnackBar('home.invitation_dismissed'.tr());
   }
 
   Future<void> _handleJoinInvitation(RoomInvitation inv) async {
@@ -258,7 +259,7 @@ class _HomeScreenState extends State<HomeScreen> {
     if (!mounted) return;
     setState(() =>
         _friendRequests.removeWhere((p) => p.username == username));
-    _showSnackBar('¡Ahora sois amigos!',
+    _showSnackBar('friends.accepted_success'.tr(),
         icon: Icons.check_circle_outline);
   }
 
@@ -267,7 +268,7 @@ class _HomeScreenState extends State<HomeScreen> {
     if (!mounted) return;
     setState(() =>
         _friendRequests.removeWhere((p) => p.username == username));
-    _showSnackBar('Solicitud rechazada');
+    _showSnackBar('home.request_rejected'.tr());
   }
 
   // ── Unirse a sala ──────────────────────────────────────────────────────────
@@ -285,7 +286,7 @@ class _HomeScreenState extends State<HomeScreen> {
         final rooms = await RoomService().getPublicRooms();
         room = rooms.firstWhere(
           (r) => r.id == inv.roomId,
-          orElse: () => throw Exception('La sala ya no está disponible'),
+          orElse: () => throw Exception('home.room_unavailable'.tr()),
         );
       }
       if (!mounted) return;
@@ -309,18 +310,18 @@ class _HomeScreenState extends State<HomeScreen> {
       final confirm = await showDialog<bool>(
         context: context,
         builder: (ctx) => AlertDialog(
-          title: const Text('Cambiar de sala'),
+          title: Text('home.switch_title'.tr()),
           content: Text(
-            'Actualmente estás en "${provider.room?.name}". '
-            '¿Quieres salir y unirte a "${room.name}"?',
+            'home.currently_in'.tr(namedArgs: {'room': '${provider.room?.name}'}) +
+                'home.switch_confirm'.tr(namedArgs: {'room': '${room.name}'}),
           ),
           actions: [
             TextButton(
                 onPressed: () => Navigator.pop(ctx, false),
-                child: const Text('Cancelar')),
+                child: Text('common.cancel'.tr())),
             TextButton(
                 onPressed: () => Navigator.pop(ctx, true),
-                child: const Text('Cambiar')),
+                child: Text('home.switch_button'.tr())),
           ],
         ),
       );
@@ -339,7 +340,7 @@ class _HomeScreenState extends State<HomeScreen> {
     if (kicked) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text(
-          'Fuiste expulsado de "${room.name}" y no puedes volver a unirte',
+          'home.kicked_no_rejoin'.tr(namedArgs: {'room': '${room.name}'}),
           style: const TextStyle(fontSize: 13),
         ),
         backgroundColor: appError,    // error siempre es el mismo color
@@ -430,7 +431,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     : Icons.notifications_none_rounded,
                 color: _notifCount > 0 ? appAccent : null,
               ),
-              tooltip: 'Notificaciones',
+              tooltip: 'nav.notifications'.tr(),
               onPressed: _openNotifications,
             ),
             if (_notifCount > 0)
@@ -472,7 +473,7 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         IconButton(
           icon: const Icon(Icons.group_outlined),
-          tooltip: 'Amigos',
+          tooltip: 'common.friends'.tr(),
           onPressed: () => Navigator.push(
             context,
             fadeThroughRoute(const FriendsScreen()),
@@ -481,7 +482,7 @@ class _HomeScreenState extends State<HomeScreen> {
         // ── Menú de cuenta (perfil / administración / ajustes) ─────────────
         PopupMenuButton<String>(
           icon: const Icon(Icons.account_circle_outlined),
-          tooltip: 'Cuenta',
+          tooltip: 'nav.account'.tr(),
           position: PopupMenuPosition.under,
           onSelected: (value) {
             switch (value) {
@@ -595,11 +596,11 @@ class _HomeScreenState extends State<HomeScreen> {
                     Icon(Icons.headphones_rounded, color: appAccent),
                 label: 'Salas',
               ),
-              const NavigationDestination(
+              NavigationDestination(
                 icon: Icon(Icons.explore_outlined),
                 selectedIcon:
                     Icon(Icons.explore_rounded, color: appAccent),
-                label: 'Explorar',
+                label: 'explore.title'.tr(),
               ),
               const NavigationDestination(
                 icon: Icon(Icons.sports_esports_outlined),
@@ -613,7 +614,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 selectedIcon: _chatIcon(
                     Icons.chat_bubble_rounded, unread,
                     color: appAccent),
-                label: 'Mensajes',
+                label: 'chat.messages_title'.tr(),
               ),
             ],
           );

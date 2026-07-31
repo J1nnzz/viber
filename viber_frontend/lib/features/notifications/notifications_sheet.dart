@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:viber/core/theme/app_theme.dart';
 import 'package:viber/core/widgets/motion.dart';
@@ -89,8 +90,7 @@ class _NotificationsSheetState extends State<NotificationsSheet> {
                 const Icon(Icons.notifications_rounded,
                     color: appAccent, size: 20),
                 const SizedBox(width: 8),
-                Text(
-                  'Notificaciones',
+                Text('nav.notifications'.tr(),
                   style: TextStyle(
                     color: Theme.of(context).colorScheme.onSurface,
                     fontSize: 16,
@@ -134,7 +134,7 @@ class _NotificationsSheetState extends State<NotificationsSheet> {
                 children: [
                   // ── Solicitudes de amistad ───────────────────────────────
                   if (widget.friendRequests.isNotEmpty) ...[
-                    _sectionHeader('SOLICITUDES DE AMISTAD',
+                    _sectionHeader('notifications.friend_requests_header'.tr(),
                         widget.friendRequests.length),
                     ...widget.friendRequests.indexed.map((e) {
                       final p = e.$2;
@@ -177,7 +177,7 @@ class _NotificationsSheetState extends State<NotificationsSheet> {
                   // ── Invitaciones a sala ──────────────────────────────────
                   if (widget.invitations.isNotEmpty) ...[
                     _sectionHeader(
-                        'INVITACIONES A SALA', widget.invitations.length),
+                        'notifications.room_invitations_header'.tr(), widget.invitations.length),
                     ...widget.invitations.indexed.map((e) {
                       final inv = e.$2;
                       return AppEntrance(
@@ -254,8 +254,7 @@ class _NotificationsSheetState extends State<NotificationsSheet> {
                 color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.38), size: 26),
           ),
           const SizedBox(height: 12),
-          Text(
-            'Sin notificaciones pendientes',
+          Text('notifications.empty'.tr(),
             style: TextStyle(color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6), fontSize: 13),
           ),
         ],
@@ -311,7 +310,7 @@ class _FriendRequestTile extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  '@${profile.username} quiere ser tu amigo',
+                  'notifications.wants_friend'.tr(namedArgs: {'user': '${profile.username}'}),
                   style: TextStyle(
                       color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6), fontSize: 11),
                 ),
@@ -446,7 +445,7 @@ class _RoomInvitationTile extends StatelessWidget {
             children: [
               Expanded(
                 child: _LoadingButton(
-                  label: 'Rechazar',
+                  label: 'common.reject'.tr(),
                   busy: dismissBusy,
                   disabled: joinBusy,
                   outlined: true,
@@ -521,7 +520,7 @@ class _GroupInvitationTile extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  '${invitation.senderName} te ha invitado',
+                  'notifications.invited_you'.tr(namedArgs: {'user': '${invitation.senderName}'}),
                   style: TextStyle(
                       color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6),
                       fontSize: 11),

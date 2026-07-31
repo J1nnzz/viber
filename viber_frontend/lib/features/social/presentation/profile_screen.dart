@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:viber/core/theme/app_theme.dart';
 import 'package:viber/core/widgets/app_snack_bar.dart';
@@ -76,7 +77,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     try {
       await _friendService.sendRequest(_profile!.username);
       await _load();
-      if (mounted) AppSnackBar.show(context, 'Solicitud enviada');
+      if (mounted) AppSnackBar.show(context, 'profile.request_sent'.tr());
     } catch (e) {
       if (mounted) AppSnackBar.show(context,
           e.toString().replaceAll('Exception: ', ''), error: true);
@@ -87,18 +88,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
     final ok = await showDialog<bool>(
       context: context,
       builder: (_) => AlertDialog(
-        title: Text('Eliminar amigo',
+        title: Text('profile.delete_friend'.tr(),
             style: TextStyle(color: Theme.of(context).colorScheme.onSurface)),
-        content: Text('¿Eliminar a ${_profile!.username}?',
+        content: Text('profile.delete_friend_confirm'.tr(namedArgs: {'user': '${_profile!.username}'}),
             style: TextStyle(
                 color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6))),
         actions: [
           TextButton(
               onPressed: () => Navigator.pop(context, false),
-              child: const Text('Cancelar')),
+              child: Text('common.cancel'.tr())),
           TextButton(
               onPressed: () => Navigator.pop(context, true),
-              child: const Text('Eliminar',
+              child: Text('common.delete'.tr(),
                   style: TextStyle(color: appError))),
         ],
       ),
@@ -131,13 +132,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         strokeWidth: 2, color: appAccent),
                   )
                 : const Icon(Icons.refresh_rounded),
-            tooltip: 'Actualizar',
+            tooltip: 'profile.refresh'.tr(),
             onPressed: _loading ? null : _load,
           ),
           if (_isOwn && widget.onLogout != null)
             IconButton(
               icon: const Icon(Icons.settings_outlined),
-              tooltip: 'Ajustes',
+              tooltip: 'profile.settings'.tr(),
               onPressed: _profile == null
                   ? null
                   : () => Navigator.push(
@@ -256,7 +257,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       size: 12),
                   const SizedBox(width: 4),
                   Text(
-                    'En Viber desde ${_formatDate(p.createdAt!)}',
+                    'profile.member_since'.tr(namedArgs: {'date': '${_formatDate(p.createdAt!)}'}),
                     style: TextStyle(
                         color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.38),
                         fontSize: 11),
@@ -299,7 +300,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Estadísticas',
+            'profile.stats'.tr(),
             style: TextStyle(
               color: Theme.of(context).colorScheme.onSurface,
               fontSize: 14,
@@ -366,7 +367,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           // ── Artistas más escuchados ─────────────────────────────────
           const SizedBox(height: spacingLg),
           _BarChartSection(
-            title: 'Artistas más escuchados',
+            title: 'profile.top_artists'.tr(),
             entries: stats.topArtists,
             emptyLabel: 'Escucha canciones en salas para ver tus artistas',
             tooltipSuffix: (n) => n == 1 ? 'reproducción' : 'reproducciones',
@@ -385,7 +386,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           Expanded(
             child: OutlinedButton.icon(
               icon: const Icon(Icons.edit_outlined, size: 16),
-              label: const Text('Editar perfil'),
+              label: Text('profile.edit_button'.tr()),
               onPressed: () async {
                 final updated = await Navigator.push<UserProfile>(
                   context,
@@ -401,7 +402,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           Expanded(
             child: OutlinedButton.icon(
               icon: const Icon(Icons.group_outlined, size: 16),
-              label: const Text('Amigos'),
+              label: Text('common.friends'.tr()),
               onPressed: () => Navigator.push(
                 context,
                 fadeThroughRoute(const FriendsScreen()),
@@ -417,7 +418,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       child: switch (p.relation) {
         'FRIENDS' => OutlinedButton.icon(
             icon: const Icon(Icons.person_remove_outlined, size: 16),
-            label: const Text('Eliminar amigo'),
+            label: Text('profile.delete_friend'.tr()),
             style: OutlinedButton.styleFrom(
               foregroundColor: appError,
               side: const BorderSide(color: appError),
@@ -426,12 +427,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
           ),
         'PENDING_SENT' => OutlinedButton.icon(
             icon: const Icon(Icons.hourglass_top_rounded, size: 16),
-            label: const Text('Solicitud enviada'),
+            label: Text('profile.request_sent'.tr()),
             onPressed: null,
           ),
         'PENDING_RECEIVED' => ElevatedButton.icon(
             icon: const Icon(Icons.check_rounded, size: 16),
-            label: const Text('Aceptar solicitud'),
+            label: Text('profile.accept_request'.tr()),
             onPressed: () async {
               await _friendService.acceptRequest(p.username);
               await _load();
@@ -439,7 +440,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           ),
         _ => ElevatedButton.icon(
             icon: const Icon(Icons.person_add_rounded, size: 16),
-            label: const Text('Añadir amigo'),
+            label: Text('profile.add_friend'.tr()),
             onPressed: _sendRequest,
           ),
       },

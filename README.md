@@ -75,7 +75,7 @@ music quiz to play while you listen.
 **Platform**
 - Runs on Android, iOS and the web from one Flutter codebase.
 - Light and dark themes, dark-first, with the accent colour adapting per mode.
-- Full Spanish and English localisation.
+- Spanish and English localisation across the user-facing screens.
 - Admin panel for the quiz catalogue and moderation.
 
 ## Architecture

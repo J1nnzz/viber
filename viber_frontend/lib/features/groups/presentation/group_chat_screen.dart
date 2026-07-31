@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/material.dart';
@@ -164,7 +165,7 @@ class _GroupChatScreenState extends State<GroupChatScreen> {
                         style: TextStyle(
                             color: Theme.of(context).colorScheme.onSurface,
                             fontSize: 15, fontWeight: FontWeight.w600)),
-                    Text('${_group.memberCount} miembros',
+                    Text('groups.members_count'.tr(namedArgs: {'n': '${_group.memberCount}'}),
                         style: TextStyle(
                             color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6),
                             fontSize: 11)),
@@ -178,12 +179,12 @@ class _GroupChatScreenState extends State<GroupChatScreen> {
           if (canQuiz)
             IconButton(
               icon: const Icon(Icons.sports_esports_outlined),
-              tooltip: 'Reto de quiz',
+              tooltip: 'quiz.challenge_title'.tr(),
               onPressed: _challenge,
             ),
           IconButton(
             icon: const Icon(Icons.info_outline_rounded),
-            tooltip: 'Info del grupo',
+            tooltip: 'groups.group_info'.tr(),
             onPressed: _openInfo,
           ),
         ],
@@ -218,7 +219,7 @@ class _GroupChatScreenState extends State<GroupChatScreen> {
           children: [
             GroupAvatar(name: _group.name, photoUrl: _group.photoUrl, radius: 32),
             const SizedBox(height: spacingLg),
-            Text('¡Saluda al grupo\n${_group.name}!',
+            Text('groups.say_hi'.tr(namedArgs: {'name': '${_group.name}'}),
                 textAlign: TextAlign.center,
                 style: TextStyle(
                     color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6),

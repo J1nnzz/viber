@@ -1,7 +1,6 @@
 ﻿import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:viber/core/theme/app_theme.dart';
 import 'package:viber/core/theme/theme_provider.dart';
 import 'package:viber/core/services/notification_service.dart';
@@ -10,10 +9,6 @@ import '../../auth/infrastructure/auth_service.dart';
 import '../infrastructure/friendship_service.dart';
 import '../domain/user_profile.dart';
 import 'edit_profile_screen.dart';
-
-/// Página de Ko-fi para apoyar el proyecto y cubrir los costes del servidor.
-/// TODO: sustituir por el handle real cuando se cree la cuenta en ko-fi.com.
-const String _kofiUrl = 'https://ko-fi.com/viber';
 
 /// Pantalla de ajustes de la aplicación.
 /// Permite cambiar el tema (claro/oscuro), activar/desactivar notificaciones,
@@ -155,18 +150,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
                 const SizedBox(height: spacingSm),
 
-                // ── Apoya el proyecto ────────────────────────────────────
-                _SectionHeader(title: 'settings.support_section'.tr()),
-                _SettingsTile(
-                  icon: Icons.favorite_rounded,
-                  iconColor: appAccent,
-                  title: 'settings.support_kofi'.tr(),
-                  subtitle: 'settings.support_kofi_desc'.tr(),
-                  onTap: _openKofi,
-                ),
-
-                const SizedBox(height: spacingSm),
-
                 // ── Zona peligrosa ───────────────────────────────────────
                 _SectionHeader(title: 'settings.danger_section'.tr()),
                 _SettingsTile(
@@ -250,16 +233,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
       ),
     );
     if (ok == true) widget.onLogout();
-  }
-
-  // ── Apoyar el proyecto (Ko-fi) ───────────────────────────────────────────
-
-  Future<void> _openKofi() async {
-    final uri = Uri.parse(_kofiUrl);
-    final ok = await launchUrl(uri, mode: LaunchMode.externalApplication);
-    if (!ok && mounted) {
-      _showSnack('settings.support_error'.tr(), error: true);
-    }
   }
 
   void _showSnack(String msg, {bool error = false}) =>

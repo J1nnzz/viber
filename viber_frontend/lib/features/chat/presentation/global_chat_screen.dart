@@ -1,4 +1,5 @@
 ﻿import 'dart:convert';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:viber/core/services/notification_service.dart';
 import 'package:viber/core/theme/app_theme.dart';
@@ -159,16 +160,14 @@ class _GlobalChatScreenState extends State<GlobalChatScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
               children: [
-                Text(
-                  'Chat Global',
+                Text('chat.global_title'.tr(),
                   style: TextStyle(
                     color: Theme.of(context).colorScheme.onSurface,
                     fontSize: 15,
                     fontWeight: FontWeight.w600,
                   ),
                 ),
-                Text(
-                  'Toda la comunidad Viber',
+                Text('chat.global_subtitle'.tr(),
                   style: TextStyle(
                       color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6),
                       fontSize: 11),
@@ -195,7 +194,7 @@ class _GlobalChatScreenState extends State<GlobalChatScreen> {
                                   size: 40),
                               const SizedBox(height: spacingMd),
                               Text(
-                                'Sé el primero en escribir\nen el chat global.',
+                                'chat.global_empty'.tr(),
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                   color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6),

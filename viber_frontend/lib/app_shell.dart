@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'features/rooms/presentation/active_room_provider.dart';
@@ -35,7 +36,7 @@ class _AppShellState extends State<AppShell> {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content: Text(
-                  'Fuiste expulsado de "${provider.kickedRoomName}" por el host',
+                  'room.kicked_by_host'.tr(namedArgs: {'room': '${provider.kickedRoomName}'}),
                   style: const TextStyle(fontSize: 13),
                 ),
                 backgroundColor: appError,
@@ -57,7 +58,7 @@ class _AppShellState extends State<AppShell> {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content: Text(
-                  'La sala "${provider.roomFullName}" está llena',
+                  'room.room_full'.tr(namedArgs: {'room': '${provider.roomFullName}'}),
                   style: const TextStyle(fontSize: 13),
                 ),
                 backgroundColor: appError,
@@ -79,7 +80,7 @@ class _AppShellState extends State<AppShell> {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content: Text(
-                  'El host ha cerrado la sala "${provider.roomClosedName}"',
+                  'room.host_closed'.tr(namedArgs: {'room': '${provider.roomClosedName}'}),
                   style: const TextStyle(fontSize: 13),
                 ),
                 backgroundColor: appError,

@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:viber/core/theme/app_theme.dart';
 import 'package:viber/core/widgets/app_snack_bar.dart';
@@ -98,7 +99,7 @@ class _ChallengeSheetState extends State<_ChallengeSheet> {
             children: [
               const Icon(Icons.sports_esports_rounded, color: appAccent, size: 20),
               const SizedBox(width: 8),
-              Text('Reto de quiz',
+              Text('quiz.challenge_title'.tr(),
                   style: TextStyle(
                       color: Theme.of(context).colorScheme.onSurface,
                       fontSize: 16, fontWeight: FontWeight.w700)),
@@ -150,7 +151,7 @@ class _ChallengeSheetState extends State<_ChallengeSheet> {
           ElevatedButton.icon(
             onPressed: () => Navigator.pop(context, _ChallengeConfig(_mode, _rounds, _seconds)),
             icon: const Icon(Icons.play_arrow_rounded),
-            label: const Text('Crear sala'),
+            label: Text('rooms.create_empty_button'.tr()),
             style: ElevatedButton.styleFrom(
               backgroundColor: appAccent, foregroundColor: Colors.white,
               minimumSize: const Size(0, 48),

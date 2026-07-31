@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import '../../domain/room.dart';
 import 'package:viber/core/theme/app_theme.dart';
@@ -327,7 +328,7 @@ class RoomListCard extends StatelessWidget {
                               const SizedBox(width: 3),
                               Text(
                                 room.listenerCount == 0
-                                    ? 'Sin oyentes'
+                                    ? 'rooms.no_listeners'.tr()
                                     : '${room.listenerCount} oyente${room.listenerCount == 1 ? '' : 's'}',
                                 style: TextStyle(
                                     color: cs.onSurface.withValues(alpha: 0.38),
@@ -527,11 +528,11 @@ class _PrivatePill extends StatelessWidget {
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
-        children: const [
+        children: [
           Icon(Icons.lock_rounded, color: appAccent, size: 10),
           SizedBox(width: 3),
           Text(
-            'Sala privada',
+            'room.private_room'.tr(),
             style: TextStyle(
               color: appAccent,
               fontSize: 10,
@@ -647,19 +648,19 @@ class _HostMenuButton extends StatelessWidget {
                 Icon(Icons.edit_outlined, size: 16,
                     color: cs.onSurface.withValues(alpha: 0.6)),
                 const SizedBox(width: spacingSm),
-                Text('Editar sala',
+                Text('room.edit_room'.tr(),
                     style: TextStyle(color: cs.onSurface, fontSize: 13)),
               ],
             ),
           ),
         if (onClose != null)
-          const PopupMenuItem(
+          PopupMenuItem(
             value: 'close',
             child: Row(
               children: [
                 Icon(Icons.delete_outline_rounded, size: 16, color: appError),
                 SizedBox(width: spacingSm),
-                Text('Cerrar sala',
+                Text('rooms.close_button'.tr(),
                     style: TextStyle(color: appError, fontSize: 13)),
               ],
             ),

@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:viber/core/theme/app_theme.dart';
@@ -108,7 +109,7 @@ class _GroupInfoScreenState extends State<GroupInfoScreen> {
         title: Text(title),
         content: Text(message),
         actions: [
-          TextButton(onPressed: () => Navigator.pop(ctx, false), child: const Text('Cancelar')),
+          TextButton(onPressed: () => Navigator.pop(ctx, false), child: Text('common.cancel'.tr())),
           TextButton(
             onPressed: () => Navigator.pop(ctx, true),
             child: Text(confirmLabel,
@@ -123,7 +124,7 @@ class _GroupInfoScreenState extends State<GroupInfoScreen> {
   bool _pendingConfirm = false;
 
   Future<void> _leave() async {
-    await _confirm('Salir del grupo', '¿Seguro que quieres salir de "${_group!.name}"?', 'Salir', danger: true);
+    await _confirm('groups.leave_group'.tr(), '¿Seguro que quieres salir de "${_group!.name}"?', 'Salir', danger: true);
     if (!_pendingConfirm) return;
     try {
       await _service.leave(_group!.id);
@@ -149,7 +150,7 @@ class _GroupInfoScreenState extends State<GroupInfoScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Información del grupo')),
+      appBar: AppBar(title: Text('groups.info_title'.tr())),
       body: _loading || _group == null
           ? const Center(child: CircularProgressIndicator(color: appAccent))
           : ListView(
@@ -194,7 +195,7 @@ class _GroupInfoScreenState extends State<GroupInfoScreen> {
           ),
         ],
         const SizedBox(height: 6),
-        Text('${g.memberCount} miembros',
+        Text('groups.members_count'.tr(namedArgs: {'n': '${g.memberCount}'}),
             style: TextStyle(
                 color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.38), fontSize: 12)),
         if (g.can(g.editInfoPolicy)) ...[
@@ -202,7 +203,7 @@ class _GroupInfoScreenState extends State<GroupInfoScreen> {
           OutlinedButton.icon(
             onPressed: _edit,
             icon: const Icon(Icons.edit_outlined, size: 16),
-            label: const Text('Editar'),
+            label: Text('common.edit'.tr()),
             style: OutlinedButton.styleFrom(
               foregroundColor: appAccent,
               side: const BorderSide(color: appAccent),
@@ -220,7 +221,7 @@ class _GroupInfoScreenState extends State<GroupInfoScreen> {
       child: ElevatedButton.icon(
         onPressed: _busy ? null : _invite,
         icon: const Icon(Icons.person_add_alt_1_rounded, size: 18),
-        label: const Text('Invitar amigos'),
+        label: Text('room.invite_friends_section'.tr()),
         style: ElevatedButton.styleFrom(
           backgroundColor: appAccent, foregroundColor: Colors.white,
           minimumSize: const Size(0, 46),
@@ -319,7 +320,7 @@ class _GroupInfoScreenState extends State<GroupInfoScreen> {
 
     return ListTile(
       leading: UserAvatar(username: m.username, avatarUrl: m.avatarUrl, radius: 20),
-      title: Text(isMe ? '${m.displayLabel} (tú)' : m.displayLabel,
+      title: Text(isMe ? 'groups.member_you'.tr(namedArgs: {'name': '${m.displayLabel}'}) : m.displayLabel,
           style: TextStyle(color: Theme.of(context).colorScheme.onSurface, fontSize: 14, fontWeight: FontWeight.w600)),
       subtitle: Text('@${m.username} · ${m.role.label}',
           style: TextStyle(color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6), fontSize: 12)),
@@ -368,20 +369,20 @@ class _GroupInfoScreenState extends State<GroupInfoScreen> {
       },
       itemBuilder: (_) => [
         if (iAmOwner && m.role == GroupRole.member)
-          const PopupMenuItem(value: 'promote', child: Text('Hacer administrador')),
+          PopupMenuItem(value: 'promote', child: Text('groups.make_admin'.tr())),
         if (iAmOwner && m.role == GroupRole.admin)
-          const PopupMenuItem(value: 'demote', child: Text('Quitar administrador')),
+          PopupMenuItem(value: 'demote', child: Text('groups.remove_admin'.tr())),
         if (iAmOwner)
-          const PopupMenuItem(value: 'transfer', child: Text('Transferir propiedad')),
+          PopupMenuItem(value: 'transfer', child: Text('groups.transfer_ownership'.tr())),
         if (canKick)
-          const PopupMenuItem(value: 'kick',
-              child: Text('Expulsar', style: TextStyle(color: appError))),
+          PopupMenuItem(value: 'kick',
+              child: Text('groups.kick'.tr(), style: TextStyle(color: appError))),
       ],
     );
   }
 
   Future<void> _confirmTransfer(GroupMemberModel m) async {
-    await _confirm('Transferir propiedad',
+    await _confirm('groups.transfer_ownership'.tr(),
         'Pasarás a ser administrador y @${m.username} será el nuevo propietario.',
         'Transferir');
     if (!_pendingConfirm) return;
@@ -400,10 +401,10 @@ class _GroupInfoScreenState extends State<GroupInfoScreen> {
           if (g.isOwner)
             _dangerButton('Borrar grupo', Icons.delete_outline_rounded, _delete)
           else
-            _dangerButton('Salir del grupo', Icons.logout_rounded, _leave),
+            _dangerButton('groups.leave_group'.tr(), Icons.logout_rounded, _leave),
           if (g.isOwner && g.memberCount > 1) ...[
             const SizedBox(height: 6),
-            Text('Para salir, transfiere antes la propiedad a otro miembro.',
+            Text('groups.transfer_first'.tr(),
                 textAlign: TextAlign.center,
                 style: TextStyle(
                     color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.38), fontSize: 11)),
@@ -468,7 +469,7 @@ class _InvitePicker extends StatelessWidget {
             child: Row(children: [
               const Icon(Icons.person_add_alt_1_rounded, color: appAccent, size: 20),
               const SizedBox(width: 8),
-              Text('Invitar a un amigo',
+              Text('groups.invite_friend'.tr(),
                   style: TextStyle(
                       color: Theme.of(context).colorScheme.onSurface,
                       fontSize: 16, fontWeight: FontWeight.w700)),
@@ -478,7 +479,7 @@ class _InvitePicker extends StatelessWidget {
           if (friends.isEmpty)
             Padding(
               padding: const EdgeInsets.all(32),
-              child: Text('No tienes amigos para invitar (todos están ya en el grupo).',
+              child: Text('groups.no_friends_invite'.tr(),
                   textAlign: TextAlign.center,
                   style: TextStyle(
                       color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6), fontSize: 13)),

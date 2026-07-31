@@ -1,4 +1,5 @@
 ﻿import 'dart:convert';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:viber/core/constants/api_constants.dart';
@@ -29,11 +30,14 @@ class _AdminScreenState extends State<AdminScreen> {
     return 'Bearer $token';
   }
 
-  static const _sections = [
-    (icon: Icons.music_note_outlined,   selectedIcon: Icons.music_note,   label: 'Géneros'),
-    (icon: Icons.meeting_room_outlined, selectedIcon: Icons.meeting_room, label: 'Salas'),
-    (icon: Icons.people_outline,        selectedIcon: Icons.people,       label: 'Usuarios'),
-    (icon: Icons.sports_esports_outlined, selectedIcon: Icons.sports_esports, label: 'Quiz'),
+  // Getter y no `static const`: las etiquetas se traducen con .tr(), que debe
+  // reevaluarse en cada build para que cambiar de idioma las actualice. Una
+  // lista constante las congelaría con el idioma que hubiera al arrancar.
+  static List<({IconData icon, IconData selectedIcon, String label})> get _sections => [
+    (icon: Icons.music_note_outlined,     selectedIcon: Icons.music_note,     label: 'admin.section_genres'.tr()),
+    (icon: Icons.meeting_room_outlined,   selectedIcon: Icons.meeting_room,   label: 'admin.section_rooms'.tr()),
+    (icon: Icons.people_outline,          selectedIcon: Icons.people,         label: 'admin.section_users'.tr()),
+    (icon: Icons.sports_esports_outlined, selectedIcon: Icons.sports_esports, label: 'admin.section_quiz'.tr()),
   ];
 
   @override
@@ -47,7 +51,7 @@ class _AdminScreenState extends State<AdminScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Panel de administración'),
+        title: Text('admin.title'.tr()),
         centerTitle: false,
       ),
       body: Row(
@@ -164,9 +168,9 @@ class _GenresPageState extends State<_GenresPage> {
               Expanded(
                 child: TextField(
                   controller: _nameCtrl,
-                  decoration: const InputDecoration(
-                    labelText: 'Nuevo género',
-                    hintText: 'Ej. Jazz, K-Pop…',
+                  decoration: InputDecoration(
+                    labelText: 'admin.new_genre'.tr(),
+                    hintText: 'admin.genre_hint'.tr(),
                     border: OutlineInputBorder(),
                     isDense: true,
                   ),
@@ -177,7 +181,7 @@ class _GenresPageState extends State<_GenresPage> {
               FilledButton.icon(
                 onPressed: _add,
                 icon: const Icon(Icons.add, size: 18),
-                label: const Text('Añadir'),
+                label: Text('common.add'.tr()),
               ),
             ],
           ),
@@ -204,7 +208,7 @@ class _GenresPageState extends State<_GenresPage> {
                           title: Text(g['name']),
                           trailing: IconButton(
                             icon: const Icon(Icons.delete_outline, color: Colors.red),
-                            tooltip: 'Eliminar género',
+                            tooltip: 'admin.delete_genre'.tr(),
                             onPressed: () => _delete(g['id'], g['name']),
                           ),
                         );
@@ -317,7 +321,7 @@ class _RoomsPageState extends State<_RoomsPage> {
         }
       });
     } else {
-      _snack('Error al resolver el reporte', error: true);
+      _snack('errors.report_resolve'.tr(), error: true);
     }
   }
 
@@ -427,24 +431,24 @@ class _RoomsPageState extends State<_RoomsPage> {
     final saved = await showDialog<bool>(
       context: context,
       builder: (ctx) => AlertDialog(
-        title: const Text('Editar nota de incidencia'),
+        title: Text('admin.edit_report_note'.tr()),
         content: TextField(
           controller: ctrl,
           maxLines: 4,
           maxLength: 500,
-          decoration: const InputDecoration(
-            hintText: 'Describe el motivo de la incidencia…',
+          decoration: InputDecoration(
+            hintText: 'admin.report_reason_hint'.tr(),
             border: OutlineInputBorder(),
           ),
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(ctx, false),
-            child: const Text('Cancelar'),
+            child: Text('common.cancel'.tr()),
           ),
           FilledButton(
             onPressed: () => Navigator.pop(ctx, true),
-            child: const Text('Guardar'),
+            child: Text('common.save'.tr()),
           ),
         ],
       ),
@@ -482,7 +486,7 @@ class _RoomsPageState extends State<_RoomsPage> {
           icon: Icons.meeting_room,
           trailing: IconButton(
             icon: const Icon(Icons.refresh),
-            tooltip: 'Recargar',
+            tooltip: 'common.reload'.tr(),
             onPressed: _load,
           ),
         ),
@@ -490,8 +494,8 @@ class _RoomsPageState extends State<_RoomsPage> {
         Padding(
           padding: const EdgeInsets.fromLTRB(16, 10, 16, 4),
           child: TextField(
-            decoration: const InputDecoration(
-              hintText: 'Buscar por nombre o host…',
+            decoration: InputDecoration(
+              hintText: 'admin.search_rooms_hint'.tr(),
               prefixIcon: Icon(Icons.search),
               border: OutlineInputBorder(),
               isDense: true,
@@ -666,8 +670,10 @@ class _RoomCard extends StatelessWidget {
         ],
       ),
       subtitle: Text(
-        'Host: $host  ·  $privacy'
-        '${active ? "  ·  $online online" : "  ·  Cerrada"}',
+        'admin.room_host'.tr(namedArgs: {'host': host, 'privacy': privacy}) +
+            (active
+                ? '  ·  ${'admin.room_online'.tr(namedArgs: {'n': '$online'})}'
+                : '  ·  ${'admin.room_closed'.tr()}'),
         style: const TextStyle(fontSize: 12),
       ),
       // ── Detalle expandido ──────────────────────────────────────────────
@@ -743,7 +749,7 @@ class _RoomCard extends StatelessWidget {
                     OutlinedButton.icon(
                       onPressed: online > 0 ? onKickAll : null,
                       icon: const Icon(Icons.logout, size: 16),
-                      label: Text('Echar usuarios ($online)'),
+                      label: Text('admin.kick_users_n'.tr(namedArgs: {'n': '$online'})),
                       style: OutlinedButton.styleFrom(foregroundColor: Colors.orange),
                     ),
                   // Editar nota — solo si ya está flaggeada
@@ -764,7 +770,7 @@ class _RoomCard extends StatelessWidget {
                       size: 16,
                       color: flagged ? Colors.grey : Colors.orange,
                     ),
-                    label: Text(flagged ? 'Retirar incidencia' : 'Marcar incidencia'),
+                    label: Text(flagged ? 'Retirar incidencia' : 'admin.flag_report'.tr()),
                     style: OutlinedButton.styleFrom(
                       foregroundColor: flagged ? Colors.grey : Colors.orange,
                     ),
@@ -774,14 +780,14 @@ class _RoomCard extends StatelessWidget {
                     OutlinedButton.icon(
                       onPressed: onEnter,
                       icon: const Icon(Icons.login_rounded, size: 16),
-                      label: const Text('Entrar a sala'),
+                      label: Text('admin.enter_room'.tr()),
                     ),
                   // Cerrar sala — solo si está activa
                   if (active)
                     FilledButton.icon(
                       onPressed: onClose,
                       icon: const Icon(Icons.close, size: 16),
-                      label: const Text('Cerrar sala'),
+                      label: Text('rooms.close_button'.tr()),
                       style: FilledButton.styleFrom(backgroundColor: Colors.red),
                     ),
                 ],
@@ -857,7 +863,7 @@ class _RoomCard extends StatelessWidget {
                               minimumSize: const Size(64, 28),
                               textStyle: const TextStyle(fontSize: 11),
                             ),
-                            child: const Text('Resolver'),
+                            child: Text('admin.resolve'.tr()),
                           )
                         else
                           Icon(Icons.check_circle_rounded, size: 18, color: Colors.green.shade600),
@@ -979,8 +985,8 @@ class _UsersPageState extends State<_UsersPage> {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
           child: TextField(
-            decoration: const InputDecoration(
-              hintText: 'Buscar por username o email…',
+            decoration: InputDecoration(
+              hintText: 'admin.search_users_hint'.tr(),
               prefixIcon: Icon(Icons.search),
               border: OutlineInputBorder(),
               isDense: true,
@@ -1165,11 +1171,11 @@ Future<bool> _showConfirm(BuildContext context, String message) async {
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(ctx, false),
-              child: const Text('Cancelar'),
+              child: Text('common.cancel'.tr()),
             ),
             FilledButton(
               onPressed: () => Navigator.pop(ctx, true),
-              child: const Text('Confirmar'),
+              child: Text('common.confirm'.tr()),
             ),
           ],
         ),
@@ -1203,10 +1209,10 @@ Future<_FlagResult?> _showFlagDialog(
     builder: (ctx) => StatefulBuilder(
       builder: (ctx, setState) => AlertDialog(
         title: Row(
-          children: const [
+          children: [
             Icon(Icons.flag, color: Colors.orange, size: 20),
             SizedBox(width: 8),
-            Text('Marcar incidencia'),
+            Text('admin.flag_report'.tr()),
           ],
         ),
         content: SizedBox(
@@ -1216,12 +1222,12 @@ Future<_FlagResult?> _showFlagDialog(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Sala: $roomName',
+                'admin.room_named'.tr(namedArgs: {'room': roomName}),
                 style: const TextStyle(fontWeight: FontWeight.w600),
               ),
               const SizedBox(height: 4),
-              const Text(
-                'La sala dejará de aparecer en listados públicos pero todos sus datos se conservan.',
+              Text(
+                'admin.close_room_note'.tr(),
                 style: TextStyle(fontSize: 12, color: Colors.grey),
               ),
               const SizedBox(height: 16),
@@ -1230,9 +1236,9 @@ Future<_FlagResult?> _showFlagDialog(
                 controller: reasonCtrl,
                 maxLines: 3,
                 maxLength: 500,
-                decoration: const InputDecoration(
-                  labelText: 'Nota de incidencia (opcional)',
-                  hintText: 'Describe el motivo…',
+                decoration: InputDecoration(
+                  labelText: 'admin.report_note_label'.tr(),
+                  hintText: 'admin.report_note_hint'.tr(),
                   border: OutlineInputBorder(),
                   alignLabelWithHint: true,
                 ),
@@ -1244,7 +1250,7 @@ Future<_FlagResult?> _showFlagDialog(
                   dense: true,
                   contentPadding: EdgeInsets.zero,
                   title: Text(
-                    'Echar usuarios conectados ($onlineCount)',
+                    'admin.kick_online_n'.tr(namedArgs: {'n': '$onlineCount'}),
                     style: const TextStyle(fontSize: 13),
                   ),
                   value: kickAll,
@@ -1255,8 +1261,8 @@ Future<_FlagResult?> _showFlagDialog(
                 CheckboxListTile(
                   dense: true,
                   contentPadding: EdgeInsets.zero,
-                  title: const Text(
-                    'Cerrar la sala permanentemente',
+                  title: Text(
+                    'admin.close_room_forever'.tr(),
                     style: TextStyle(fontSize: 13),
                   ),
                   value: closeRoom,
@@ -1269,7 +1275,7 @@ Future<_FlagResult?> _showFlagDialog(
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(ctx),
-            child: const Text('Cancelar'),
+            child: Text('common.cancel'.tr()),
           ),
           FilledButton(
             style: FilledButton.styleFrom(backgroundColor: Colors.orange),
@@ -1281,7 +1287,7 @@ Future<_FlagResult?> _showFlagDialog(
                 closeRoom: closeRoom,
               ),
             ),
-            child: const Text('Marcar incidencia'),
+            child: Text('admin.flag_report'.tr()),
           ),
         ],
       ),

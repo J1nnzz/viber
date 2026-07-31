@@ -1,4 +1,5 @@
 ﻿import 'package:flutter/material.dart';
+import 'package:easy_localization/easy_localization.dart';
 import '../domain/room.dart';
 import '../infrastructure/room_service.dart';
 import 'package:viber/core/theme/app_theme.dart';
@@ -71,7 +72,7 @@ class _EditRoomSheetState extends State<EditRoomSheet> {
 
   Future<void> _save() async {
     if (_nameCtrl.text.trim().isEmpty) {
-      _snack('El nombre no puede estar vacío', color: appError);
+      _snack('edit_room.name_empty_error'.tr(), color: appError);
       return;
     }
     setState(() => _saving = true);
@@ -102,20 +103,19 @@ class _EditRoomSheetState extends State<EditRoomSheet> {
     final ok = await showDialog<bool>(
       context: context,
       builder: (_) => AlertDialog(
-        title: Text('¿Cerrar la sala?',
+        title: Text('rooms.close_dialog_title'.tr(),
             style: TextStyle(color: Theme.of(context).colorScheme.onSurface)),
-        content: Text(
-          'Se expulsará a todos los oyentes y la sala dejará de existir.',
+        content: Text('edit_room.close_message'.tr(),
           style: TextStyle(color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6)),
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context, false),
-            child: const Text('Cancelar'),
+            child: Text('common.cancel'.tr()),
           ),
           TextButton(
             onPressed: () => Navigator.pop(context, true),
-            child: const Text('Cerrar sala',
+            child: Text('rooms.close_button'.tr(),
                 style: TextStyle(color: appError)),
           ),
         ],
@@ -181,8 +181,7 @@ class _EditRoomSheetState extends State<EditRoomSheet> {
                 const Icon(Icons.settings_rounded, color: appAccent, size: 18),
                 const SizedBox(width: spacingSm),
                 Expanded(
-                  child: Text(
-                    'Gestionar sala',
+                  child: Text('edit_room.title'.tr(),
                     style: TextStyle(
                       color: Theme.of(context).colorScheme.onSurface,
                       fontSize: 17,
@@ -195,27 +194,27 @@ class _EditRoomSheetState extends State<EditRoomSheet> {
             const SizedBox(height: spacingLg),
 
             // ── Nombre ────────────────────────────────────────────────────────
-            _Label('Nombre de la sala'),
+            _Label('edit_room.name_label'.tr()),
             const SizedBox(height: spacingXs),
             TextField(
               controller: _nameCtrl,
               style: TextStyle(color: Theme.of(context).colorScheme.onSurface),
-              decoration: const InputDecoration(
-                hintText: 'Nombre de la sala',
+              decoration: InputDecoration(
+                hintText: 'edit_room.name_label'.tr(),
                 prefixIcon: Icon(Icons.meeting_room_outlined),
               ),
             ),
             const SizedBox(height: spacingMd),
 
             // ── Descripción ───────────────────────────────────────────────────
-            _Label('Descripción (opcional)'),
+            _Label('create_room.description_label'.tr()),
             const SizedBox(height: spacingXs),
             TextField(
               controller: _descCtrl,
               style: TextStyle(color: Theme.of(context).colorScheme.onSurface),
               maxLines: 2,
-              decoration: const InputDecoration(
-                hintText: 'Describe tu sala…',
+              decoration: InputDecoration(
+                hintText: 'edit_room.desc_hint'.tr(),
                 prefixIcon: Icon(Icons.description_outlined),
               ),
             ),
@@ -254,8 +253,7 @@ class _EditRoomSheetState extends State<EditRoomSheet> {
             else if (_availableGenres.isEmpty)
               Padding(
                 padding: EdgeInsets.symmetric(vertical: 6),
-                child: Text(
-                  'El administrador aún no ha configurado géneros.',
+                child: Text('create_room.no_genres'.tr(),
                   style: TextStyle(color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6), fontSize: 12),
                 ),
               )
@@ -292,7 +290,7 @@ class _EditRoomSheetState extends State<EditRoomSheet> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                _Label('Máx. participantes'),
+                _Label('edit_room.max_participants_label'.tr()),
                 Container(
                   padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 3),
                   decoration: BoxDecoration(
@@ -329,15 +327,15 @@ class _EditRoomSheetState extends State<EditRoomSheet> {
             const SizedBox(height: spacingMd),
 
             // ── Privacidad ────────────────────────────────────────────────────
-            _Label('Privacidad'),
+            _Label('settings.privacy_section'.tr()),
             const SizedBox(height: spacingXs),
             Row(
               children: [
                 Expanded(
                   child: _PrivacyToggle(
-                    label: 'Pública',
+                    label: 'create_room.public'.tr(),
                     icon: Icons.public_rounded,
-                    description: 'Cualquiera puede unirse',
+                    description: 'create_room.public_desc'.tr(),
                     selected: _privacy == 'PUBLIC',
                     onTap: () => setState(() => _privacy = 'PUBLIC'),
                   ),
@@ -347,7 +345,7 @@ class _EditRoomSheetState extends State<EditRoomSheet> {
                   child: _PrivacyToggle(
                     label: 'Privada',
                     icon: Icons.lock_outlined,
-                    description: 'Solo con código',
+                    description: 'create_room.private_desc'.tr(),
                     selected: _privacy == 'PRIVATE',
                     onTap: () => setState(() => _privacy = 'PRIVATE'),
                   ),
@@ -364,7 +362,7 @@ class _EditRoomSheetState extends State<EditRoomSheet> {
                 decoration: InputDecoration(
                   hintText: widget.room.accessCode != null
                       ? 'Actual: ${widget.room.accessCode} (vacío = mantener)'
-                      : 'Código (vacío = auto-generar)',
+                      : 'edit_room.access_code_new'.tr(),
                   prefixIcon: const Icon(Icons.vpn_key_outlined),
                 ),
               ),
@@ -398,7 +396,7 @@ class _EditRoomSheetState extends State<EditRoomSheet> {
                       const SizedBox(width: spacingSm),
                       Expanded(
                         child: Text(
-                          'Auto-DJ: añade canciones del mismo estilo cuando la cola se queda corta.',
+                          'edit_room.autodj_hint'.tr(),
                           style: TextStyle(
                             color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.75),
                             fontSize: 12,
@@ -429,7 +427,7 @@ class _EditRoomSheetState extends State<EditRoomSheet> {
                         child: CircularProgressIndicator(
                             strokeWidth: 2, color: Colors.white))
                     : const Icon(Icons.save_rounded, size: 18),
-                label: Text(_saving ? 'Guardando…' : 'Guardar cambios'),
+                label: Text(_saving ? 'edit_room.saving'.tr() : 'edit_room.save_button'.tr()),
                 onPressed: _saving || _closing ? null : _save,
               ),
             ),
@@ -457,7 +455,7 @@ class _EditRoomSheetState extends State<EditRoomSheet> {
                         child: CircularProgressIndicator(
                             strokeWidth: 2, color: appError))
                     : const Icon(Icons.delete_outline_rounded, size: 18),
-                label: Text(_closing ? 'Cerrando…' : 'Cerrar sala permanentemente'),
+                label: Text(_closing ? 'edit_room.closing'.tr() : 'edit_room.close_room_button'.tr()),
                 onPressed: _saving || _closing ? null : _confirmClose,
               ),
             ),

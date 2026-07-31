@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:viber/core/theme/app_theme.dart';
 import 'package:viber/core/widgets/user_avatar.dart';
@@ -54,7 +55,7 @@ class QuizResultCard extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('Resultado del duelo',
+                      Text('quiz.duel_result'.tr(),
                           style: TextStyle(
                               color: Theme.of(context).colorScheme.onSurface,
                               fontSize: 14, fontWeight: FontWeight.w800)),
@@ -75,7 +76,7 @@ class QuizResultCard extends StatelessWidget {
             ...rows.take(3).map((r) => _miniRow(context, r)),
             if (rows.length > 3) ...[
               const SizedBox(height: 4),
-              Text('y ${rows.length - 3} más',
+              Text('quiz.and_more'.tr(namedArgs: {'n': '${rows.length - 3}'}),
                   style: TextStyle(
                       color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.38), fontSize: 11)),
             ],
@@ -85,7 +86,7 @@ class QuizResultCard extends StatelessWidget {
               child: OutlinedButton.icon(
                 onPressed: () => _openFull(context, rows),
                 icon: const Icon(Icons.leaderboard_rounded, size: 16),
-                label: const Text('Ver clasificación'),
+                label: Text('quiz.view_ranking'.tr()),
                 style: OutlinedButton.styleFrom(
                   foregroundColor: appAccent,
                   side: const BorderSide(color: appAccent),
@@ -156,7 +157,7 @@ class QuizResultCard extends StatelessWidget {
                 child: Row(children: [
                   const Icon(Icons.emoji_events_rounded, color: appAccent, size: 20),
                   const SizedBox(width: 8),
-                  Text('Clasificación final',
+                  Text('quiz.final_ranking'.tr(),
                       style: TextStyle(
                           color: Theme.of(context).colorScheme.onSurface,
                           fontSize: 16, fontWeight: FontWeight.w700)),
@@ -203,7 +204,7 @@ class QuizResultCard extends StatelessWidget {
                               style: const TextStyle(
                                   color: appAccent, fontSize: 15, fontWeight: FontWeight.w800)),
                           const SizedBox(width: 2),
-                          Text('pts',
+                          Text('quiz.lb_pts'.tr(),
                               style: TextStyle(
                                   color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.38),
                                   fontSize: 10)),

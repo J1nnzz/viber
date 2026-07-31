@@ -1,4 +1,5 @@
 ﻿import 'dart:async';
+import 'package:easy_localization/easy_localization.dart';
 import 'dart:convert';
 import 'package:viber/features/youtube/presentation/search_song_sheet.dart';
 import 'package:flutter/material.dart';
@@ -521,7 +522,7 @@ class _RoomScreenState extends State<RoomScreen> {
             if (target == _username) {
               final label = newRole == RoomRole.dj ? 'DJ' : 'Oyente';
               _showCompactSnackbar(
-                'Tu rol ha cambiado a $label',
+                'room.role_changed'.tr(namedArgs: {'role': label}),
                 color: newRole == RoomRole.dj ? appAccent : null,
               );
             }
@@ -539,7 +540,7 @@ class _RoomScreenState extends State<RoomScreen> {
             _usersInRoom.remove(target);
             _chatMessages.add({
               'user': 'system',
-              'text': '$target fue expulsado de la sala',
+              'text': 'room.user_kicked'.tr(namedArgs: {'user': target}),
               'time': _timeNow(),
             });
           }
@@ -565,7 +566,7 @@ class _RoomScreenState extends State<RoomScreen> {
               'time': _timeNow(),
             });
             if (target == _username) {
-              _showCompactSnackbar('Has sido silenciado', color: appError);
+              _showCompactSnackbar('room.muted_snackbar'.tr(), color: appError);
             }
           }
 
@@ -579,7 +580,7 @@ class _RoomScreenState extends State<RoomScreen> {
               'time': _timeNow(),
             });
             if (target == _username) {
-              _showCompactSnackbar('Ya puedes enviar mensajes', color: appSuccess);
+              _showCompactSnackbar('room.unmuted_snackbar'.tr(), color: appSuccess);
             }
           }
 
@@ -683,7 +684,7 @@ class _RoomScreenState extends State<RoomScreen> {
   void _sendChat() {
     if (_chatController.text.trim().isEmpty) return;
     if (_isMuted) {
-      _showCompactSnackbar('Estás silenciado', color: appError);
+      _showCompactSnackbar('room.muted_error'.tr(), color: appError);
       return;
     }
     _wsService.sendMessage(RoomMessage(
@@ -793,12 +794,11 @@ class _RoomScreenState extends State<RoomScreen> {
       width: double.infinity,
       padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 16),
       color: Colors.orange.shade800,
-      child: const Row(
+      child: Row(
         children: [
           Icon(Icons.admin_panel_settings_rounded, color: Colors.white, size: 14),
           SizedBox(width: 6),
-          Text(
-            'Modo administrador · Solo observando',
+          Text('room.admin_banner'.tr(),
             style: TextStyle(
               color: Colors.white,
               fontSize: 12,
@@ -816,19 +816,18 @@ class _RoomScreenState extends State<RoomScreen> {
     final sent = await showDialog<bool>(
       context: context,
       builder: (ctx) => AlertDialog(
-        title: const Row(
+        title: Row(
           children: [
             Icon(Icons.flag_outlined, color: Colors.orange, size: 20),
             SizedBox(width: 8),
-            Text('Reportar sala', style: TextStyle(fontSize: 16)),
+            Text('room.report_title'.tr(), style: TextStyle(fontSize: 16)),
           ],
         ),
         content: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
-              'Describe el problema que has detectado en esta sala.',
+            Text('room.report_message'.tr(),
               style: TextStyle(fontSize: 13),
             ),
             const SizedBox(height: 12),
@@ -836,8 +835,8 @@ class _RoomScreenState extends State<RoomScreen> {
               controller: ctrl,
               maxLines: 4,
               maxLength: 500,
-              decoration: const InputDecoration(
-                hintText: 'Ej. Contenido inapropiado, comportamiento abusivo…',
+              decoration: InputDecoration(
+                hintText: 'room.report_hint'.tr(),
                 border: OutlineInputBorder(),
                 alignLabelWithHint: true,
               ),
@@ -847,12 +846,12 @@ class _RoomScreenState extends State<RoomScreen> {
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(ctx, false),
-            child: const Text('Cancelar'),
+            child: Text('common.cancel'.tr()),
           ),
           FilledButton.icon(
             style: FilledButton.styleFrom(backgroundColor: Colors.orange),
             icon: const Icon(Icons.send_rounded, size: 16),
-            label: const Text('Enviar reporte'),
+            label: Text('room.report_send'.tr()),
             onPressed: () => Navigator.pop(ctx, true),
           ),
         ],
@@ -866,8 +865,8 @@ class _RoomScreenState extends State<RoomScreen> {
     try {
       await RoomService().reportRoom(roomId: _room.id, reason: reason);
       if (!mounted) return;
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        content: Text('Reporte enviado. El equipo de moderación lo revisará.'),
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text('room.report_sent'.tr()),
         backgroundColor: Colors.orange,
         behavior: SnackBarBehavior.floating,
       ));
@@ -901,7 +900,7 @@ class _RoomScreenState extends State<RoomScreen> {
             IconButton(
               icon: Icon(Icons.keyboard_arrow_down_rounded,
                   color: context.appTextSecColor, size: 24),
-              tooltip: 'Minimizar',
+              tooltip: 'room.minimize'.tr(),
               onPressed: _minimize,
             ),
             const SizedBox(width: 4),
@@ -965,7 +964,7 @@ class _RoomScreenState extends State<RoomScreen> {
             IconButton(
               icon: const Icon(Icons.person_add_alt_1_rounded,
                   color: appAccent, size: 20),
-              tooltip: 'Invitar a la sala',
+              tooltip: 'room.invite_to_room'.tr(),
               onPressed: _openInviteSheet,
             ),
             // ── Reportar sala ───────────────────────────────────────────────
@@ -973,7 +972,7 @@ class _RoomScreenState extends State<RoomScreen> {
               IconButton(
                 icon: Icon(Icons.flag_outlined,
                     color: context.appTextSecColor, size: 18),
-                tooltip: 'Reportar sala',
+                tooltip: 'room.report_title'.tr(),
                 onPressed: _openReportDialog,
               ),
             // ── Ajustes (solo host) ─────────────────────────────────────────
@@ -981,14 +980,14 @@ class _RoomScreenState extends State<RoomScreen> {
               IconButton(
                 icon: Icon(Icons.settings_rounded,
                     color: context.appTextSecColor, size: 18),
-                tooltip: 'Gestionar sala',
+                tooltip: 'edit_room.title'.tr(),
                 onPressed: _openRoomSettings,
               ),
             // ── Salir definitivamente ───────────────────────────────────────
             IconButton(
               icon: Icon(Icons.logout_rounded,
                   color: context.appTextSecColor, size: 18),
-              tooltip: 'Salir de la sala',
+              tooltip: 'room.leave_room'.tr(),
               onPressed: () => _confirmLeave(),
             ),
           ],
@@ -1002,15 +1001,15 @@ class _RoomScreenState extends State<RoomScreen> {
     final ok = await showDialog<bool>(
       context: context,
       builder: (_) => AlertDialog(
-        title: const Text('¿Salir de la sala?'),
-        content: const Text('Perderás la sincronización con los demás.'),
+        title: Text('room.leave_title'.tr()),
+        content: Text('room.leave_confirmation'.tr()),
         actions: [
           TextButton(
               onPressed: () => Navigator.pop(context, false),
-              child: const Text('Cancelar')),
+              child: Text('common.cancel'.tr())),
           TextButton(
               onPressed: () => Navigator.pop(context, true),
-              child: const Text('Salir',
+              child: Text('common.leave'.tr(),
                   style: TextStyle(color: appError))),
         ],
       ),
@@ -1296,11 +1295,11 @@ class _InviteSheetState extends State<_InviteSheet> {
     Clipboard.setData(ClipboardData(text: code));
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: const Row(
+        content: Row(
           children: [
             Icon(Icons.check_circle_outline, color: Colors.white, size: 16),
             SizedBox(width: 8),
-            Text('Código copiado al portapapeles'),
+            Text('room.code_copied'.tr()),
           ],
         ),
         backgroundColor: appSuccess,
@@ -1349,7 +1348,7 @@ class _InviteSheetState extends State<_InviteSheet> {
               const SizedBox(width: 8),
               Expanded(
                 child: Text(
-                  'Invitar a "${widget.room.name}"',
+                  'room.invite_to_named'.tr(namedArgs: {'room': '${widget.room.name}'}),
                   style: TextStyle(
                     color: context.appTextPrimColor,
                     fontSize: 16,
@@ -1380,8 +1379,7 @@ class _InviteSheetState extends State<_InviteSheet> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          'Código de acceso',
+                        Text('room.access_code_label'.tr(),
                           style: TextStyle(
                             color: context.appTextSecColor,
                             fontSize: 11,
@@ -1403,7 +1401,7 @@ class _InviteSheetState extends State<_InviteSheet> {
                   IconButton(
                     icon: const Icon(Icons.copy_rounded,
                         color: appAccent, size: 18),
-                    tooltip: 'Copiar código',
+                    tooltip: 'room.copy_code'.tr(),
                     onPressed: () => _copyCode(accessCode),
                   ),
                 ],
@@ -1412,8 +1410,7 @@ class _InviteSheetState extends State<_InviteSheet> {
             const SizedBox(height: 4),
             Padding(
               padding: const EdgeInsets.only(left: 4),
-              child: Text(
-                'Comparte este código para que otros puedan unirse',
+              child: Text('room.share_code_hint'.tr(),
                 style: TextStyle(color: context.appTextDimColor, fontSize: 11),
               ),
             ),
@@ -1431,8 +1428,7 @@ class _InviteSheetState extends State<_InviteSheet> {
                   Icon(Icons.lock_open_rounded,
                       color: context.appTextSecColor, size: 16),
                   const SizedBox(width: 8),
-                  Text(
-                    'Sala pública — cualquiera puede unirse',
+                  Text('room.public_hint'.tr(),
                     style: TextStyle(color: context.appTextSecColor, fontSize: 12),
                   ),
                 ],
@@ -1442,8 +1438,7 @@ class _InviteSheetState extends State<_InviteSheet> {
           ],
 
           // ── Sección amigos ────────────────────────────────────────────────
-          Text(
-            'Invitar amigos',
+          Text('room.invite_friends_section'.tr(),
             style: TextStyle(
               color: context.appTextSecColor,
               fontSize: 12,
@@ -1470,7 +1465,7 @@ class _InviteSheetState extends State<_InviteSheet> {
                         color: context.appTextDimColor, size: 28),
                     const SizedBox(height: 8),
                     Text(
-                      'No tienes amigos aún.\nAñade amigos desde la pestaña Amigos.',
+                      'room.no_friends_yet'.tr(),
                       textAlign: TextAlign.center,
                       style: TextStyle(color: context.appTextDimColor, fontSize: 12),
                     ),
@@ -1532,13 +1527,13 @@ class _InviteSheetState extends State<_InviteSheet> {
                               borderRadius:
                                   BorderRadius.circular(radiusFull),
                             ),
-                            child: const Row(
+                            child: Row(
                               mainAxisSize: MainAxisSize.min,
                               children: [
                                 Icon(Icons.check_rounded,
                                     color: appSuccess, size: 14),
                                 SizedBox(width: 4),
-                                Text('Enviado',
+                                Text('common.sent'.tr(),
                                     style: TextStyle(
                                         color: appSuccess,
                                         fontSize: 12,
@@ -1571,7 +1566,7 @@ class _InviteSheetState extends State<_InviteSheet> {
                                     )
                                   : const Icon(Icons.send_rounded, size: 13),
                               label: Text(
-                                sending ? 'Enviando...' : 'Invitar',
+                                sending ? 'common.sending'.tr() : 'Invitar',
                                 style: const TextStyle(
                                     fontSize: 12,
                                     fontWeight: FontWeight.w600),

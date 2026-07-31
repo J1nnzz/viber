@@ -240,7 +240,7 @@ class _ConversationsScreenState extends State<ConversationsScreen> {
       child: Row(
         children: [
           Text(
-            'GRUPOS',
+            'groups.section'.tr(),
             style: TextStyle(
               color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.38),
               fontSize: 11,
@@ -251,7 +251,7 @@ class _ConversationsScreenState extends State<ConversationsScreen> {
           const Spacer(),
           IconButton(
             icon: const Icon(Icons.add_circle_outline_rounded, color: appAccent, size: 22),
-            tooltip: 'Crear grupo',
+            tooltip: 'groups.create_group'.tr(),
             onPressed: _createGroup,
           ),
         ],
@@ -286,7 +286,7 @@ class _ConversationsScreenState extends State<ConversationsScreen> {
                     ),
                     const SizedBox(height: 2),
                     Text(
-                      '${group.memberCount} miembros',
+                      'groups.members_count'.tr(namedArgs: {'n': '${group.memberCount}'}),
                       style: TextStyle(
                           color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.38),
                           fontSize: 12),

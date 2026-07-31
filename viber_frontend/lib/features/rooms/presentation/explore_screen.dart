@@ -1,4 +1,5 @@
 ﻿import 'dart:async';
+import 'package:easy_localization/easy_localization.dart';
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import '../domain/room.dart';
@@ -132,18 +133,18 @@ class _ExploreScreenState extends State<ExploreScreen> {
     final ok = await showDialog<bool>(
       context: context,
       builder: (_) => AlertDialog(
-        title: const Text('¿Cerrar la sala?'),
+        title: Text('rooms.close_dialog_title'.tr()),
         content: Text(
-          'Se cerrará "${room.name}" permanentemente.',
+          'explore.close_room_confirm'.tr(namedArgs: {'room': '${room.name}'}),
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context, false),
-            child: const Text('Cancelar'),
+            child: Text('common.cancel'.tr()),
           ),
           TextButton(
             onPressed: () => Navigator.pop(context, true),
-            child: const Text('Cerrar sala',
+            child: Text('rooms.close_button'.tr(),
                 style: TextStyle(color: appError)),
           ),
         ],
@@ -268,7 +269,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
               ),
               const SizedBox(height: spacingMd),
               Text(
-                'Filtrar salas',
+                'explore.filter_title'.tr(),
                 style: TextStyle(
                     color: Theme.of(ctx).colorScheme.onSurface,
                     fontSize: 17,
@@ -277,7 +278,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
               const SizedBox(height: spacingLg),
 
               // Ordenar por
-              Text('Ordenar por',
+              Text('explore.sort_by'.tr(),
                   style: TextStyle(color: Theme.of(ctx).colorScheme.onSurface.withValues(alpha: 0.6), fontSize: 13)),
               const SizedBox(height: spacingSm),
               Wrap(
@@ -317,10 +318,10 @@ class _ExploreScreenState extends State<ExploreScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('Solo salas activas',
+                        Text('explore.only_active'.tr(),
                             style: TextStyle(
                                 color: Theme.of(ctx).colorScheme.onSurface, fontSize: 14)),
-                        Text('Con al menos 1 oyente',
+                        Text('explore.at_least_one'.tr(),
                             style: TextStyle(
                                 color: Theme.of(ctx).colorScheme.onSurface.withValues(alpha: 0.6), fontSize: 12)),
                       ],
@@ -336,7 +337,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
               const SizedBox(height: spacingMd),
 
               // Máx. participantes
-              Text('Máx. participantes',
+              Text('edit_room.max_participants_label'.tr(),
                   style: TextStyle(color: Theme.of(ctx).colorScheme.onSurface.withValues(alpha: 0.6), fontSize: 13)),
               const SizedBox(height: spacingSm),
               Wrap(
@@ -379,7 +380,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
                         tmpMax    = null;
                         tmpActive = false;
                       }),
-                      child: const Text('Resetear'),
+                      child: Text('explore.reset'.tr()),
                     ),
                   ),
                   const SizedBox(width: spacingMd),
@@ -394,7 +395,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
                           _applyFilters();
                         });
                       },
-                      child: const Text('Aplicar'),
+                      child: Text('explore.apply'.tr()),
                     ),
                   ),
                 ],
@@ -413,11 +414,11 @@ class _ExploreScreenState extends State<ExploreScreen> {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: Text('Explorar'),
+        title: Text('explore.title'.tr()),
         actions: [
           IconButton(
             icon: const Icon(Icons.refresh_rounded),
-            tooltip: 'Refrescar',
+            tooltip: 'common.refresh'.tr(),
             onPressed: _loadRooms,
           ),
         ],
@@ -441,7 +442,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
                           style: TextStyle(
                               color: Theme.of(context).colorScheme.onSurface, fontSize: 14),
                           decoration: InputDecoration(
-                            hintText: 'Buscar sala, género, host…',
+                            hintText: 'explore.search_hint'.tr(),
                             prefixIcon: const Icon(Icons.search_rounded,
                                 size: 20),
                             suffixIcon: _searching
@@ -549,10 +550,10 @@ class _SearchResults extends StatelessWidget {
           children: [
             Icon(Icons.search_off_rounded, color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.38), size: 40),
             const SizedBox(height: spacingMd),
-            Text('Sin resultados',
+            Text('explore.no_results'.tr(),
                 style: TextStyle(color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6), fontSize: 15)),
             const SizedBox(height: spacingXs),
-            Text('Prueba con otro término o quita los filtros',
+            Text('explore.no_results_hint'.tr(),
                 style: TextStyle(color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.38), fontSize: 13)),
           ],
         ),
@@ -645,7 +646,7 @@ class _GenreCarousels extends StatelessWidget {
           _SectionHeader(
             icon: Icons.headphones_rounded,
             iconColor: context.appTextSecColor,
-            title: 'Todas las salas',
+            title: 'rooms.all_rooms_section'.tr(),
           ),
           _HorizontalCarousel(
             rooms: allRooms,
@@ -715,7 +716,7 @@ class _HorizontalCarousel extends StatelessWidget {
     if (rooms.isEmpty) {
       return Padding(
         padding: const EdgeInsets.symmetric(horizontal: spacingMd),
-        child: Text('Sin salas en esta categoría',
+        child: Text('explore.empty_category'.tr(),
             style: TextStyle(color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.38), fontSize: 13)),
       );
     }
