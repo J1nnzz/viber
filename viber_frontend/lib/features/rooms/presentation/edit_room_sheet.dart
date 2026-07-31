@@ -361,7 +361,7 @@ class _EditRoomSheetState extends State<EditRoomSheet> {
                 textCapitalization: TextCapitalization.characters,
                 decoration: InputDecoration(
                   hintText: widget.room.accessCode != null
-                      ? 'Actual: ${widget.room.accessCode} (vacío = mantener)'
+                      ? 'edit_room.current_code'.tr(namedArgs: {'code': '${widget.room.accessCode}'})
                       : 'edit_room.access_code_new'.tr(),
                   prefixIcon: const Icon(Icons.vpn_key_outlined),
                 ),

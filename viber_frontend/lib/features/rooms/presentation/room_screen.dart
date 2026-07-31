@@ -528,7 +528,7 @@ class _RoomScreenState extends State<RoomScreen> {
             }
             _chatMessages.add({
               'user': 'system',
-              'text': '$target ahora es ${newRole == RoomRole.dj ? "DJ" : "Oyente"}',
+              'text': 'room.role_now'.tr(namedArgs: {'user': target, 'role': newRole == RoomRole.dj ? 'room.role_dj'.tr() : 'room.role_listener'.tr()}),
               'time': _timeNow(),
             });
           }

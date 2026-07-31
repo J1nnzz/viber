@@ -93,7 +93,15 @@
     "songs_added": "Songs added",
     "top_genres": "Most played genres",
     "no_genres_hint": "Join rooms to see your genres",
-    "no_artists_hint": "Listen to songs in rooms to see your artists"
+    "no_artists_hint": "Listen to songs in rooms to see your artists",
+    "plays": {
+      "one": "{} play",
+      "other": "{} plays"
+    },
+    "rooms_count": {
+      "one": "{} room",
+      "other": "{} rooms"
+    }
   },
   "edit_profile": {
     "title": "Edit profile",
@@ -243,7 +251,8 @@
     "name_empty_error": "Name cannot be empty",
     "autodj_hint": "Auto-DJ: queues songs in the same style when the queue runs short.",
     "desc_hint": "Describe your room…",
-    "genres": "Genres"
+    "genres": "Genres",
+    "current_code": "Current: {code} (empty = keep)"
   },
   "room": {
     "admin_banner": "Admin mode · Observing only",
@@ -302,7 +311,8 @@
     "ban_lifted": "{user}'s ban has been lifted",
     "unmuted": "{user} can speak again",
     "user_joined": "{user} joined the room",
-    "user_left": "{user} left the room"
+    "user_left": "{user} left the room",
+    "role_now": "{user} is now {role}"
   },
   "mini_player": {
     "no_playback": "Nothing playing",
@@ -590,7 +600,19 @@
     "genres_registered": "{n} genres registered",
     "delete_genre_confirm": "Delete the genre \"{name}\"?",
     "change_role_confirm": "Change {user}'s role to {role}?",
-    "role_updated": "{user}'s role updated to {role}"
+    "role_updated": "{user}'s role updated to {role}",
+    "more_remaining": " — {n} left, press again",
+    "import_summary": "Imported {matched} with metadata, {unmatched} incomplete, {skipped} already there",
+    "lyrics_summary": "Lyrics: {found} found out of {checked} checked",
+    "emojis_summary": "Emojis: {found} generated out of {checked}",
+    "filter_no_preview": "No preview ({n})",
+    "filter_no_lyrics": "No lyrics ({n})",
+    "filter_no_emojis": "No emojis ({n})",
+    "pool_empty": "The pool is empty.\nImport a playlist to get started.",
+    "close_room_confirm": "Close the room \"{name}\" for good?\n\nEveryone will be kicked out and the room will be deactivated. The data is kept.",
+    "kick_all_confirm": "Kick everyone out of \"{name}\"?\n\nThe room stays active and they can come back in.",
+    "unflag_confirm": "Remove the report flag from \"{name}\"?\n\nThe report note will be deleted too.",
+    "with_reports": "⚠ Reported"
   },
   "youtube": {
     "add_to_queue": "Add to queue",
@@ -604,7 +626,8 @@
     "adding_n": "Adding {n} songs to the queue...",
     "search_song": "Search song",
     "search_by": "Search by title or artist",
-    "paste_url": "Paste a YouTube URL"
+    "paste_url": "Paste a YouTube URL",
+    "search_empty": "Search for a song\nto add it to the queue"
   },
   "errors": {
     "group_load": "Couldn't load the group",
@@ -670,6 +693,8 @@
     "import_failed": "Import failed",
     "delete_failed": "Couldn't delete",
     "room_fetch": "Couldn't fetch the room",
-    "room_enter": "Couldn't enter \"{name}\""
+    "room_enter": "Couldn't enter \"{name}\"",
+    "import_failed_detail": "Import failed: {error}",
+    "image_upload_detail": "Couldn't upload the image: {error}"
   }
 }

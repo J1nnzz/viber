@@ -93,7 +93,15 @@
     "songs_added": "Canciones añadidas",
     "top_genres": "Géneros más escuchados",
     "no_genres_hint": "Únete a salas para ver tus géneros",
-    "no_artists_hint": "Escucha canciones en salas para ver tus artistas"
+    "no_artists_hint": "Escucha canciones en salas para ver tus artistas",
+    "plays": {
+      "one": "{} reproducción",
+      "other": "{} reproducciones"
+    },
+    "rooms_count": {
+      "one": "{} sala",
+      "other": "{} salas"
+    }
   },
   "edit_profile": {
     "title": "Editar perfil",
@@ -243,7 +251,8 @@
     "name_empty_error": "El nombre no puede estar vacío",
     "autodj_hint": "Auto-DJ: añade canciones del mismo estilo cuando la cola se queda corta.",
     "desc_hint": "Describe tu sala…",
-    "genres": "Géneros"
+    "genres": "Géneros",
+    "current_code": "Actual: {code} (vacío = mantener)"
   },
   "room": {
     "admin_banner": "Modo administrador · Solo observando",
@@ -302,7 +311,8 @@
     "ban_lifted": "El ban de {user} ha sido levantado",
     "unmuted": "{user} ya puede hablar de nuevo",
     "user_joined": "{user} entró a la sala",
-    "user_left": "{user} salió de la sala"
+    "user_left": "{user} salió de la sala",
+    "role_now": "{user} ahora es {role}"
   },
   "mini_player": {
     "no_playback": "Sin reproducción",
@@ -590,7 +600,19 @@
     "genres_registered": "{n} géneros registrados",
     "delete_genre_confirm": "¿Eliminar el género \"{name}\"?",
     "change_role_confirm": "¿Cambiar rol de \"{user}\" a {role}?",
-    "role_updated": "Rol de {user} actualizado a {role}"
+    "role_updated": "Rol de {user} actualizado a {role}",
+    "more_remaining": " — quedan {n}, pulsa de nuevo",
+    "import_summary": "Importadas {matched} con metadata, {unmatched} incompletas, {skipped} ya existían",
+    "lyrics_summary": "Letras: {found} encontradas de {checked} revisadas",
+    "emojis_summary": "Emojis: {found} generados de {checked}",
+    "filter_no_preview": "Sin preview ({n})",
+    "filter_no_lyrics": "Sin letra ({n})",
+    "filter_no_emojis": "Sin emojis ({n})",
+    "pool_empty": "El pool está vacío.\nImporta una playlist para empezar.",
+    "close_room_confirm": "¿Cerrar definitivamente la sala \"{name}\"?\n\nLos usuarios serán expulsados y la sala quedará desactivada. Los datos se conservan.",
+    "kick_all_confirm": "¿Echar a todos los usuarios de \"{name}\"?\n\nLa sala seguirá activa y podrán volver a entrar.",
+    "unflag_confirm": "¿Retirar la marca de incidencia de \"{name}\"?\n\nLa nota de incidencia también se borrará.",
+    "with_reports": "⚠ Con reportes"
   },
   "youtube": {
     "add_to_queue": "Añadir a la cola",
@@ -604,7 +626,8 @@
     "adding_n": "Añadiendo {n} canciones a la cola...",
     "search_song": "Buscar canción",
     "search_by": "Busca por título o artista",
-    "paste_url": "Pega una URL de YouTube"
+    "paste_url": "Pega una URL de YouTube",
+    "search_empty": "Busca una canción\npara añadirla a la cola"
   },
   "errors": {
     "group_load": "Error al cargar el grupo",
@@ -670,6 +693,8 @@
     "import_failed": "Error al importar",
     "delete_failed": "Error al eliminar",
     "room_fetch": "No se pudo obtener la sala",
-    "room_enter": "Error al entrar en \"{name}\""
+    "room_enter": "Error al entrar en \"{name}\"",
+    "import_failed_detail": "Error al importar: {error}",
+    "image_upload_detail": "Error al subir imagen: {error}"
   }
 }

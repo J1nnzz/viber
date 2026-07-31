@@ -62,7 +62,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       if (mounted) AppSnackBar.show(context, 'edit_profile.avatar_updated'.tr());
     } catch (e) {
       if (mounted) AppSnackBar.show(context,
-          'Error al subir imagen: ${e.toString().replaceAll("Exception: ", "")}',
+          'errors.image_upload_detail'.tr(namedArgs: {
+            'error': e.toString().replaceAll('Exception: ', ''),
+          }),
           error: true);
     } finally {
       setState(() => _uploadingImg = false);

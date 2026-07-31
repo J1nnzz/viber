@@ -361,7 +361,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             title: 'profile.top_genres'.tr(),
             entries: stats.topGenres,
             emptyLabel: 'profile.no_genres_hint'.tr(),
-            tooltipSuffix: (n) => n == 1 ? 'sala' : 'salas',
+            tooltipSuffix: (n) => 'profile.rooms_count'.plural(n),
           ),
 
           // ── Artistas más escuchados ─────────────────────────────────
@@ -370,7 +370,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             title: 'profile.top_artists'.tr(),
             entries: stats.topArtists,
             emptyLabel: 'profile.no_artists_hint'.tr(),
-            tooltipSuffix: (n) => n == 1 ? 'reproducción' : 'reproducciones',
+            tooltipSuffix: (n) => 'profile.plays'.plural(n),
           ),
         ],
       ),

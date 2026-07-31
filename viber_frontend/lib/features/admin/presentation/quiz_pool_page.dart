@@ -83,9 +83,11 @@ class _QuizPoolPageState extends State<QuizPoolPage> {
         final summary = jsonDecode(res.body);
         _urlCtrl.clear();
         _snack(
-          'Importadas ${summary['matched']} con metadata, '
-          '${summary['unmatched']} incompletas, '
-          '${summary['skipped']} ya existían',
+          'admin.import_summary'.tr(namedArgs: {
+            'matched': '${summary['matched']}',
+            'unmatched': '${summary['unmatched']}',
+            'skipped': '${summary['skipped']}',
+          }),
         );
         _load();
       } else {
@@ -93,7 +95,7 @@ class _QuizPoolPageState extends State<QuizPoolPage> {
             error: true);
       }
     } catch (e) {
-      if (mounted) _snack('Error al importar: $e', error: true);
+      if (mounted) _snack('errors.import_failed_detail'.tr(namedArgs: {'error': '$e'}), error: true);
     } finally {
       if (mounted) setState(() => _importing = false);
     }
@@ -128,8 +130,13 @@ class _QuizPoolPageState extends State<QuizPoolPage> {
         final summary = jsonDecode(res.body);
         final remaining = (summary['remaining'] as num?)?.toInt() ?? 0;
         _snack(
-          'Letras: ${summary['found']} encontradas de ${summary['checked']} '
-          'revisadas${remaining > 0 ? ' — quedan $remaining, pulsa de nuevo' : ''}',
+          'admin.lyrics_summary'.tr(namedArgs: {
+            'found': '${summary['found']}',
+            'checked': '${summary['checked']}',
+          }) +
+              (remaining > 0
+                  ? 'admin.more_remaining'.tr(namedArgs: {'n': '$remaining'})
+                  : ''),
         );
         _load();
       } else {
@@ -158,8 +165,13 @@ class _QuizPoolPageState extends State<QuizPoolPage> {
         final summary = jsonDecode(utf8.decode(res.bodyBytes));
         final remaining = summary['remaining'] ?? 0;
         _snack(
-          'Emojis: ${summary['found']} generados de ${summary['checked']}'
-          '${remaining > 0 ? ' · quedan $remaining, pulsa de nuevo' : ''}',
+          'admin.emojis_summary'.tr(namedArgs: {
+            'found': '${summary['found']}',
+            'checked': '${summary['checked']}',
+          }) +
+              (remaining > 0
+                  ? 'admin.more_remaining'.tr(namedArgs: {'n': '$remaining'})
+                  : ''),
         );
         _load();
       } else {
@@ -345,13 +357,13 @@ class _QuizPoolPageState extends State<QuizPoolPage> {
                   'Incompletas (${_songs.where(_isIncomplete).length})',
                   _Filter.incomplete),
               _filterChip(
-                  'Sin preview (${_songs.where(_hasNoPreview).length})',
+                  'admin.filter_no_preview'.tr(namedArgs: {'n': '${_songs.where(_hasNoPreview).length}'}),
                   _Filter.noPreview),
               _filterChip(
-                  'Sin letra (${_songs.where(_hasNoLyrics).length})',
+                  'admin.filter_no_lyrics'.tr(namedArgs: {'n': '${_songs.where(_hasNoLyrics).length}'}),
                   _Filter.noLyrics),
               _filterChip(
-                  'Sin emojis (${_songs.where(_hasNoEmojis).length})',
+                  'admin.filter_no_emojis'.tr(namedArgs: {'n': '${_songs.where(_hasNoEmojis).length}'}),
                   _Filter.noEmojis),
             ],
           ),
@@ -366,7 +378,7 @@ class _QuizPoolPageState extends State<QuizPoolPage> {
                   ? Center(
                       child: Text(
                         _songs.isEmpty
-                            ? 'El pool está vacío.\nImporta una playlist para empezar.'
+                            ? 'admin.pool_empty'.tr()
                             : 'admin.no_songs_filter'.tr(),
                         textAlign: TextAlign.center,
                         style: TextStyle(color: context.appTextSecColor),

@@ -327,7 +327,7 @@ class _RoomsPageState extends State<_RoomsPage> {
 
   Future<void> _forceClose(dynamic id, String name) async {
     if (!await _showConfirm(context,
-        '¿Cerrar definitivamente la sala "$name"?\n\nLos usuarios serán expulsados y la sala quedará desactivada. Los datos se conservan.'))
+        'admin.close_room_confirm'.tr(namedArgs: {'name': name})))
       return;
     final auth = await widget.getAuthHeader();
     final res = await http.delete(
@@ -345,7 +345,7 @@ class _RoomsPageState extends State<_RoomsPage> {
 
   Future<void> _kickAll(dynamic id, String name) async {
     if (!await _showConfirm(context,
-        '¿Echar a todos los usuarios de "$name"?\n\nLa sala seguirá activa y podrán volver a entrar.'))
+        'admin.kick_all_confirm'.tr(namedArgs: {'name': name})))
       return;
     final auth = await widget.getAuthHeader();
     final res = await http.post(
@@ -375,7 +375,7 @@ class _RoomsPageState extends State<_RoomsPage> {
     if (isFlagged) {
       // ── Retirar incidencia ──────────────────────────────────────────────
       if (!await _showConfirm(context,
-          '¿Retirar la marca de incidencia de "$name"?\n\nLa nota de incidencia también se borrará.')) return;
+          'admin.unflag_confirm'.tr(namedArgs: {'name': name}))) return;
       final auth = await widget.getAuthHeader();
       final res  = await http.put(
         Uri.parse('${ApiConstants.baseUrl}/admin/rooms/$id/flag'),
@@ -515,7 +515,7 @@ class _RoomsPageState extends State<_RoomsPage> {
               _FilterChip(label: 'Cerradas',     selected: _filter == _RoomFilter.closed,  onTap: () => setState(() => _filter = _RoomFilter.closed),  color: Colors.grey),
               _FilterChip(label: '⚑ Incidencia', selected: _filter == _RoomFilter.flagged, onTap: () => setState(() => _filter = _RoomFilter.flagged), color: Colors.orange),
               _FilterChip(
-                label: '⚠ Con reportes',
+                label: 'admin.with_reports'.tr(),
                 selected: _filterReports,
                 onTap: () => setState(() => _filterReports = !_filterReports),
                 color: Colors.red,

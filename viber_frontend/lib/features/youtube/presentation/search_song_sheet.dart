@@ -281,7 +281,7 @@ class _SearchSongSheetState extends State<SearchSongSheet> {
             child: _error != null
               ? Center(child: AppErrorBanner(message: _error!))
               : _results.isEmpty && !_loading
-                ? _buildEmptyHint(context, 'Busca una canción\npara añadirla a la cola')
+                ? _buildEmptyHint(context, 'youtube.search_empty'.tr())
                 : ListView.separated(
                     itemCount: _results.length,
                     separatorBuilder: (_, __) => Divider(height: 1, color: appDivider),

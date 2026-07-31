@@ -423,7 +423,7 @@ class _RoomChatPanelState extends State<RoomChatPanel> {
 
       // ── Nombre ───────────────────────────────────────────────────────────
       title: Text(
-        user + (isMe ? ' (tú)' : ''),
+        isMe ? 'groups.member_you'.tr(namedArgs: {'name': user}) : user,
         style: TextStyle(
           color:      isMe ? appAccent : context.appTextPrimColor,
           fontSize:   13,

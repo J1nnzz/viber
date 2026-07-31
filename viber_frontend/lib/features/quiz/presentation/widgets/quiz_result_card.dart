@@ -117,7 +117,7 @@ class QuizResultCard extends StatelessWidget {
           ),
           const SizedBox(width: 8),
           Expanded(
-            child: Text(isMe ? '${r.username} (tú)' : r.username,
+            child: Text(isMe ? 'groups.member_you'.tr(namedArgs: {'name': '${r.username}'}) : r.username,
                 maxLines: 1, overflow: TextOverflow.ellipsis,
                 style: TextStyle(
                     color: Theme.of(context).colorScheme.onSurface,
@@ -195,7 +195,7 @@ class QuizResultCard extends StatelessWidget {
                           UserAvatar(username: r.username, avatarUrl: null, radius: 14),
                           const SizedBox(width: 10),
                           Expanded(
-                            child: Text(isMe ? '${r.username} (tú)' : r.username,
+                            child: Text(isMe ? 'groups.member_you'.tr(namedArgs: {'name': '${r.username}'}) : r.username,
                                 style: TextStyle(
                                     color: Theme.of(context).colorScheme.onSurface,
                                     fontSize: 14, fontWeight: FontWeight.w600)),

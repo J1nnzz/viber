@@ -556,7 +556,7 @@ class _MatchScreenState extends State<MatchScreen>
               UserAvatar(username: e.$2.username, avatarUrl: null, radius: 14),
               const SizedBox(width: 10),
               Expanded(
-                child: Text(e.$2.username == _myUsername ? '${e.$2.username} (tú)' : e.$2.username,
+                child: Text(e.$2.username == _myUsername ? 'groups.member_you'.tr(namedArgs: {'name': '${e.$2.username}'}) : e.$2.username,
                     style: TextStyle(
                         color: Theme.of(context).colorScheme.onSurface,
                         fontSize: 14, fontWeight: FontWeight.w600)),
