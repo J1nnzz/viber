@@ -124,7 +124,7 @@ class _GroupInfoScreenState extends State<GroupInfoScreen> {
   bool _pendingConfirm = false;
 
   Future<void> _leave() async {
-    await _confirm('groups.leave_group'.tr(), 'groups.leave_confirm'.tr(namedArgs: {'name': '${_group!.name}'}), 'Salir', danger: true);
+    await _confirm('groups.leave_group'.tr(), 'groups.leave_confirm'.tr(namedArgs: {'name': '${_group!.name}'}), 'common.leave'.tr(), danger: true);
     if (!_pendingConfirm) return;
     try {
       await _service.leave(_group!.id);
@@ -135,7 +135,7 @@ class _GroupInfoScreenState extends State<GroupInfoScreen> {
   }
 
   Future<void> _delete() async {
-    await _confirm('groups.delete_group'.tr(), 'groups.delete_confirm'.tr(namedArgs: {'name': '${_group!.name}'}), 'Borrar', danger: true);
+    await _confirm('groups.delete_group'.tr(), 'groups.delete_confirm'.tr(namedArgs: {'name': '${_group!.name}'}), 'common.delete'.tr(), danger: true);
     if (!_pendingConfirm) return;
     try {
       await _service.deleteGroup(_group!.id);
@@ -238,7 +238,7 @@ class _GroupInfoScreenState extends State<GroupInfoScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _sectionHeader('PERMISOS'),
+        _sectionHeader('groups.permissions_header'.tr()),
         _permissionRow('groups.perm_invite'.tr(), g.invitePolicy,
             (p) => _service.updatePermissions(g.id, invitePolicy: p)),
         _permissionRow('groups.edit_info'.tr(), g.editInfoPolicy,
@@ -294,8 +294,8 @@ class _GroupInfoScreenState extends State<GroupInfoScreen> {
         border: Border.all(color: appDivider),
       ),
       child: Row(mainAxisSize: MainAxisSize.min, children: [
-        seg('Todos', GroupPermission.allMembers),
-        seg('Admins', GroupPermission.adminsOnly),
+        seg('groups.perm_all_members'.tr(), GroupPermission.allMembers),
+        seg('groups.perm_admins_only'.tr(), GroupPermission.adminsOnly),
       ]),
     );
   }

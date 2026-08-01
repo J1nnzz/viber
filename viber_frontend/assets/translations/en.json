@@ -533,7 +533,8 @@
     "sort_newest": "Newest",
     "sort_oldest": "Oldest",
     "live_now": "Live now",
-    "sort_name": "Name A-Z"
+    "sort_name": "Name A-Z",
+    "filter_any": "Any"
   },
   "groups": {
     "info_title": "Group info",
@@ -580,7 +581,10 @@
     "ownership_transferred": "Ownership transferred to @{user}",
     "role_owner": "Owner",
     "role_admin": "Admin",
-    "role_member": "Member"
+    "role_member": "Member",
+    "permissions_header": "PERMISSIONS",
+    "perm_all_members": "Everyone",
+    "perm_admins_only": "Admins"
   },
   "liked_songs": {
     "title": "Liked songs",

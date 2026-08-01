@@ -345,7 +345,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
                 runSpacing: spacingXs,
                 children: [null, 5, 10, 20, 50].map((v) {
                   final sel = tmpMax == v;
-                  final label = v == null ? 'Todos' : '≤$v';
+                  final label = v == null ? 'explore.filter_any'.tr() : '≤$v';
                   return GestureDetector(
                     onTap: () => setSheet(() => tmpMax = v),
                     child: Container(
