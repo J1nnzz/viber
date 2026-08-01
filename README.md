@@ -43,6 +43,13 @@ Everyone in the room is on the same second of the same track.
 <img src="docs/screenshots/03-room-player.png" width="92%" alt="A room on the web client: synced player, shared queue and chat">
 </div>
 
+**Group chats** — roles and per-permission policies, so a group can decide who
+gets to invite, edit, post or start a quiz.
+
+<div align="center">
+<img src="docs/screenshots/05-groups.jpg" width="92%" alt="Group info: per-permission policies and member roles">
+</div>
+
 **On mobile** — the room list with taste-based recommendations, and the daily
 quiz challenge.
 
