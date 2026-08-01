@@ -78,6 +78,23 @@ public class RoomWebSocketController {
         // 3. Aplicar al estado en memoria
         roomStateService.applyMessage(roomId, message);
 
+        RoomMessage.Type type = message.getType();
+
+        // 3b. NEXT y PREV cambian qué canción suena, y el único que sabe cuál
+        // es el estado en memoria de aquí. Se adjunta al mensaje antes de
+        // retransmitirlo: si cada cliente dedujera la siguiente de su propia
+        // copia de la cola, bastaría una divergencia (un QUEUE_ADD perdido, o
+        // haber entrado a la sala a mitad) para que se quedaran en canciones
+        // distintas, y el desfase iría creciendo con cada avance.
+        if (type == RoomMessage.Type.NEXT || type == RoomMessage.Type.PREV) {
+            RoomState state = roomStateService.getState(roomId);
+            message.setVideoId(state.getCurrentVideoId());
+            message.setVideoTitle(state.getCurrentVideoTitle());
+            message.setVideoThumbnail(state.getCurrentVideoThumbnail());
+            message.setVideoChannel(state.getCurrentVideoChannel());
+            message.setPosition(0.0);
+        }
+
         // 4. Broadcast a todos los suscriptores de la sala
         messagingTemplate.convertAndSend(
             "/topic/room." + roomId,
@@ -85,7 +102,6 @@ public class RoomWebSocketController {
         );
 
         // 4b. Si la canción cambió, notificar a la lista de salas para actualizar las tarjetas
-        RoomMessage.Type type = message.getType();
         if (type == RoomMessage.Type.PLAY
                 || type == RoomMessage.Type.NEXT
                 || type == RoomMessage.Type.PREV) {

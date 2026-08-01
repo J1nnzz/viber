@@ -428,7 +428,46 @@ class _RoomScreenState extends State<RoomScreen> {
           }
 
         case RoomMessage.next:
-          if (_roomState.queue.isNotEmpty) {
+          // El servidor manda cuál es la canción en curso. Antes cada cliente
+          // la deducía de su propia cola (queue.first), así que una sola
+          // divergencia —entrar a la sala a mitad, perderse un QUEUE_ADD—
+          // dejaba a cada uno en una canción distinta para siempre.
+          final serverVideoId = msg.videoId;
+          if (serverVideoId != null) {
+            // Alinear la cola local con la del servidor: descartar todo lo que
+            // quede por delante de la canción que ahora suena, incluida.
+            final idx = _roomState.queue
+                .indexWhere((q) => q.videoId == serverVideoId);
+            final alignedQueue = idx >= 0
+                ? _roomState.queue.skip(idx + 1).toList()
+                : _roomState.queue;
+
+            _roomState = _roomState.copyWith(
+              currentVideoId:        serverVideoId,
+              currentVideoTitle:     msg.videoTitle ?? '',
+              currentVideoThumbnail: msg.videoThumbnail ?? '',
+              currentPosition: 0.0,
+              playing:         true,
+              history: [
+                ..._roomState.history,
+                if (_roomState.currentVideoId != null)
+                  QueueItem(
+                    videoId:   _roomState.currentVideoId!,
+                    title:     _roomState.currentVideoTitle ?? '',
+                    thumbnail: _roomState.currentVideoThumbnail ?? '',
+                    addedBy:   '',
+                  ),
+              ],
+              queue: alignedQueue,
+            );
+            _currentSeconds = 0.0;
+            _totalSeconds   = 0.0;
+            _refreshProgress?.call();
+            _loadVideo(
+                videoId: serverVideoId, startSeconds: 0.0, shouldPlay: true);
+          } else if (_roomState.queue.isNotEmpty) {
+            // Servidor antiguo que no adjunta la canción: se mantiene el
+            // comportamiento anterior para no romper la compatibilidad.
             final next = _roomState.queue.first;
             _roomState = _roomState.copyWith(
               currentVideoId:        next.videoId,
