@@ -574,7 +574,10 @@
     "perm_quiz": "Lanzar quiz",
     "members_header": "MIEMBROS ({n})",
     "member_kicked": "@{user} expulsado",
-    "ownership_transferred": "Propiedad transferida a @{user}"
+    "ownership_transferred": "Propiedad transferida a @{user}",
+    "role_owner": "Propietario",
+    "role_admin": "Administrador",
+    "role_member": "Miembro"
   },
   "liked_songs": {
     "title": "Canciones favoritas",

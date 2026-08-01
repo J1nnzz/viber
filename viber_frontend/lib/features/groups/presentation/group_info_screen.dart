@@ -336,7 +336,10 @@ class _GroupInfoScreenState extends State<GroupInfoScreen> {
         color: appAccentGlow,
         borderRadius: BorderRadius.circular(radiusFull),
       ),
-      child: Text(role == GroupRole.owner ? 'Propietario' : 'Admin',
+      // role.label y no un ternario propio: la etiqueta de cada rol vive en un
+      // único sitio (GroupRoleX.label), así no vuelve a pasar que se traduzca
+      // en uno y se quede en castellano en el otro.
+      child: Text(role.label,
           style: const TextStyle(color: appAccent, fontSize: 10, fontWeight: FontWeight.w700)),
     );
   }

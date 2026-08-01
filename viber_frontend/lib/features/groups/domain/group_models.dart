@@ -3,6 +3,8 @@
 // Reflejan los DTO del backend (GroupResponse, GroupMemberResponse,
 // GroupInvitationResponse) y los payloads STOMP de mensajes de grupo.
 
+import 'package:easy_localization/easy_localization.dart';
+
 /// Política de permiso de una acción del grupo (rol mínimo que la permite).
 enum GroupPermission { allMembers, adminsOnly }
 
@@ -30,10 +32,14 @@ extension GroupRoleX on GroupRole {
 
   bool isAtLeast(GroupRole other) => rank >= other.rank;
 
+  /// Etiqueta traducida del rol.
+  ///
+  /// Se resuelve en cada lectura y no en una constante: al cambiar de idioma
+  /// hay que devolver el texto nuevo, y el dominio no se entera de ese cambio.
   String get label => switch (this) {
-        GroupRole.owner  => 'Propietario',
-        GroupRole.admin  => 'Administrador',
-        GroupRole.member => 'Miembro',
+        GroupRole.owner  => 'groups.role_owner'.tr(),
+        GroupRole.admin  => 'groups.role_admin'.tr(),
+        GroupRole.member => 'groups.role_member'.tr(),
       };
 }
 

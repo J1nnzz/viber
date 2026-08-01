@@ -574,7 +574,10 @@
     "perm_quiz": "Start quizzes",
     "members_header": "MEMBERS ({n})",
     "member_kicked": "@{user} removed",
-    "ownership_transferred": "Ownership transferred to @{user}"
+    "ownership_transferred": "Ownership transferred to @{user}",
+    "role_owner": "Owner",
+    "role_admin": "Admin",
+    "role_member": "Member"
   },
   "liked_songs": {
     "title": "Liked songs",
