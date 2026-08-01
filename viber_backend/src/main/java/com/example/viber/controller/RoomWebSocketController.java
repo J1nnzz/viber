@@ -11,6 +11,7 @@ import com.example.viber.dto.RoomListEvent;
 import com.example.viber.dto.RoomMessage;
 import com.example.viber.dto.RoomResponse;
 import com.example.viber.model.Room;
+import com.example.viber.model.RoomState;
 import com.example.viber.repository.RoomRepository;
 import com.example.viber.service.FirestoreChatService;
 import com.example.viber.service.PresenceService;
