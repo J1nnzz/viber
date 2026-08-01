@@ -590,11 +590,11 @@ class _HomeScreenState extends State<HomeScreen> {
             labelBehavior:
                 NavigationDestinationLabelBehavior.alwaysShow,
             destinations: [
-              const NavigationDestination(
-                icon: Icon(Icons.headphones_outlined),
+              NavigationDestination(
+                icon: const Icon(Icons.headphones_outlined),
                 selectedIcon:
-                    Icon(Icons.headphones_rounded, color: appAccent),
-                label: 'Salas',
+                    const Icon(Icons.headphones_rounded, color: appAccent),
+                label: 'nav.rooms'.tr(),
               ),
               NavigationDestination(
                 icon: Icon(Icons.explore_outlined),

@@ -214,8 +214,10 @@
     "create_empty_button": "Crear sala",
     "private_label": "Privada",
     "no_listeners": "Sin oyentes",
-    "listeners_one": "{} oyente",
-    "listeners_other": "{} oyentes"
+    "listeners": {
+      "one": "{} oyente",
+      "other": "{} oyentes"
+    }
   },
   "create_room": {
     "title": "Nueva Sala",

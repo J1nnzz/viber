@@ -214,8 +214,10 @@
     "create_empty_button": "Create room",
     "private_label": "Private",
     "no_listeners": "No listeners",
-    "listeners_one": "{} listener",
-    "listeners_other": "{} listeners"
+    "listeners": {
+      "one": "{} listener",
+      "other": "{} listeners"
+    }
   },
   "create_room": {
     "title": "New Room",

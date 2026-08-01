@@ -329,7 +329,7 @@ class RoomListCard extends StatelessWidget {
                               Text(
                                 room.listenerCount == 0
                                     ? 'rooms.no_listeners'.tr()
-                                    : '${room.listenerCount} oyente${room.listenerCount == 1 ? '' : 's'}',
+                                    : 'rooms.listeners'.plural(room.listenerCount),
                                 style: TextStyle(
                                     color: cs.onSurface.withValues(alpha: 0.38),
                                     fontSize: 11),

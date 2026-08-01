@@ -36,14 +36,20 @@ music quiz to play while you listen.
 
 ## Screenshots
 
-> **Note:** these captures predate the June 2026 rebrand and the group, quiz,
-> recommendation and auto-DJ features. Fresh ones are on the list.
+**A room on the web client** — the synced player, the shared queue and the chat.
+Everyone in the room is on the same second of the same track.
 
 <div align="center">
-<img src="docs/screenshots/02-rooms.png" width="24%" alt="Room list">
-<img src="docs/screenshots/03-room-player.png" width="24%" alt="Synced player and chat">
-<img src="docs/screenshots/04-explore.png" width="24%" alt="Explore">
-<img src="docs/screenshots/01-login.png" width="24%" alt="Sign in">
+<img src="docs/screenshots/03-room-player.png" width="92%" alt="A room on the web client: synced player, shared queue and chat">
+</div>
+
+**On mobile** — the room list with taste-based recommendations, and the daily
+quiz challenge.
+
+<div align="center">
+<img src="docs/screenshots/02-rooms.jpg" width="38%" alt="Room list with recommendations">
+&nbsp;&nbsp;
+<img src="docs/screenshots/04-quiz.jpg" width="38%" alt="Daily quiz challenge solved in one attempt">
 </div>
 
 ## Features
@@ -252,7 +258,7 @@ Client features each own their `presentation`, `infrastructure` and models —
 
 ## Roadmap
 
-- [ ] Fresh screenshots and a trailer in the README
+- [ ] Embed the promo trailer in the README
 - [ ] CI running the backend and Flutter test suites
 - [ ] `docs/ARCHITECTURE.md` with the sync protocol in detail
 - [ ] Deploy to Oracle Cloud Free Tier
