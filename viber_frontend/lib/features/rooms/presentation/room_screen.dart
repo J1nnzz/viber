@@ -494,7 +494,44 @@ class _RoomScreenState extends State<RoomScreen> {
           }
 
         case RoomMessage.prev:
-          if (_roomState.history.isNotEmpty) {
+          // Mismo criterio que en NEXT: manda la canción que diga el servidor.
+          // Derivarla del historial local hacía que dos clientes con
+          // historiales distintos acabaran en canciones distintas.
+          final prevServerId = msg.videoId;
+          if (prevServerId != null) {
+            // La canción que sonaba vuelve al principio de la cola, y del
+            // historial se descarta todo desde la recuperada en adelante.
+            final idx = _roomState.history
+                .lastIndexWhere((h) => h.videoId == prevServerId);
+            final alignedHistory = idx >= 0
+                ? _roomState.history.take(idx).toList()
+                : _roomState.history;
+
+            _roomState = _roomState.copyWith(
+              currentVideoId:        prevServerId,
+              currentVideoTitle:     msg.videoTitle ?? '',
+              currentVideoThumbnail: msg.videoThumbnail ?? '',
+              currentPosition:       0.0,
+              playing:          true,
+              history: alignedHistory,
+              queue: [
+                if (_roomState.currentVideoId != null)
+                  QueueItem(
+                    videoId:   _roomState.currentVideoId!,
+                    title:     _roomState.currentVideoTitle ?? '',
+                    thumbnail: _roomState.currentVideoThumbnail ?? '',
+                    addedBy:   '',
+                  ),
+                ..._roomState.queue,
+              ],
+            );
+            _currentSeconds = 0.0;
+            _totalSeconds   = 0.0;
+            _refreshProgress?.call();
+            _loadVideo(
+                videoId: prevServerId, startSeconds: 0.0, shouldPlay: true);
+          } else if (_roomState.history.isNotEmpty) {
+            // Servidor antiguo que no adjunta la canción.
             final prev = _roomState.history.last;
             _roomState = _roomState.copyWith(
               currentVideoId:        prev.videoId,
