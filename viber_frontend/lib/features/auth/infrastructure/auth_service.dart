@@ -1,4 +1,5 @@
 ﻿import 'dart:async';
+import 'package:viber/core/errors/api_error.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'dart:convert';
 import 'package:flutter/foundation.dart' show kIsWeb;
@@ -109,7 +110,7 @@ class AuthService implements AuthRepository {
       await saveToken(data['token']);
       await _saveRole(data['role'] ?? 'USER');
     } else {
-      throw Exception(data['error'] ?? 'errors.register'.tr());
+      throw Exception(ApiError.fromMap(data, fallback: 'errors.register'.tr()));
     }
   }
 
@@ -130,7 +131,7 @@ class AuthService implements AuthRepository {
       await saveToken(data['token']);
       await _saveRole(data['role'] ?? 'USER');
     } else {
-      throw Exception(data['error'] ?? 'errors.login'.tr());
+      throw Exception(ApiError.fromMap(data, fallback: 'errors.login'.tr()));
     }
   }
 
@@ -162,7 +163,7 @@ class AuthService implements AuthRepository {
       await saveToken(data['token']);
       await _saveRole(data['role'] ?? 'USER');
     } else {
-      throw Exception(data['error'] ?? 'errors.google_auth'.tr());
+      throw Exception(ApiError.fromMap(data, fallback: 'errors.google_auth'.tr()));
     }
   }
   
@@ -188,7 +189,7 @@ class AuthService implements AuthRepository {
     );
     final data = jsonDecode(response.body);
     if (response.statusCode != 200) {
-      throw Exception(data['error'] ?? 'errors.password_change'.tr());
+      throw Exception(ApiError.fromMap(data, fallback: 'errors.password_change'.tr()));
     }
   }
   

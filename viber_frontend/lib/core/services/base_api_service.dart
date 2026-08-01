@@ -1,11 +1,11 @@
-﻿import 'dart:convert';
-import 'package:http/http.dart' as http;
+﻿import 'package:http/http.dart' as http;
+import '../errors/api_error.dart';
 import '../../features/auth/infrastructure/auth_service.dart';
 
 /// Clase base para todos los servicios que consumen la API REST del backend.
 ///
 /// Provee el token JWT almacenado y las cabeceras de autenticación listas para usar.
-/// El método [throwFromResponse] extrae el mensaje de error del JSON y lanza una [Exception].
+/// El método [throwFromResponse] traduce el error del backend y lanza una [Exception].
 abstract class BaseApiService {
   final _auth = AuthService();
 
@@ -19,9 +19,13 @@ abstract class BaseApiService {
     };
   }
 
+  /// Lanza una excepción con el error de la respuesta ya traducido.
+  ///
+  /// Pasa por [ApiError], que prefiere el `code` estable del backend sobre el
+  /// texto: así el mensaje sale en el idioma elegido en la app y no en el del
+  /// servidor. Si el código es desconocido cae al texto que venga, y si no hay
+  /// nada aprovechable, a [fallback].
   Never throwFromResponse(http.Response res, String fallback) {
-    final body = jsonDecode(res.body);
-    final msg  = body is Map ? (body['error'] ?? fallback) : fallback;
-    throw Exception(msg);
+    throw Exception(ApiError.fromBody(res.body, fallback: fallback));
   }
 }

@@ -14,6 +14,7 @@ import com.example.viber.dto.RoomListEvent;
 import com.example.viber.dto.RoomMessage;
 import com.example.viber.dto.RoomResponse;
 import com.example.viber.dto.UpdateRoomRequest;
+import com.example.viber.exception.ErrorCode;
 import com.example.viber.exception.ForbiddenException;
 import com.example.viber.exception.NotFoundException;
 import com.example.viber.model.Room;
@@ -49,7 +50,7 @@ public class RoomService {
     public RoomResponse createRoom(CreateRoomRequest request, String token) {
         String username = jwtUtil.getUsernameFromToken(token);
         User host = userRepository.findByUsername(username)
-            .orElseThrow(() -> new NotFoundException("Usuario no encontrado"));
+            .orElseThrow(() -> new NotFoundException(ErrorCode.USER_NOT_FOUND, "Usuario no encontrado"));
 
         Room room = new Room();
         room.setName(request.getName());

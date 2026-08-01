@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.viber.dto.RoomMessage;
 import com.example.viber.dto.RoomResponse;
+import com.example.viber.exception.ErrorCode;
 import com.example.viber.exception.NotFoundException;
 import com.example.viber.model.Genre;
 import com.example.viber.model.Report;
@@ -241,7 +242,7 @@ public class AdminController {
         }
 
         User user = userRepository.findByUsername(username)
-                .orElseThrow(() -> new NotFoundException("Usuario no encontrado"));
+                .orElseThrow(() -> new NotFoundException(ErrorCode.USER_NOT_FOUND, "Usuario no encontrado"));
 
         user.setRole(newRole);
         userRepository.save(user);

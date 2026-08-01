@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.viber.exception.ErrorCode;
 import com.example.viber.exception.ForbiddenException;
 import com.example.viber.exception.NotFoundException;
 import com.example.viber.model.Friendship;
@@ -173,7 +174,7 @@ public class UserController {
             @RequestHeader("Authorization") String auth) {
         User caller = userFromHeader(auth);
         User target = userRepository.findByUsername(username)
-            .orElseThrow(() -> new NotFoundException("Usuario no encontrado"));
+            .orElseThrow(() -> new NotFoundException(ErrorCode.USER_NOT_FOUND, "Usuario no encontrado"));
 
         Map<String, Object> resp = toMap(target);
         resp.put("friendCount",
@@ -224,7 +225,7 @@ public class UserController {
             @RequestHeader("Authorization") String auth) {
         User requester = userFromHeader(auth);
         User addressee = userRepository.findByUsername(username)
-            .orElseThrow(() -> new NotFoundException("Usuario no encontrado"));
+            .orElseThrow(() -> new NotFoundException(ErrorCode.USER_NOT_FOUND, "Usuario no encontrado"));
 
         if (requester.getId().equals(addressee.getId()))
             throw new RuntimeException("No puedes enviarte una solicitud a ti mismo");
@@ -255,7 +256,7 @@ public class UserController {
             @RequestHeader("Authorization") String auth) {
         User addressee = userFromHeader(auth);
         User requester = userRepository.findByUsername(username)
-            .orElseThrow(() -> new NotFoundException("Usuario no encontrado"));
+            .orElseThrow(() -> new NotFoundException(ErrorCode.USER_NOT_FOUND, "Usuario no encontrado"));
 
         Friendship f = friendshipRepository.findBetween(requester, addressee)
             .orElseThrow(() -> new NotFoundException("Solicitud no encontrada"));
@@ -278,10 +279,10 @@ public class UserController {
             @RequestHeader("Authorization") String auth) {
         User caller = userFromHeader(auth);
         User other  = userRepository.findByUsername(username)
-            .orElseThrow(() -> new NotFoundException("Usuario no encontrado"));
+            .orElseThrow(() -> new NotFoundException(ErrorCode.USER_NOT_FOUND, "Usuario no encontrado"));
 
         Friendship f = friendshipRepository.findBetween(caller, other)
-            .orElseThrow(() -> new NotFoundException("No existe relación con este usuario"));
+            .orElseThrow(() -> new NotFoundException(ErrorCode.RELATION_NOT_FOUND, "No existe relación con este usuario"));
 
         friendshipRepository.delete(f);
         return ResponseEntity.ok(Map.of("message", "Relación eliminada"));
@@ -329,7 +330,7 @@ public class UserController {
             @RequestBody Map<String, Object> body) {
         User sender   = userFromHeader(auth);
         User receiver = userRepository.findByUsername(username)
-            .orElseThrow(() -> new NotFoundException("Usuario no encontrado"));
+            .orElseThrow(() -> new NotFoundException(ErrorCode.USER_NOT_FOUND, "Usuario no encontrado"));
 
         Long roomId = body.get("roomId") != null
             ? Long.valueOf(body.get("roomId").toString()) : null;
@@ -394,7 +395,7 @@ public class UserController {
             @RequestHeader("Authorization") String auth) {
         User user = userFromHeader(auth);
         RoomInvitation inv = invitationRepository.findById(id)
-            .orElseThrow(() -> new NotFoundException("Invitación no encontrada"));
+            .orElseThrow(() -> new NotFoundException(ErrorCode.INVITE_NOT_FOUND, "Invitación no encontrada"));
 
         if (!inv.getReceiver().getId().equals(user.getId()))
             throw new ForbiddenException("No autorizado");
@@ -420,7 +421,7 @@ public class UserController {
             @RequestHeader("Authorization") String auth) {
         userFromHeader(auth);
         User target = userRepository.findByUsername(username)
-            .orElseThrow(() -> new NotFoundException("Usuario no encontrado"));
+            .orElseThrow(() -> new NotFoundException(ErrorCode.USER_NOT_FOUND, "Usuario no encontrado"));
         return ResponseEntity.ok(userStatsService.getStats(target));
     }
 

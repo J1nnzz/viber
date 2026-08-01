@@ -21,6 +21,7 @@ import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
 
 import com.example.viber.dto.CreateMatchRequest;
+import com.example.viber.exception.ErrorCode;
 import com.example.viber.exception.ConflictException;
 import com.example.viber.exception.ForbiddenException;
 import com.example.viber.exception.NotFoundException;
@@ -626,9 +627,9 @@ public class QuizMatchService {
     }
 
     private User requireUser(String username) {
-        if (username == null) throw new NotFoundException("Usuario no encontrado");
+        if (username == null) throw new NotFoundException(ErrorCode.USER_NOT_FOUND, "Usuario no encontrado");
         return userRepository.findByUsername(username)
-            .orElseThrow(() -> new NotFoundException("Usuario no encontrado"));
+            .orElseThrow(() -> new NotFoundException(ErrorCode.USER_NOT_FOUND, "Usuario no encontrado"));
     }
 
     private boolean areFriends(User a, User b) {

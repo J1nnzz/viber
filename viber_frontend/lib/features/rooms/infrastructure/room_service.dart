@@ -1,3 +1,4 @@
+import 'package:viber/core/errors/api_error.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'dart:convert';
 import 'dart:typed_data';
@@ -86,7 +87,7 @@ class RoomService extends BaseApiService implements RoomRepository {
     );
     final data = jsonDecode(res.body);
     if (res.statusCode == 200) return Room.fromJson(data);
-    throw Exception(data['error'] ?? 'errors.room_create'.tr());
+    throw Exception(ApiError.fromMap(data, fallback: 'errors.room_create'.tr()));
   }
 
   // ── Unirse por código ─────────────────────────────────────────────────────
@@ -98,7 +99,7 @@ class RoomService extends BaseApiService implements RoomRepository {
     );
     final data = jsonDecode(res.body);
     if (res.statusCode == 200) return Room.fromJson(data);
-    throw Exception(data['error'] ?? 'errors.invalid_code'.tr());
+    throw Exception(ApiError.fromMap(data, fallback: 'errors.invalid_code'.tr()));
   }
 
   // ── Editar sala ───────────────────────────────────────────────────────────
@@ -133,7 +134,7 @@ class RoomService extends BaseApiService implements RoomRepository {
     );
     final data = jsonDecode(res.body);
     if (res.statusCode == 200) return Room.fromJson(data);
-    throw Exception(data['error'] ?? 'errors.room_edit'.tr());
+    throw Exception(ApiError.fromMap(data, fallback: 'errors.room_edit'.tr()));
   }
 
   // ── Cerrar sala ───────────────────────────────────────────────────────────

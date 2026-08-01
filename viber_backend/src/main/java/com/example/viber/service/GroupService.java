@@ -14,6 +14,7 @@ import com.example.viber.dto.GroupInvitationResponse;
 import com.example.viber.dto.GroupResponse;
 import com.example.viber.dto.UpdateGroupRequest;
 import com.example.viber.dto.UpdatePermissionsRequest;
+import com.example.viber.exception.ErrorCode;
 import com.example.viber.exception.ConflictException;
 import com.example.viber.exception.ForbiddenException;
 import com.example.viber.exception.NotFoundException;
@@ -64,18 +65,18 @@ public class GroupService {
 
     public User requireUser(String username) {
         return userRepository.findByUsername(username)
-            .orElseThrow(() -> new NotFoundException("Usuario no encontrado"));
+            .orElseThrow(() -> new NotFoundException(ErrorCode.USER_NOT_FOUND, "Usuario no encontrado"));
     }
 
     public ChatGroup requireGroup(Long groupId) {
         return groupRepository.findById(groupId)
-            .orElseThrow(() -> new NotFoundException("Grupo no encontrado"));
+            .orElseThrow(() -> new NotFoundException(ErrorCode.GROUP_NOT_FOUND, "Grupo no encontrado"));
     }
 
     /** Devuelve la membresía del usuario o lanza 403 si no pertenece al grupo. */
     public GroupMember requireMembership(ChatGroup group, User user) {
         return memberRepository.findByGroupAndUser(group, user)
-            .orElseThrow(() -> new ForbiddenException("No perteneces a este grupo"));
+            .orElseThrow(() -> new ForbiddenException(ErrorCode.NOT_GROUP_MEMBER, "No perteneces a este grupo"));
     }
 
     /** Exige que el miembro cumpla una política de permiso del grupo. */
@@ -260,13 +261,13 @@ public class GroupService {
         if (invitee.getId().equals(inviter.getId()))
             throw new RuntimeException("No puedes invitarte a ti mismo");
         if (!areFriends(inviter, invitee))
-            throw new ForbiddenException("Solo puedes invitar a tus amigos");
+            throw new ForbiddenException(ErrorCode.ONLY_FRIENDS_CAN_BE_INVITED, "Solo puedes invitar a tus amigos");
         if (memberRepository.existsByGroupAndUser(group, invitee))
-            throw new ConflictException("Ese usuario ya está en el grupo");
+            throw new ConflictException(ErrorCode.ALREADY_IN_GROUP, "Ese usuario ya está en el grupo");
         if (invitationRepository.existsByGroupAndReceiverAndStatus(group, invitee, PENDING))
-            throw new ConflictException("Ya hay una invitación pendiente para ese usuario");
+            throw new ConflictException(ErrorCode.INVITE_ALREADY_PENDING, "Ya hay una invitación pendiente para ese usuario");
         if (memberRepository.countByGroup(group) >= MAX_MEMBERS)
-            throw new ConflictException("El grupo ha alcanzado el máximo de miembros");
+            throw new ConflictException(ErrorCode.GROUP_FULL, "El grupo ha alcanzado el máximo de miembros");
 
         GroupInvitation inv = new GroupInvitation();
         inv.setGroup(group);
@@ -294,11 +295,11 @@ public class GroupService {
     public GroupResponse respondInvitation(Long invitationId, String username, boolean accept) {
         User me = requireUser(username);
         GroupInvitation inv = invitationRepository.findById(invitationId)
-            .orElseThrow(() -> new NotFoundException("Invitación no encontrada"));
+            .orElseThrow(() -> new NotFoundException(ErrorCode.INVITE_NOT_FOUND, "Invitación no encontrada"));
         if (!inv.getReceiver().getId().equals(me.getId()))
-            throw new ForbiddenException("Esta invitación no es tuya");
+            throw new ForbiddenException(ErrorCode.INVITE_NOT_YOURS, "Esta invitación no es tuya");
         if (!PENDING.equals(inv.getStatus()))
-            throw new ConflictException("La invitación ya fue respondida");
+            throw new ConflictException(ErrorCode.INVITE_ALREADY_ANSWERED, "La invitación ya fue respondida");
 
         if (!accept) {
             inv.setStatus("REJECTED");
@@ -332,13 +333,13 @@ public class GroupService {
 
         GroupMember target = memberRepository
             .findByGroupAndUser(group, requireUser(targetUsername))
-            .orElseThrow(() -> new NotFoundException("Ese usuario no está en el grupo"));
+            .orElseThrow(() -> new NotFoundException(ErrorCode.NOT_GROUP_MEMBER, "Ese usuario no está en el grupo"));
 
         if (target.getRole() == GroupRole.OWNER)
-            throw new ForbiddenException("No se puede expulsar al propietario");
+            throw new ForbiddenException(ErrorCode.CANNOT_KICK_OWNER, "No se puede expulsar al propietario");
         if (!actor.getRole().isAtLeast(target.getRole()) ||
                 actor.getRole().rank() == target.getRole().rank())
-            throw new ForbiddenException("No puedes expulsar a alguien con tu mismo rango o superior");
+            throw new ForbiddenException(ErrorCode.CANNOT_KICK_SAME_OR_HIGHER, "No puedes expulsar a alguien con tu mismo rango o superior");
 
         memberRepository.delete(target);
         systemMessage(group, targetUsername + " fue expulsado del grupo");
@@ -362,9 +363,9 @@ public class GroupService {
 
         GroupMember target = memberRepository
             .findByGroupAndUser(group, requireUser(targetUsername))
-            .orElseThrow(() -> new NotFoundException("Ese usuario no está en el grupo"));
+            .orElseThrow(() -> new NotFoundException(ErrorCode.NOT_GROUP_MEMBER, "Ese usuario no está en el grupo"));
         if (target.getRole() == GroupRole.OWNER)
-            throw new ForbiddenException("No puedes cambiar el rol del propietario");
+            throw new ForbiddenException(ErrorCode.CANNOT_CHANGE_OWNER_ROLE, "No puedes cambiar el rol del propietario");
 
         target.setRole(newRole);
         memberRepository.save(target);
@@ -381,7 +382,7 @@ public class GroupService {
 
         GroupMember target = memberRepository
             .findByGroupAndUser(group, requireUser(targetUsername))
-            .orElseThrow(() -> new NotFoundException("Ese usuario no está en el grupo"));
+            .orElseThrow(() -> new NotFoundException(ErrorCode.NOT_GROUP_MEMBER, "Ese usuario no está en el grupo"));
         if (target.getId().equals(owner.getId()))
             throw new RuntimeException("Ya eres el propietario");
 

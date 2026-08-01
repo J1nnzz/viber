@@ -15,6 +15,7 @@ import com.example.viber.dto.ChangePasswordRequest;
 import com.example.viber.dto.GoogleAuthRequest;
 import com.example.viber.dto.LoginRequest;
 import com.example.viber.dto.RegisterRequest;
+import com.example.viber.exception.ErrorCode;
 import com.example.viber.exception.NotFoundException;
 import com.example.viber.repository.UserRepository;
 import com.example.viber.service.AuthService;
@@ -62,7 +63,7 @@ public class AuthController {
         }
         String username = jwtUtil.getUsernameFromToken(token);
         var user = userRepository.findByUsername(username)
-                .orElseThrow(() -> new NotFoundException("Usuario no encontrado"));
+                .orElseThrow(() -> new NotFoundException(ErrorCode.USER_NOT_FOUND, "Usuario no encontrado"));
         return ResponseEntity.ok(Map.of(
                 "username", user.getUsername(),
                 "role",     user.getRole().name()
