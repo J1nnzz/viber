@@ -301,7 +301,7 @@ class _QuizPoolPageState extends State<QuizPoolPage> {
                                 strokeWidth: 2, color: Colors.white),
                           )
                         : const Icon(Icons.download_rounded, size: 18),
-                    label: Text(_importing ? 'admin.importing'.tr() : 'Importar'),
+                    label: Text(_importing ? 'admin.importing'.tr() : 'admin.import'.tr()),
                   ),
                   const SizedBox(width: spacingSm),
                   OutlinedButton.icon(
@@ -484,7 +484,7 @@ class _QuizPoolPageState extends State<QuizPoolPage> {
                 value: 'rematch', child: Text('admin.rematch_deezer'.tr())),
             PopupMenuItem(
                 value: 'toggle',
-                child: Text(inactive ? 'Activar' : 'Desactivar')),
+                child: Text(inactive ? 'admin.enable'.tr() : 'admin.disable'.tr())),
             PopupMenuItem(value: 'delete', child: Text('common.delete'.tr())),
           ],
         ),

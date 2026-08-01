@@ -491,7 +491,7 @@ class _MatchScreenState extends State<MatchScreen>
                 color: iWasRight ? appSuccess : appError, size: 48),
           ),
           const SizedBox(height: spacingSm),
-          Text(iWasRight ? 'quiz.correct'.tr() : (_myPick == null ? 'quiz.no_answer'.tr() : 'Fallaste'),
+          Text(iWasRight ? 'quiz.correct'.tr() : (_myPick == null ? 'quiz.no_answer'.tr() : 'quiz.you_failed'.tr()),
               textAlign: TextAlign.center,
               style: TextStyle(
                   color: Theme.of(context).colorScheme.onSurface,
@@ -620,10 +620,10 @@ class _MatchScreenState extends State<MatchScreen>
   String _letter(int i) => const ['A', 'B', 'C', 'D'][i.clamp(0, 3)];
 
   String _modeLabel(String mode) => switch (mode) {
-        'EMOJI'  => 'Emoji',
-        'LYRICS' => 'Letra',
-        'COVER'  => 'Portada',
-        'AUDIO'  => 'Audio',
+        'EMOJI'  => 'quiz.emoji_title'.tr(),
+        'LYRICS' => 'quiz.lyrics_title'.tr(),
+        'COVER'  => 'quiz.cover_title'.tr(),
+        'AUDIO'  => 'quiz.audio_title'.tr(),
         _        => mode,
       };
 }

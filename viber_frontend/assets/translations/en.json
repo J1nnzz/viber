@@ -115,7 +115,8 @@
     "friends_count": {
       "one": "{} friend",
       "other": "{} friends"
-    }
+    },
+    "liked": "Liked"
   },
   "edit_profile": {
     "title": "Edit profile",
@@ -511,7 +512,9 @@
     "you_challenged": "You challenged this chat",
     "challenged_you": "{user} challenged you",
     "winner_wins": "{user} wins",
-    "mode_rounds": "Mode {mode} · {rounds} rounds"
+    "mode_rounds": "Mode {mode} · {rounds} rounds",
+    "rounds_label": "Rounds",
+    "you_failed": "You missed it"
   },
   "explore": {
     "title": "Explore",
@@ -686,7 +689,13 @@
       "other": "{} pending reports"
     },
     "delete_song_confirm": "Remove \"{title}\" from the quiz pool?",
-    "song_lyrics_hint": "One line per verse; \"Fetch lyrics\" fills it in if lrclib has it"
+    "song_lyrics_hint": "One line per verse; \"Fetch lyrics\" fills it in if lrclib has it",
+    "filter_all_rooms": "All",
+    "filter_active": "Active",
+    "filter_closed": "Closed",
+    "import": "Import",
+    "enable": "Enable",
+    "disable": "Disable"
   },
   "youtube": {
     "add_to_queue": "Add to queue",

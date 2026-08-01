@@ -455,7 +455,7 @@ class _RoomInvitationTile extends StatelessWidget {
               const SizedBox(width: 8),
               Expanded(
                 child: _LoadingButton(
-                  label: 'Unirse',
+                  label: 'common.join'.tr(),
                   icon: Icons.headphones_rounded,
                   busy: joinBusy,
                   disabled: dismissBusy,

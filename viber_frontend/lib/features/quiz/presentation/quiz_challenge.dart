@@ -61,11 +61,13 @@ class _ChallengeSheet extends StatefulWidget {
 class _ChallengeSheetState extends State<_ChallengeSheet> {
   // Modos en vivo: la pista la renderiza el cliente (emoji/letra/portada como
   // texto o imagen, y audio por proxy para no delatar la canción).
-  static const _modes = [
-    ('EMOJI',  'Emoji',   Icons.emoji_emotions_outlined),
-    ('LYRICS', 'Letra',   Icons.lyrics_outlined),
-    ('COVER',  'Portada', Icons.album_outlined),
-    ('AUDIO',  'Audio',   Icons.music_note_outlined),
+  // Getter y no `static const`: las etiquetas se traducen con .tr() y hay que
+  // reevaluarlas, porque una constante las congelaría al idioma del arranque.
+  static List<(String, String, IconData)> get _modes => [
+    ('EMOJI',  'quiz.emoji_title'.tr(),  Icons.emoji_emotions_outlined),
+    ('LYRICS', 'quiz.lyrics_title'.tr(), Icons.lyrics_outlined),
+    ('COVER',  'quiz.cover_title'.tr(),  Icons.album_outlined),
+    ('AUDIO',  'quiz.audio_title'.tr(),  Icons.music_note_outlined),
   ];
 
   String _mode = 'EMOJI';
@@ -143,7 +145,7 @@ class _ChallengeSheetState extends State<_ChallengeSheet> {
           ),
           const SizedBox(height: 18),
 
-          _stepperRow('Rondas', _rounds, 3, 10, (v) => setState(() => _rounds = v)),
+          _stepperRow('quiz.rounds_label'.tr(), _rounds, 3, 10, (v) => setState(() => _rounds = v)),
           const SizedBox(height: 10),
           _stepperRow('quiz.seconds_per_round'.tr(), _seconds, 5, 30, (v) => setState(() => _seconds = v), step: 5),
           const SizedBox(height: 20),
@@ -151,7 +153,7 @@ class _ChallengeSheetState extends State<_ChallengeSheet> {
           ElevatedButton.icon(
             onPressed: () => Navigator.pop(context, _ChallengeConfig(_mode, _rounds, _seconds)),
             icon: const Icon(Icons.play_arrow_rounded),
-            label: Text('rooms.create_empty_button'.tr()),
+            label: Text('quiz.start_match'.tr()),
             style: ElevatedButton.styleFrom(
               backgroundColor: appAccent, foregroundColor: Colors.white,
               minimumSize: const Size(0, 48),

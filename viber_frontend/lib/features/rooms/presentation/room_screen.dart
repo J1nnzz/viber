@@ -596,7 +596,7 @@ class _RoomScreenState extends State<RoomScreen> {
           if (target != null && newRole != null) {
             _roomState = _roomState.withRoleChange(target, newRole);
             if (target == _username) {
-              final label = newRole == RoomRole.dj ? 'DJ' : 'Oyente';
+              final label = newRole == RoomRole.dj ? 'DJ' : 'room.role_listener'.tr();
               _showCompactSnackbar(
                 'room.role_changed'.tr(namedArgs: {'role': label}),
                 color: newRole == RoomRole.dj ? appAccent : null,
@@ -1642,7 +1642,7 @@ class _InviteSheetState extends State<_InviteSheet> {
                                     )
                                   : const Icon(Icons.send_rounded, size: 13),
                               label: Text(
-                                sending ? 'common.sending'.tr() : 'Invitar',
+                                sending ? 'common.sending'.tr() : 'common.invite'.tr(),
                                 style: const TextStyle(
                                     fontSize: 12,
                                     fontWeight: FontWeight.w600),

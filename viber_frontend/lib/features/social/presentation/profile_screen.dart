@@ -120,7 +120,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(_profile?.displayLabel ?? 'Perfil'),
+        title: Text(_profile?.displayLabel ?? 'nav.profile'.tr()),
         actions: [
           // Botón de refresh (útil en web donde pull-to-refresh no funciona)
           IconButton(
@@ -183,7 +183,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     children: [
                       _Stat(
                         value: '${p.friendCount}',
-                        label: 'Amigos',
+                        label: 'common.friends'.tr(),
                         onTap: _isOwn
                             ? () => Navigator.push(context,
                                 fadeThroughRoute(const FriendsScreen()))
@@ -196,7 +196,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         ),
                         _Stat(
                           value: '${_stats!.likedSongsCount}',
-                          label: 'Favoritas',
+                          label: 'profile.liked'.tr(),
                           onTap: _isOwn
                               ? () => Navigator.push(context,
                                   fadeThroughRoute(const LikedSongsScreen()))
@@ -348,7 +348,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             children: [
               Expanded(child: _StatRow(
                 icon: Icons.favorite_rounded,
-                label: 'Favoritas',
+                label: 'profile.liked'.tr(),
                 value: '${stats.likedSongsCount}',
               )),
               const Expanded(child: SizedBox()),

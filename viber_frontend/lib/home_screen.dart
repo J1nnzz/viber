@@ -119,7 +119,7 @@ class _HomeScreenState extends State<HomeScreen> {
       duration: const Duration(seconds: 8),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(radiusMd)),
       action: SnackBarAction(
-        label: 'Unirse',
+        label: 'common.join'.tr(),
         textColor: Colors.white,
         onPressed: () => Navigator.push(
           context, fadeThroughRoute(MatchScreen(matchId: invite.matchId))),
@@ -522,11 +522,11 @@ class _HomeScreenState extends State<HomeScreen> {
                   label: 'nav.admin'.tr(),
                 ),
               ),
-            const PopupMenuItem(
+            PopupMenuItem(
               value: 'settings',
               child: _AccountMenuRow(
                 icon: Icons.settings_outlined,
-                label: 'Ajustes',
+                label: 'profile.settings'.tr(),
               ),
             ),
           ],

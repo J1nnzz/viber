@@ -510,9 +510,9 @@ class _RoomsPageState extends State<_RoomsPage> {
             spacing: 8,
             runSpacing: 4,
             children: [
-              _FilterChip(label: 'Todas',        selected: _filter == _RoomFilter.all,     onTap: () => setState(() => _filter = _RoomFilter.all)),
-              _FilterChip(label: 'Activas',      selected: _filter == _RoomFilter.active,  onTap: () => setState(() => _filter = _RoomFilter.active),  color: Colors.green),
-              _FilterChip(label: 'Cerradas',     selected: _filter == _RoomFilter.closed,  onTap: () => setState(() => _filter = _RoomFilter.closed),  color: Colors.grey),
+              _FilterChip(label: 'admin.filter_all_rooms'.tr(),        selected: _filter == _RoomFilter.all,     onTap: () => setState(() => _filter = _RoomFilter.all)),
+              _FilterChip(label: 'admin.filter_active'.tr(),      selected: _filter == _RoomFilter.active,  onTap: () => setState(() => _filter = _RoomFilter.active),  color: Colors.green),
+              _FilterChip(label: 'admin.filter_closed'.tr(),     selected: _filter == _RoomFilter.closed,  onTap: () => setState(() => _filter = _RoomFilter.closed),  color: Colors.grey),
               _FilterChip(label: 'admin.flagged_chip'.tr(), selected: _filter == _RoomFilter.flagged, onTap: () => setState(() => _filter = _RoomFilter.flagged), color: Colors.orange),
               _FilterChip(
                 label: 'admin.with_reports'.tr(),
