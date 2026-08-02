@@ -24,10 +24,10 @@ class QuizChallengeCard extends StatelessWidget {
   });
 
   String get _modeLabel => switch (mode) {
-        'EMOJI'  => 'Emoji',
-        'LYRICS' => 'Letra',
-        'COVER'  => 'Portada',
-        'AUDIO'  => 'Audio',
+        'EMOJI'  => 'quiz.emoji_title'.tr(),
+        'LYRICS' => 'quiz.lyrics_title'.tr(),
+        'COVER'  => 'quiz.cover_title'.tr(),
+        'AUDIO'  => 'quiz.audio_title'.tr(),
         _        => mode ?? '',
       };
 
