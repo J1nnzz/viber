@@ -271,6 +271,21 @@ Client features each own their `presentation`, `infrastructure` and models —
 - [ ] Deploy to Oracle Cloud Free Tier
 - [ ] Rotate `jwt.secret` off its inherited placeholder before any public deployment
 
+## Credits
+
+<table>
+  <tr>
+    <td align="center" width="70">
+      <a href="https://www.linkedin.com/in/andrea-carrillo-herazo-5b5299302/"><img src="https://cdn.jsdelivr.net/npm/simple-icons@13/icons/linkedin.svg" width="26" alt="LinkedIn"></a>
+    </td>
+    <td>
+      <b>Andrea Carrillo Herazo</b><br>
+      <sub>Brand identity and logo design</sub><br>
+      <a href="https://www.linkedin.com/in/andrea-carrillo-herazo-5b5299302/">linkedin.com/in/andrea-carrillo-herazo</a>
+    </td>
+  </tr>
+</table>
+
 ## Notes
 
 Viber started as a second-year DAM coursework project and is now built as a real
