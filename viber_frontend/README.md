@@ -1,7 +1,7 @@
 # Viber — Flutter client
 
-Cross-platform client for [Viber](../README.md): Android, iOS and web from one
-codebase. See the root README for what the project is and how the pieces fit.
+Cross-platform client for [Viber](../README.md): Android and web from one
+codebase (iOS is not set up yet). See the root README for what the project is and how the pieces fit.
 
 ## Run
 

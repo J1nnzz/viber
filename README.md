@@ -17,7 +17,7 @@ with chat, live music quizzes, and rooms that keep playing on their own.
 [![Java](https://img.shields.io/badge/Java-25-ED8B00?logo=openjdk&logoColor=white)](https://openjdk.org)
 [![MySQL](https://img.shields.io/badge/MySQL-8-4479A1?logo=mysql&logoColor=white)](https://www.mysql.com)
 [![Firestore](https://img.shields.io/badge/Firestore-FFCA28?logo=firebase&logoColor=black)](https://firebase.google.com/products/firestore)
-![Platforms](https://img.shields.io/badge/platforms-Android%20%7C%20iOS%20%7C%20Web-A062D6)
+![Platforms](https://img.shields.io/badge/platforms-Android%20%7C%20Web-A062D6)
 
 </div>
 
@@ -76,9 +76,10 @@ quiz challenge.
 
 **Music quiz**
 - Live Kahoot-style matches over WebSockets, plus a daily solo mode.
-- Four clue modes: `CLASSIC` (feedback grid per guess), `AUDIO` (a longer snippet
-  each attempt), `LYRICS` (one more line of the lyrics each attempt) and `EMOJI`
-  (one more emoji each attempt).
+- Five modes: `CLASSIC` (feedback grid per guess), plus four clue modes —
+  `AUDIO` (a longer snippet each attempt), `LYRICS` (one more line of the lyrics
+  each attempt), `COVER` (the cover art starts pixelated and sharpens each
+  attempt) and `EMOJI` (one more emoji each attempt).
 - Emoji clues are curated by admins, with an LLM-assisted suggestion step.
 
 **Discovery**
@@ -86,7 +87,8 @@ quiz challenge.
 - Explore feed, search, and genre browsing.
 
 **Platform**
-- Runs on Android, iOS and the web from one Flutter codebase.
+- Runs on Android and the web from one Flutter codebase. iOS is not set up yet:
+  it needs a Mac to build, plus the iOS Firebase and Google Sign-In configuration.
 - Light and dark themes, dark-first, with the accent colour adapting per mode.
 - Spanish and English localisation across the user-facing screens.
 - Admin panel for the quiz catalogue and moderation.
@@ -95,7 +97,7 @@ quiz challenge.
 
 ```mermaid
 flowchart TB
-    subgraph client["Flutter client - Android, iOS, Web"]
+    subgraph client["Flutter client - Android, Web"]
         UI["Feature-first UI<br/>provider state"]
         WS["STOMP client"]
         YT["YouTube player<br/>native + iframe"]
